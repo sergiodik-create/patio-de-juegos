@@ -3,7 +3,8 @@
    Cada idioma nuevo vive en src/idiomas/<código>.js y trae:
      t:    traducciones de cada texto en español ('Te toca': 'Your turn'); {n} son huecos que se rellenan solos;
      data: sus propias listas de palabras, preguntas y cuentos (las mismas claves que DATA.es en 10-datos.js);
-     voz:  el idioma de la voz (por ejemplo 'en-GB').
+     voz:  el idioma de la voz (por ejemplo 'en-GB');
+     dir:  'rtl' en los idiomas que se escriben de derecha a izquierda, como el árabe.
    Un juego que necesita listas que un idioma no trae (needs:[...]) no se muestra en ese idioma.
    python3 tools/revisar_idioma.py en dice qué textos faltan por traducir. */
 const LANGS={es:{name:'Español',voz:'es-ES',t:{},data:{}}};
@@ -25,7 +26,7 @@ function initialLang(){
 function setLang(code){
   LANG=LANGS[code]?code:'es';store.set('idioma',LANG);
   D=Object.assign({},DATA.es,LANG==='es'?{}:LANGS[LANG].data);
-  document.documentElement.lang=LANG;
+  document.documentElement.lang=LANG;document.documentElement.dir=LANGS[LANG].dir||'ltr';
   if(!/\.html$/.test(location.pathname)||/index\.html$/.test(location.pathname))document.title=_('Patio de Juegos');
   pickVoice();translatePage();
 }

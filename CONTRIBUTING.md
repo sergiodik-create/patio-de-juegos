@@ -46,17 +46,19 @@ Para un juego con pantalla propia (como el laberinto o el ajedrez), usa `custom:
 
 ## Traducir el Patio a otro idioma
 
-Cada idioma son unos pocos archivos en `src/idiomas/`. El inglés sirve de modelo:
+Cada idioma son unos pocos archivos en `src/idiomas/`. Ya están el inglés, el portugués, el francés, el rumano, el ucraniano y el árabe; el inglés sirve de modelo:
 
-1. Copia `en.js` y los `en-*.js` cambiando `en` por el código de tu idioma (por ejemplo `fr.js`, `fr-preguntas.js`…). En `fr.js` cambia la primera línea: `LANGS.fr={name:'Français',voz:'fr-FR',t:{},data:{}};` y en todos los archivos `LANGS.en` por `LANGS.fr`.
+1. Copia `en.js` y los `en-*.js` cambiando `en` por el código de tu idioma (por ejemplo `it.js`, `it-preguntas.js`…). En `it.js` cambia la primera línea: `LANGS.it={name:'Italiano',voz:'it-IT',t:{},data:{}};` y en todos los archivos `LANGS.en` por `LANGS.it`.
 2. **Textos:** cada línea es `'texto en español': 'tu traducción'`. Traduce solo la parte de la derecha y deja igual lo que va entre llaves, como `{n}`. Si tu idioma necesita plurales o géneros distintos, la traducción puede ser una función: `'Tienes {n}': v=>v.n===1?'…':'…'`.
-3. **Listas de datos** (`LANGS.fr.data.ANIMALS=[…]`): mismas posiciones y campos que en español. Adapta en lugar de traducir palabra por palabra: las palabras de los juegos de letras, la ortografía, los acertijos, la hora o la moneda tienen que funcionar en tu idioma.
-4. **Textos legales:** copia `src/legal/en/` a `src/legal/fr/` y tradúcelos.
+3. **Listas de datos** (`LANGS.it.data.ANIMALS=[…]`): mismas posiciones y campos que en español. Adapta en lugar de traducir palabra por palabra: las palabras de los juegos de letras, la ortografía, los acertijos, la hora o la moneda tienen que funcionar en tu idioma.
+   Si tu alfabeto tiene letras que no son «letra con tilde» sino letras propias (la Ñ en español, Й y Ї en ucraniano, Ă Ș Ț en rumano), ponlas en `LANGS.it.data.KEEP='…'` en mayúsculas: así el ahorcado y los juegos de letras no las confunden con otra.
+   Si tu idioma se escribe de derecha a izquierda, añade `dir:'rtl'` en la primera línea (como en `ar.js`): las pantallas se dan la vuelta solas.
+4. **Textos legales:** copia `src/legal/en/` a `src/legal/it/` y tradúcelos. En `build.py` (`PENDING` y `FIELDS`) puedes añadir cómo se dice en tu idioma «pendiente» y el nombre de cada dato; si no, sale en inglés.
 5. **Comprueba:**
    ```sh
-   python3 tools/revisar_idioma.py fr            # cuántos textos y listas faltan
-   python3 tools/revisar_idioma.py fr --plantilla  # crea src/idiomas/fr-pendiente.js con lo que falta
-   node tools/probar_idioma.mjs fr               # juega en tu idioma y avisa de lo que se quedó en español
+   python3 tools/revisar_idioma.py it            # cuántos textos y listas faltan
+   python3 tools/revisar_idioma.py it --plantilla  # crea src/idiomas/it-pendiente.js con lo que falta
+   node tools/probar_idioma.mjs it               # juega en tu idioma y avisa de lo que se quedó en español
    ```
 
 Puedes publicar un idioma a medias: los juegos cuyas listas faltan simplemente no aparecen en ese idioma.

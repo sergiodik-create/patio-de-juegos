@@ -6,8 +6,12 @@ const pick=a=>a[rnd(a.length)];
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
 const sample=(a,n)=>shuffle(a).slice(0,n);
 const range=(a,b)=>a+rnd(b-a+1);
-/* Mayúsculas sin tildes (la Ñ se queda): para comparar letras. */
-const plain=t=>String(t).toUpperCase().replace(/Ñ/g,'\u0001').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\u0001/g,'Ñ');
+/* Mayúsculas sin tildes, para comparar letras (Á cuenta como A). Las letras propias de un idioma no se tocan:
+   la Ñ en español, y cada idioma puede dar las suyas en data.KEEP (por ejemplo 'ЙЇ' en ucraniano). */
+const plain=t=>{const keep=[...(typeof LANG!=='undefined'&&LANGS[LANG]?.data?.KEEP)||'Ñ'];let s=String(t).toUpperCase();
+  keep.forEach((c,i)=>{s=s.split(c).join(String.fromCharCode(1+i));});
+  s=s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  keep.forEach((c,i)=>{s=s.split(String.fromCharCode(1+i)).join(c);});return s;};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* Lista de juegos. Cada archivo de juegos añade los suyos con GAMES.push({...}).

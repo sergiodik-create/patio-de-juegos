@@ -27,12 +27,15 @@ const store={
   del(k){try{localStorage.removeItem('patio.'+k);}catch(e){}}
 };
 
+/* Nombre de un color de la paleta ('var(--red)' → 'red'): en modo daltónico cada color lleva su dibujo. */
+const colKey=c=>(/--(\w+)/.exec(c)||[])[1]||'';
+
 /* ---------- ajustes (zona de padres) ---------- */
-const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,niveles:true,descanso:20,aprender:null};
+const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,daltonico:false,niveles:true,descanso:20,aprender:null};
 const S=Object.assign({},DEFAULTS,store.get('ajustes',{}));
 function applySettings(){
   const r=document.documentElement;
-  ['calma','grande','contraste','legible','nombresColor'].forEach(k=>{r.dataset[k]=S[k]?'si':'no';});
+  ['calma','grande','contraste','legible','nombresColor','daltonico'].forEach(k=>{r.dataset[k]=S[k]?'si':'no';});
   const b=$('#sound');if(b){b.textContent=S.voz?'🔊':'🔇';b.setAttribute('aria-label',S.voz?_('Sonido activado'):_('Sonido apagado'));}
 }
 function saveSettings(){store.set('ajustes',S);applySettings();}

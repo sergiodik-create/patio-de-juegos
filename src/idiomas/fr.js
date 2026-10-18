@@ -108,6 +108,8 @@ Object.assign(LANGS.fr.t,{
   'Usa una letra pensada para personas con baja visión o dislexia.':'Utilise une police conçue pour les personnes malvoyantes ou dyslexiques.',
   'Nombres en los colores':'Noms des couleurs',
   'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'Écrit le nom de chaque couleur. Aide les enfants daltoniens.',
+  'Modo daltónico':'Mode daltonien',
+  'Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…':'Des couleurs plus faciles à distinguer et un motif sur chaque couleur : des rayures sur le rouge, des pois sur le bleu, des étoiles sur le jaune…',
   'Niveles automáticos':'Niveaux automatiques',
   'La dificultad sube o baja sola según los aciertos.':'La difficulté monte ou descend toute seule selon les bonnes réponses.',
   'Velocidad de la voz':'Vitesse de la voix',

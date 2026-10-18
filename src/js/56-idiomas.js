@@ -28,7 +28,7 @@ GAMES.push(
    const o=sample(pairs,[3,5,4][l]),t=pick(o),fx=t[1].n;
    if(l<2)return {prompt:_('Escucha y toca el color'),speak:_('Escucha y toca el color'),sayFx:fx,fxLang,answer:t[0].n,opts:o.map(([c])=>({dot:c.c,v:c.n,aria:c.n})),
      right:_('¡Sí! Es el {c}.',{c:t[0].n}),fx,wrong:()=>_('No es ese. Toca la frase de arriba para oírla otra vez.')};
-   return {prompt:_('¿Cómo se dice este color en {l}?',{l:ln}),speak:_('¿Cómo se dice este color en {l}?',{l:ln}),answer:fx,visual:`<span class="swatch" style="background:${t[0].c}"></span>`,
+   return {prompt:_('¿Cómo se dice este color en {l}?',{l:ln}),speak:_('¿Cómo se dice este color en {l}?',{l:ln}),answer:fx,visual:`<span class="swatch" style="background:${t[0].c}" data-col="${colKey(t[0].c)}"></span>`,
      opts:o.map(([,x])=>word(x.n)),right:_('Se dice así:'),fx,fxLang,wrong:()=>_('Ese es otro color. Prueba otra vez.')};}},
  {id:'aprende-numeros',age:'i',pic:'🔢',name:'Números',what:inLearn,bg:'var(--blue)',levels:3,needs:['NUMWORDS'],gen(l=0){
    const {TD,fxLang,name:ln}=fxInfo(),max=l===0?5:10,n=range(1,max),fx=TD.NUMWORDS[n];

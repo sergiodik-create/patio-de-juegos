@@ -106,6 +106,8 @@ Object.assign(LANGS.en.t,{
   'Usa una letra pensada para personas con baja visión o dislexia.':'Uses a font designed for people with low vision or dyslexia.',
   'Nombres en los colores':'Colour names',
   'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'Writes the name of each colour. Helps children with colour blindness.',
+  'Modo daltónico':'Colour-blind mode',
+  'Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…':'Colours that are easier to tell apart, each with its own pattern: stripes on red, dots on blue, stars on yellow…',
   'Niveles automáticos':'Automatic levels',
   'La dificultad sube o baja sola según los aciertos.':'The difficulty goes up or down by itself depending on the right answers.',
   'Velocidad de la voz':'Voice speed',

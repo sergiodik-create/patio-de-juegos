@@ -4,7 +4,9 @@
 const AGE_TITLES={p:N_('Juegos para 2 a 4 años'),m:N_('Juegos para 5 a 7 años'),g:N_('Juegos para 8 a 10 años'),x:N_('Juegos para 11 y 12 años'),t:N_('Cuentos para escuchar'),i:N_('Aprende idiomas jugando')};
 const SCREENS={age:'#s-age',list:'#s-home',game:'#s-game',album:'#s-album',padres:'#s-padres',break:'#s-break'};
 let age='p',cur=null,score=0,busy=false,round=null,screen='age',back='age',onKey=null;
+let newVersion=false;  // hay una versión nueva de la web: se recarga al volver al inicio (ver «versión nueva» más abajo)
 function show(n){
+  if((n==='age'||n==='list')&&newVersion){reloadAt(n);return;}
   if(n==='album'||n==='padres'){if(screen!=='album'&&screen!=='padres')back=screen==='game'?'list':screen;}
   screen=n;for(const k in SCREENS)$(SCREENS[k]).hidden=k!==n;
   $('#home').hidden=n==='age'||n==='break';
@@ -311,10 +313,20 @@ $('#ajustes').addEventListener('click',e=>{
 $('#home').addEventListener('click',goHome);
 $('#sound').addEventListener('click',()=>{S.voz=!S.voz;saveSettings();if(!S.voz)stopVoice();else say(_('Sonido activado'));});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopVoice();});
-if(EDICION==='web'&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+/* Recarga y, si estaba en la lista de juegos de una edad, vuelve a ella. */
+function reloadAt(n){try{if(n==='list')sessionStorage.setItem('patio.volver',age);}catch(e){}location.reload();}
+/* ---------- versión nueva ----------
+   Al publicar cambios, el service worker nuevo avisa de su versión. Si no es la que se está viendo, la página se recarga sola:
+   enseguida si está en la pantalla de inicio y, si no, al volver a ella, para no cortar a nadie a mitad de un juego. */
+if(EDICION==='web'&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+  const mine=((document.querySelector('script[src^="app."]')||{}).getAttribute?.('src')||'').split('.')[1];
+  navigator.serviceWorker.addEventListener('message',e=>{if(!mine||!e.data?.v||e.data.v===mine)return;newVersion=true;if(screen==='age'||screen==='list')reloadAt(screen);});
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 applySettings();
 setLang(initialLang());
 renderLangs();renderAges();
-show('age');
+let volver=null;try{volver=sessionStorage.getItem('patio.volver');sessionStorage.removeItem('patio.volver');}catch(e){}
+if(volver&&AGE_TITLES[volver]&&(volver!=='i'||learnLang())){age=volver;renderDoors();show('list');}else show('age');
 medirPotencia();
 if(isIOS())setTimeout(offerInstall,4000);

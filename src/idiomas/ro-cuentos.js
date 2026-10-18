@@ -110,7 +110,7 @@ LANGS.ro.data.TALES=[
   ['🦙🐆🦊💧','Animalele s-au uitat unele la altele. Rând pe rând, au început să care apă cu ce puteau: cu gura, cu labele, în frunze.'],
   ['🌳💚','Împreună au reușit să stingă incendiul. De atunci își amintesc că nimeni nu e prea mic ca să ajute. Sfârșit.']]},
  {id:'conejo',name:'Iepurașul din lună',origen:'Legendă din Mexic',pic:'🐇',bg:'var(--purple)',pages:[
-  ['🌄🚶','O veche legendă din Mexic spune că zeul Quetzalcoatl a vrut să cunoască Pământul și a umblat pe el ca un om oarecare.'],
+  ['🌄🚶','O veche legendă din Mexic spune că zeul Quetzalcoatl a vrut să cunoască Pământul și a umblat prin lume ca un om oarecare.'],
   ['🚶😓','A mers atât de mult, încât, la sfârșitul zilei, era foarte obosit și flămând.'],
   ['🐇🌿','Un iepuraș care ronțăia iarbă l-a văzut și i-a oferit tot ce avea, ca să prindă puteri.'],
   ['🐇💛','Era puțin, dar iepurașul i-a dat totul cu mult drag, fără să ceară nimic în schimb.'],
@@ -118,9 +118,9 @@ LANGS.ro.data.TALES=[
   ['🌕🐇','De atunci, în nopțile cu lună plină, dacă te uiți cu atenție, poți vedea un iepuraș desenat pe ea.'],
   ['🌙👀','Așa își amintește toată lumea că un gest generos, chiar și mic, poate ajunge foarte sus. Sfârșit.']]},
  {id:'sopa',name:'Supa de piatră',origen:'Poveste populară din Portugalia și Spania',pic:'🥣',bg:'var(--teal)',pages:[
-  ['🚶🏘️','Un drumeț flămând a ajuns într-un sat. A bătut la mai multe uși, dar nimeni n-a vrut să-și împartă mâncarea cu el.'],
+  ['🚶🏘️','Un drumeț flămând a ajuns într-un sat. A bătut la mai multe uși, dar nimeni n-a vrut să-și împartă mâncarea cu un străin.'],
   ['🍲🪨','Atunci a scos o oală, a umplut-o cu apă, a aprins un foc și a pus înăuntru o piatră.'],
-  ['👵❓','— Ce gătești? a întrebat o vecină curioasă. — O supă de piatră foarte gustoasă, a zis el. Deși cu o ceapă ar fi și mai bună.'],
+  ['👵❓','— Ce gătești? a întrebat o vecină curioasă. — O supă de piatră foarte gustoasă, a răspuns drumețul. Deși cu o ceapă ar fi și mai bună.'],
   ['🧅🥕','Vecina a adus o ceapă. Un vecin a adus morcovi, iar altă vecină, niște cartofi.'],
   ['🥔🌿','Încetul cu încetul, au mai venit roșii, verdeață și sare. Tot satul s-a strâns în jurul oalei.'],
   ['🥣😋','Supa mirosea minunat. Drumețul a împărțit-o, și a ajuns pentru toată lumea.'],
@@ -128,7 +128,7 @@ LANGS.ro.data.TALES=[
  {id:'arroz',name:'Un bob de orez',origen:'Poveste populară din India',pic:'🍚',bg:'var(--yellow)',pages:[
   ['👑🍚','Demult, în India, un rege ținea tot orezul regatului în hambarele lui.'],
   ['🌾😟','Într-un an a venit seceta. Oamenii erau flămânzi, dar regele nu voia să-și împartă orezul.'],
-  ['👧💡','O fetiță foarte isteață, pe nume Rani, l-a ajutat pe rege să rezolve o problemă, iar el i-a oferit o răsplată.'],
+  ['👧💡','O fetiță foarte isteață, pe nume Rani, l-a ajutat pe rege să rezolve o problemă, iar regele i-a promis o răsplată.'],
   ['👧🍚','Rani a cerut doar un bob de orez în prima zi, două în a doua, patru în a treia… și tot așa, de două ori mai multe în fiecare zi, timp de treizeci de zile.'],
   ['👑😄','Regelui i s-a părut o răsplată foarte mică și a acceptat pe loc.'],
   ['🐘🐘🐘🍚','Dar când tot dublezi, numărul crește foarte repede. În ultima zi a fost nevoie de sute de elefanți ca să care orezul.'],

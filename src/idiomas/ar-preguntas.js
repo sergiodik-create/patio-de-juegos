@@ -7,9 +7,8 @@ const FEM=new Set(['الشمس','الأرض']);
 const fem=x=>{x=String(x);return FEM.has(x)||/^\S*ة(\s|$)/.test(x);};
 const v2=(x,m,f)=>fem(x)?f:m;
 /* Name of each letter, as teachers say it: "حرف الباء". */
-const NAMES={'ا':'الألف','ب':'الباء','ت':'التاء','ث':'الثاء','ج':'الجيم','ح':'الحاء','خ':'الخاء','د':'الدال','ذ':'الذال','ر':'الراء',
-  'ز':'الزاي','س':'السين','ش':'الشين','ص':'الصاد','ض':'الضاد','ط':'الطاء','ظ':'الظاء','ع':'العين','غ':'الغين','ف':'الفاء',
-  'ق':'القاف','ك':'الكاف','ل':'اللام','م':'الميم','ن':'النون','ه':'الهاء','و':'الواو','ي':'الياء'};
+const NAMES=Object.fromEntries([...'ابتثجحخدذرزسشصضطظعغفقكلمنهوي'].map((l,i)=>[l,('الألف الباء التاء الثاء الجيم الحاء الخاء الدال الذال الراء الزاي السين الشين الصاد الضاد '+
+  'الطاء الظاء العين الغين الفاء القاف الكاف اللام الميم النون الهاء الواو الياء').split(' ')[i]]));
 const letter=l=>NAMES[l]||l;
 
 Object.assign(LANGS.ar.t,{
@@ -159,7 +158,7 @@ Object.assign(LANGS.ar.t,{
   'se multiplica por {m}':'نضرب في {m} في كل مرة',
   'resta {k} cada vez':'نطرح {k} في كل مرة',
   'suma {a} y luego {b}':'نضيف {a} ثم {b}',
-  'son números al cuadrado':'إنها مربعات الأعداد',
+  'son números al cuadrado':'كلها مربعات أعداد',
   'cada número es la suma de los dos anteriores':'كل عدد هو مجموع العددين اللذين قبله',
   '¿Qué número sigue?':'ما العدد التالي؟',
   'Es {n}: {r}.':'إنه {n}: {r}.',
@@ -219,7 +218,7 @@ LANGS.ar.data.LETTERS=[...'ابتثجحخدذرزسشصضطظعغفقكلمنه�
 /* Letters that "Finish the word" can hide: the long vowels (حروف المد). */
 LANGS.ar.data.VOWELS='اوي';
 /* [picture, right spelling, common mistake]: taa marbuta and open taa (ة ه ت), alif maqsura (ى ا ي),
-   the lam of sun letters (الشمس، not اشمس), hamzat qat' and wasl, hamza seats,
+   the lam of sun letters (الشمس، not اشمس), hamzat al-qat and hamzat al-wasl, hamza seats,
    and letters that sound alike in everyday speech (ذ د، ث ت، ظ ض، ص س، ط ت، ح ه، ع أ). */
 LANGS.ar.data.SPELL=[
   ['🏫','مدرسة','مدرست'],['🐢','سلحفاة','سلحفاه'],['🚗','سيارة','سياره'],['🦒','زرافة','زرافه'],['🚲','دراجة','دراجه'],

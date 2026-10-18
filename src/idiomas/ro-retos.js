@@ -139,7 +139,7 @@ LANGS.ro.data.RIDDLES=[
   ['🐸','O broască se află pe fundul unei fântâni adânci de 10 metri. În fiecare zi urcă 3 metri, iar în fiecare noapte alunecă înapoi 2 metri. În câte zile iese din fântână?','8',['10','7','5'],'După 7 zile și 7 nopți a urcat 7 metri. În a opta zi mai urcă 3 metri și iese.'],
   ['⚾','O bâtă și o minge costă împreună un leu și 10 bani. Bâta costă cu un leu mai mult decât mingea. Cât costă mingea?','5 bani',['10 bani','Un ban','Un leu'],'Dacă mingea costă 5 bani, bâta costă un leu și 5 bani, iar împreună fac un leu și 10 bani.'],
   ['👧','Tatăl Mariei are cinci fiice: Lala, Lele, Lili, Lolo și…','Maria',['Lulu','Lina','Lola'],'A cincea fiică este chiar Maria.'],
-  ['🎂','Am de două ori mai mulți ani decât fratele meu, care are 6 ani. Câți ani voi avea eu când el va avea 10?','16',['20','14','12'],'Acum am 12 ani. Peste 4 ani voi avea 16.'],
+  ['🎂','Am de două ori mai mulți ani decât fratele meu, care are 6 ani. Câți ani voi avea eu când fratele meu va avea 10?','16',['20','14','12'],'Acum am 12 ani. Peste 4 ani voi avea 16.'],
   ['🍎','Pe masă sunt trei mere și tu iei două. Câte mere ai tu?','2',['1','3','5'],'Ai cele două mere pe care le-ai luat.'],
   ['🪶','Ce cântărește mai mult: un kilogram de pene sau un kilogram de fier?','Cântăresc la fel',['Penele','Fierul','Depinde de zi'],'Un kilogram e un kilogram, indiferent din ce e făcut.'],
   ['🐱','Dacă 3 pisici prind 3 șoareci în 3 minute, de câte pisici e nevoie ca să prindă 60 de șoareci în 30 de minute?','6',['20','60','3'],'Fiecare pisică prinde un șoarece la fiecare 3 minute, adică 10 șoareci în 30 de minute. Pentru 60 de șoareci e nevoie de 6 pisici.'],

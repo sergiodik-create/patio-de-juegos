@@ -31,15 +31,29 @@ const store={
 const colKey=c=>(/--(\w+)/.exec(c)||[])[1]||'';
 
 /* ---------- ajustes (zona de padres) ---------- */
-const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,daltonico:false,niveles:true,descanso:20,aprender:null};
+const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,daltonico:false,movimiento:'auto',niveles:true,descanso:20,aprender:null};
 const S=Object.assign({},DEFAULTS,store.get('ajustes',{}));
 function applySettings(){
   const r=document.documentElement;
   ['calma','grande','contraste','legible','nombresColor','daltonico'].forEach(k=>{r.dataset[k]=S[k]?'si':'no';});
+  r.dataset.vivo=!reduceMotion()&&(S.movimiento==='mucho'||(S.movimiento==='auto'&&potente!==false))?'si':'no';
   const b=$('#sound');if(b){b.textContent=S.voz?'🔊':'🔇';b.setAttribute('aria-label',S.voz?_('Sonido activado'):_('Sonido apagado'));}
 }
 function saveSettings(){store.set('ajustes',S);applySettings();}
 const reduceMotion=()=>S.calma||matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Modo «vivo» (más animaciones) en los aparatos que van sobrados. «potente» se mide al abrir (ver medirPotencia):
+   null = sin medir todavía, y mientras se mide se prueba con el modo vivo encendido. */
+let potente=store.get('potente',null);
+function medirPotencia(){
+  if(S.movimiento!=='auto'||reduceMotion()||potente===false)return;
+  if((navigator.hardwareConcurrency||4)<4||(navigator.deviceMemory||4)<3){potente=false;store.set('potente',false);applySettings();return;}
+  let n=0,slow=0,t0=0,last=0;
+  const f=t=>{if(document.hidden){t0=0;requestAnimationFrame(f);return;}
+    if(!t0){t0=last=t;n=slow=0;}else{n++;if(t-last>26)slow++;last=t;}
+    if(t-t0<2500)return requestAnimationFrame(f);
+    potente=n/((t-t0)/1000)>=50&&slow<=n*.06;store.set('potente',potente);applySettings();};
+  setTimeout(()=>requestAnimationFrame(f),800);
+}
 
 /* ---------- voz ---------- */
 let voice=null,voiceChecked=false;
@@ -113,12 +127,13 @@ function confetti(){
   if(reduceMotion())return;cv=cv||$('#fx');cx=cx||cv.getContext('2d');
   const w=cv.width=innerWidth,h=cv.height=innerHeight;
   const cols=['#E8483B','#2F7FE0','#F6C431','#3DB46D','#8B5BD6','#F28A2E'];
-  for(let i=0;i<70;i++)parts.push({x:w/2,y:h*.45,vx:(Math.random()-.5)*14,vy:-Math.random()*13-4,r:5+Math.random()*6,c:cols[i%6],a:Math.random()*6,life:90});
+  const vivo=document.documentElement.dataset.vivo==='si';  // en modo vivo, el doble de confeti y también estrellitas
+  for(let i=0;i<(vivo?140:70);i++)parts.push({x:w/2,y:h*.45,vx:(Math.random()-.5)*(vivo?18:14),vy:-Math.random()*(vivo?15:13)-4,r:5+Math.random()*6,c:cols[i%6],a:Math.random()*6,life:vivo?110:90,s:vivo&&i%4===0});
   if(!raf)tick();
 }
 function tick(){
   cx.clearRect(0,0,cv.width,cv.height);
-  parts.forEach(p=>{p.vy+=.45;p.x+=p.vx;p.y+=p.vy;p.a+=.2;p.life--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore();});
+  parts.forEach(p=>{p.vy+=.45;p.x+=p.vx;p.y+=p.vy;p.a+=.2;p.life--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;if(p.s){cx.font=`${p.r*2.4}px sans-serif`;cx.fillText('⭐',-p.r,p.r);}else cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore();});
   parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);
   raf=parts.length?requestAnimationFrame(tick):(cx.clearRect(0,0,cv.width,cv.height),null);
 }

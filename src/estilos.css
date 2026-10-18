@@ -23,13 +23,31 @@ button:focus-visible{outline:4px solid var(--purple);outline-offset:3px}
 main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding-block:16px}
 .screen{display:flex;flex-direction:column;gap:18px}
 .hello{text-align:center;font-size:clamp(1.3rem,4.5vw,1.9rem);font-weight:700;color:var(--soft);text-wrap:balance;margin:0}
-.agecards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:600px){.agecards{grid-template-columns:1fr}}
-.agecard{border:0;border-radius:28px;padding:24px 12px;color:#fff;cursor:pointer;font-family:var(--display);display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 8px 0 rgba(0,0,0,.18)}
+/* Inicio: las 6 tarjetas en 3×2 (pantallas anchas) o en 2×3 (móvil), sin huecos.
+   Si no hay idioma para aprender, la tarjeta Idiomas (la última) se oculta y las otras dos de la última fila se la reparten. */
+.agecards{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:16px}
+.agecard{grid-column:span 2}
+.agecards:has(>.agecard[hidden])>.agecard:nth-child(n+4){grid-column:span 3}
+.agecard{border:0;border-radius:28px;padding:24px 12px;color:#fff;cursor:pointer;font-family:var(--display);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 8px 0 rgba(0,0,0,.18);text-align:center;min-width:0}
 .agecard:active{transform:translateY(5px);box-shadow:0 3px 0 rgba(0,0,0,.18)}
-.agecard .pic{font-size:clamp(3.4rem,12vw,5rem);line-height:1.1}
+.agecard .pic{font-size:clamp(3rem,10vw,4.4rem);line-height:1.1}
 .agecard .name{font-size:1.8rem;font-weight:800;line-height:1.1}
-.agecard .what{font-size:1.1rem;font-weight:500;opacity:.95}
+.agecard .what{font-size:1.1rem;font-weight:500;opacity:.95;text-wrap:balance}
+@media (max-width:699px){
+  .agecards{grid-template-columns:repeat(2,1fr);gap:12px}
+  .agecard,.agecards:has(>.agecard[hidden])>.agecard:nth-child(n+4){grid-column:auto;padding:16px 8px;border-radius:24px}
+  .agecards:has(>.agecard[hidden])>.agecard:nth-child(5){grid-column:1/-1}
+  .agecard .pic{font-size:clamp(2.6rem,12vw,3.4rem)}
+  .agecard .name{font-size:clamp(1.2rem,5.4vw,1.6rem)}
+  .agecard .what{font-size:clamp(.85rem,3.7vw,1rem)}
+  #langs{gap:8px}#langs .pill{font-size:.92rem;padding:5px 12px}
+}
+/* tabletas en vertical y pantallas altas: tarjetas más grandes en vez de un hueco arriba y abajo */
+@media (min-width:700px) and (max-width:1599px) and (min-height:900px){
+  .agecard{min-height:min(28vh,330px)}
+  .agecard .pic{font-size:clamp(4.4rem,7vh,5.8rem)}
+  .agecard .name{font-size:2.1rem}
+}
 .age{border:0;border-radius:999px;padding:10px 20px;font-family:var(--display);font-size:1.2rem;font-weight:800;cursor:pointer;
   background:var(--card);color:var(--ink);box-shadow:0 4px 0 var(--sky2)}
 .age[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:0 4px 0 #0f2230}
@@ -137,8 +155,6 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 .c4 .r{background:var(--red);animation:drop .3s ease-in}.c4 .y{background:var(--yellow);animation:drop .3s ease-in}.c4 .win{box-shadow:0 0 0 4px #fff inset}
 
 /* cuentos */
-.agecards{grid-template-columns:repeat(2,1fr)}
-@media (max-width:420px){.agecards{grid-template-columns:1fr}}
 .pill:disabled{opacity:.4;cursor:default}
 .book{background:var(--card);border-radius:28px;padding:20px 22px;box-shadow:0 8px 0 var(--sky2);display:flex;flex-direction:column;gap:10px;align-items:center;width:min(100%,640px);align-self:center;box-sizing:border-box}
 .bpic{font-size:clamp(3.6rem,15vw,6rem);line-height:1.15;text-align:center;letter-spacing:.08em}
@@ -147,10 +163,9 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 @media (prefers-reduced-motion:reduce){.wobble,.pop,.stars span,.boom{animation:none}.card{transition:none}}
 
-/* ---------- pantalla de inicio con 5 tarjetas ---------- */
-.agecards{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
-.agecard.wide{grid-column:1/-1}
-.agecard .pic{font-size:clamp(3rem,10vw,4.4rem)}
+/* ---------- cabecera en pantallas pequeñas ---------- */
+/* el título cede sitio a los botones: así caben en una fila también en el móvil */
+.brand{flex:1 1 0}
 .hbtns{flex-wrap:wrap;justify-content:flex-end}
 @media (max-width:420px){.btn-round{width:48px;height:48px;font-size:1.35rem}.hbtns{gap:6px}}
 .lvl .pill{font-size:.95rem;padding:6px 14px}
@@ -201,6 +216,58 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 [data-daltonico="si"] :is(.card.done,.ttt .win,.soup .found,.kb .ok){box-shadow:inset 0 0 0 3px var(--ink)}
 [data-daltonico="si"] .board .chk{box-shadow:inset 0 0 0 4px #000}
 [data-daltonico="si"] .board .last{outline:3px dashed rgba(0,0,0,.55);outline-offset:-5px}
+
+/* ---------- aviso para instalar ---------- */
+.inst{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(560px,calc(100% - 24px));z-index:50;
+  background:var(--card);color:var(--ink);border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:12px 14px;display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;
+  font-family:var(--display);animation:slideup .45s cubic-bezier(.34,1.56,.64,1)}
+.inst .ipic{font-size:2.2rem;line-height:1}
+.inst .itxt{flex:1 1 220px;display:flex;flex-direction:column;gap:2px;line-height:1.25}
+.inst .itxt small{color:var(--soft);font-size:.95rem;font-weight:600}
+.inst .ibtns{display:flex;gap:8px;margin-inline-start:auto}
+.inst .pill{align-self:center}
+@keyframes slideup{from{transform:translate(-50%,140%)}}
+[data-calma="si"] .inst{animation:none}
+
+/* ---------- modo vivo: más movimiento en los aparatos que van sobrados ----------
+   Se enciende solo (ver medirPotencia) o desde la zona de padres. Todo se mueve con transform y opacity, que van por la tarjeta gráfica.
+   Las reglas van dentro de :where() para no pisar las animaciones de acierto y fallo (.pop, .wobble). */
+.deco{display:none}
+[data-vivo="si"] .deco{display:block;position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.deco i{position:absolute;display:block;border-radius:50%;background:rgba(255,255,255,.55);will-change:transform}
+.deco i:nth-child(-n+5){bottom:-90px;width:var(--s);height:var(--s);animation:bubble var(--t) linear var(--d) infinite}
+.deco i:nth-child(1){left:6%;--s:46px;--t:19s;--d:-3s}.deco i:nth-child(2){left:27%;--s:22px;--t:14s;--d:-9s}
+.deco i:nth-child(3){left:50%;--s:64px;--t:24s;--d:-15s}.deco i:nth-child(4){left:73%;--s:30px;--t:17s;--d:-6s}
+.deco i:nth-child(5){left:90%;--s:52px;--t:21s;--d:-12s}
+.deco i:nth-child(n+6){left:0;border-radius:40px;box-shadow:34px -16px 0 6px rgba(255,255,255,.55),74px -6px 0 0 rgba(255,255,255,.55);animation:cloud var(--t) linear var(--d) infinite}
+.deco i:nth-child(6){top:8%;width:120px;height:40px;--t:52s;--d:-8s}.deco i:nth-child(7){top:24%;width:90px;height:30px;--t:68s;--d:-40s}
+.deco i:nth-child(8){top:62%;width:110px;height:36px;--t:60s;--d:-22s}.deco i:nth-child(9){top:86%;width:80px;height:26px;--t:75s;--d:-55s}
+@keyframes bubble{50%{transform:translate3d(18px,-55vh,0)}to{transform:translate3d(-12px,calc(-100vh - 140px),0)}}
+@keyframes cloud{from{transform:translate3d(-200px,0,0)}to{transform:translate3d(calc(100vw + 60px),0,0)}}
+:where([data-vivo="si"]) .brand span{display:inline-block;animation:wave 6s ease-in-out infinite}
+:where([data-vivo="si"]) .brand span:nth-child(2){animation-delay:.15s}:where([data-vivo="si"]) .brand span:nth-child(3){animation-delay:.3s}
+@keyframes wave{0%,62%,100%{transform:none}70%{transform:translateY(-7px) rotate(-4deg)}80%{transform:translateY(1px) rotate(3deg)}88%{transform:translateY(-2px)}}
+:where([data-vivo="si"]) :is(.agecard,.door) .pic{display:inline-block;animation:bob 2.8s ease-in-out infinite}
+:where([data-vivo="si"]) :is(.agecard,.door):nth-child(3n+2) .pic{animation-delay:-.9s}
+:where([data-vivo="si"]) :is(.agecard,.door):nth-child(3n) .pic{animation-delay:-1.8s}
+@media (hover:hover){:where([data-vivo="si"]) :is(.agecard,.door):hover .pic{animation-duration:.8s}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-5deg)}75%{transform:translateY(3px) rotate(5deg)}}
+:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*){animation:enter .5s cubic-bezier(.34,1.56,.64,1) backwards}
+:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(2){animation-delay:0.04s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(3){animation-delay:0.09s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(4){animation-delay:0.14s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(5){animation-delay:0.18s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(6){animation-delay:0.22s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(7){animation-delay:0.27s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(8){animation-delay:0.32s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(9){animation-delay:0.36s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(10){animation-delay:0.40s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(11){animation-delay:0.45s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(12){animation-delay:0.49s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(13){animation-delay:0.54s}:where([data-vivo="si"] :is(.agecards,.doors,.choices,.album)>*):not(.pop):not(.wobble):nth-child(14){animation-delay:0.58s}
+@keyframes enter{from{opacity:0;transform:translateY(26px) scale(.82)}}
+:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)){display:inline-block;animation:bob 3.2s ease-in-out infinite}
+:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(2){animation-delay:0.35s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(3){animation-delay:0.70s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(4){animation-delay:1.05s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(5){animation-delay:1.40s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(6){animation-delay:1.75s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(7){animation-delay:2.10s}:where([data-vivo="si"] .visual>span:not(.op):not(.box):not(.word)):not(.pop):nth-child(8){animation-delay:2.45s}
+:where([data-vivo="si"]) .screen:not([hidden]){animation:fadeup .3s ease-out}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}}
+:where([data-vivo="si"]) :is(.tile,.dot){transition:transform .12s,box-shadow .3s}
+[data-vivo="si"] .choices .pop{box-shadow:0 0 0 6px rgba(255,255,255,.95),0 0 30px 10px rgba(246,196,49,.85)}
+
+/* ---------- mando de la tele: marco grande en el botón elegido ---------- */
+[data-mando="si"] :is(button,a,summary,input):focus{outline:6px solid var(--ink);outline-offset:4px;box-shadow:0 0 0 13px rgba(255,255,255,.9)}
+[data-mando="si"] :is(.door,.agecard,.tile,.dot,.slot):focus{transform:scale(1.07);position:relative;z-index:1}
+
+/* ---------- pantallas grandes (tele, monitor): todo más grande ---------- */
+@media (min-width:1600px) and (min-height:820px){body{zoom:1.4}[data-grande="si"] body{zoom:1.6}}
 
 /* ---------- diseña tu mundo: pegatina elegida para mover ---------- */
 .scene .stk.sel{filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 3px var(--yellow));transform:translate(-50%,-50%) scale(1.15)}

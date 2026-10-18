@@ -11,7 +11,8 @@ function show(n){
   $('#home').setAttribute('aria-label',n==='game'?_('Volver a los juegos'):n==='list'?_('Cambiar de edad'):_('Volver'));
   $('#album').hidden=n==='album'||n==='break';$('#padres').hidden=n==='padres'||n==='break';
   if(n!=='game')onKey=null;
-  window.scrollTo(0,0);
+  if(n!=='age'&&n!=='list')$('#inst').hidden=true;
+  window.scrollTo(0,0);focusFirst();
 }
 /* Todos los juegos, más los cuentos del idioma elegido. */
 const allGames=()=>GAMES.concat((D.TALES||[]).map(taleGame));
@@ -48,6 +49,30 @@ function goHome(){
   else{show('age');say(_('¿Cuántos años tienes?'));}
 }
 document.addEventListener('keydown',e=>{if(screen==='game'&&onKey)onKey(e);});
+/* ---------- mando de la tele y teclado ----------
+   Las flechas llevan al botón más cercano en esa dirección (los juegos con flechas propias, como el laberinto, las usan ellos),
+   OK o Intro lo pulsa y «Atrás» vuelve. Tras la primera flecha el marco se ve grande y el foco salta solo a cada pantalla nueva. */
+let mando=false;
+const focusables=()=>[...document.querySelectorAll('main button,main a[href],main input,main summary,header button,#inst button')].filter(el=>!el.disabled&&el.getClientRects().length);
+function focusFirst(){if(!mando)return;setTimeout(()=>{const a=document.activeElement;if(a&&a!==document.body&&a.getClientRects().length)return;
+  const f=focusables().filter(el=>el.closest('main'));(f.find(el=>el.closest('#choices,#doors,#ages'))||f[0])?.focus();},60);}
+function moveFocus(k){
+  const all=focusables(),a=document.activeElement;if(!all.length)return;
+  if(!all.includes(a)){(all.find(el=>el.closest('main'))||all[0]).focus();return;}
+  const r=a.getBoundingClientRect(),x0=r.left+r.width/2,y0=r.top+r.height/2,h=k==='ArrowLeft'||k==='ArrowRight';let best=null,bd=Infinity;
+  for(const el of all){if(el===a)continue;const q=el.getBoundingClientRect(),dx=q.left+q.width/2-x0,dy=q.top+q.height/2-y0;
+    const along={ArrowRight:dx,ArrowLeft:-dx,ArrowDown:dy,ArrowUp:-dy}[k],across=h?Math.abs(dy):Math.abs(dx);
+    if(along<=2)continue;const d=along+across*(h?3:1.5);if(d<bd){bd=d;best=el;}}
+  if(best){best.focus();best.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});}
+}
+document.addEventListener('keydown',e=>{
+  const k=e.key,a=document.activeElement,typing=a&&a.matches('input:not([type=checkbox]),textarea');
+  if(['Escape','GoBack','BrowserBack','Back'].includes(k)||e.keyCode===461||e.keyCode===10009){if(screen!=='age'){e.preventDefault();goHome();}return;}
+  if(!k.startsWith('Arrow')||typing||(screen==='game'&&onKey))return;
+  e.preventDefault();if(!mando){mando=true;document.documentElement.dataset.mando='si';}moveFocus(k);
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.matches('input[type=checkbox]')){e.preventDefault();document.activeElement.click();}});
+document.addEventListener('pointerdown',()=>{if(mando){mando=false;document.documentElement.dataset.mando='no';}});
 /* Estrella del juego actual: se ven 5 arriba y cada una cuenta para las pegatinas del álbum. */
 function star(){score++;const s=document.createElement('span');s.textContent='⭐';$('#stars').appendChild(s);addStar();
   if(score>=5){score=0;later(()=>{$('#stars').innerHTML='';},1800);}}
@@ -84,7 +109,7 @@ function next(){
     if(o.dot){b.className='dot';b.style.background=o.dot;b.dataset.col=colKey(o.dot);if(o.aria)b.innerHTML=`<span class="cname">${esc(o.aria)}</span>`;}
     else{b.className='tile'+(o.cls?' '+o.cls:'');b.innerHTML=o.html;}
     b.dataset.v=o.v;b.setAttribute('aria-label',o.aria||o.v);ch.appendChild(b);});
-  speakRound();
+  speakRound();focusFirst();
 }
 /* sayFx: palabra en el idioma que se aprende (fxLang), dicha con su voz después de la pregunta. */
 function speakRound(){const r=round;if(r.sayFx)sayThen(r.speak,()=>{if(round===r&&!busy)say(r.sayFx,r.fxLang);});else say(r.speak);}
@@ -165,8 +190,25 @@ const TOGGLES=[
   ['nombresColor',N_('Nombres en los colores'),N_('Escribe el nombre de cada color. Ayuda a niños con daltonismo.')],
   ['daltonico',N_('Modo daltónico'),N_('Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…')],
   ['niveles',N_('Niveles automáticos'),N_('La dificultad sube o baja sola según los aciertos.')]];
+/* ---------- instalar como aplicación ----------
+   Al abrir la web se ofrece instalarla (Android, Chrome y Edge con el botón del navegador; en iPhone y iPad se explica
+   cómo, porque Safari no deja ofrecerlo). No sale si ya está instalada, y «Ahora no» la calla tres semanas. */
 let deferredInstall=null;
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;});
+const installed=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function offerInstall(){
+  if(EDICION!=='web'||installed()||Date.now()<store.get('instalarNo',0)||(screen!=='age'&&screen!=='list'))return;
+  const ios=!deferredInstall&&isIOS();if(!deferredInstall&&!ios)return;
+  $('#inst').innerHTML=`<span class="ipic">📲</span><span class="itxt"><b>${_('Instala el Patio de Juegos')}</b><small>${ios?
+    _('Toca el botón Compartir (el cuadrado con una flecha) y luego «Añadir a pantalla de inicio».'):_('Se abre como una aplicación y funciona sin internet.')}</small></span>
+    <span class="ibtns">${ios?'':`<button class="pill go" id="inst-ok">${_('Instalar')}</button>`}<button class="pill" id="inst-no">${_('Ahora no')}</button></span>`;
+  $('#inst').hidden=false;
+}
+$('#inst').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.id==='inst-ok'&&deferredInstall){deferredInstall.prompt();deferredInstall=null;}else store.set('instalarNo',Date.now()+21*864e5);
+  $('#inst').hidden=true;});
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;setTimeout(offerInstall,2500);});
+addEventListener('appinstalled',()=>{deferredInstall=null;$('#inst').hidden=true;});
 const voiceMsg=()=>!('speechSynthesis' in window)?_('Este navegador no puede leer en voz alta. Prueba con Chrome, Edge o Safari.'):
   hasVoice()?_('Hay una voz en {l} en este dispositivo. ✅',{l:langName(LANG)}):
   voiceChecked?_('No hemos encontrado una voz en {l}. En Android: Ajustes › Accesibilidad › Salida de texto a voz. En iPad: Ajustes › Accesibilidad › Contenido leído › Voces.',{l:langName(LANG)}):
@@ -192,6 +234,9 @@ function renderParents(){
       ${TOGGLES.map(([k,t,d])=>`<label class="sw"><input type="checkbox" data-k="${k}" ${S[k]?'checked':''}><span><b>${_(t)}</b><small>${_(d)}</small></span></label>`).join('')}
       <div class="opt"><b>${_('Velocidad de la voz')}</b><div class="row" data-group="velocidad">
         ${[[.8,N_('🐢 Lenta')],[1,N_('Normal')],[1.15,N_('🐇 Rápida')]].map(([v,t])=>`<button class="pill" data-v="${v}" aria-pressed="${S.velocidad===v}">${_(t)}</button>`).join('')}</div></div>
+      <div class="opt"><b>${_('Animaciones')}</b><div class="row" data-group="movimiento">
+        ${[['auto',N_('Automático')],['poco',N_('Pocas')],['mucho',N_('Muchas')]].map(([v,t])=>`<button class="pill" data-v="${v}" aria-pressed="${S.movimiento===v}">${_(t)}</button>`).join('')}</div>
+        <small>${_('En «Automático», el Patio mide lo rápido que va este aparato y añade más movimiento solo si va sobrado. El modo calma siempre manda.')}</small></div>
       <div class="opt"><b>${_('Voz')}</b><p class="note" id="voice-msg">${voiceMsg()}</p><button class="pill" id="voice-test">${_('🔊 Probar la voz')}</button></div>
     </div>
     <div class="set">
@@ -231,11 +276,11 @@ $('#ajustes').addEventListener('click',e=>{
   const grp=b.closest('[data-group]');
   if(grp){const k=grp.dataset.group;
     if(k==='idioma'){changeLang(b.dataset.v);return;}
-    S[k]=k==='aprender'?b.dataset.v:+b.dataset.v;saveSettings();grp.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    S[k]=k==='aprender'||k==='movimiento'?b.dataset.v:+b.dataset.v;saveSettings();if(k==='movimiento')medirPotencia();grp.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
     if(k==='velocidad')say(_('Así hablaré a partir de ahora.'));if(k==='aprender')renderAges();return;}
   if(b.id==='voice-test'){pickVoice();say(_('Hola, soy la voz del Patio de Juegos.'));
     later(()=>{pickVoice();const m=$('#voice-msg');if(m)m.textContent=hasVoice()?voiceMsg():_('Si no has oído nada, sube el volumen o instala una voz en los ajustes del dispositivo.');},1500);}
-  if(b.id==='install'&&deferredInstall){deferredInstall.prompt();deferredInstall=null;b.remove();}
+  if(b.id==='install'&&deferredInstall){deferredInstall.prompt();deferredInstall=null;b.remove();$('#inst').hidden=true;}
   if(b.id==='reset'){if(b.dataset.sure){P.estrellas=0;P.pegatinas=[];P.jugado={};P.nivel={};saveP();renderParents();}
     else{b.dataset.sure='1';b.textContent=_('¿Seguro? Toca otra vez para borrar');}}
 });
@@ -249,3 +294,5 @@ applySettings();
 setLang(initialLang());
 renderLangs();renderAges();
 show('age');
+medirPotencia();
+if(isIOS())setTimeout(offerInstall,4000);

@@ -222,6 +222,13 @@ function renderParents(){
     <h2>${_('Zona de padres y educadores')}</h2>
     <p class="note">${_('Los ajustes y el progreso se guardan solo en este dispositivo. Nada sale de aquí.')}</p>
     <div class="set">
+      <h3>${_('Compartir el Patio')}</h3>
+      <p>${_('Si te gusta, compártelo con otras familias, el cole o tu asociación. Es gratis para todos.')}</p>
+      <div class="row start"><button class="pill go" id="share">${_('📤 Compartir el enlace')}</button>${EDICION==='web'?`<button class="pill" id="qr">${_('🔳 Enseñar el código QR')}</button>`:''}</div>
+      <p class="note" id="share-msg">${esc(siteUrl().replace(/^https?:\/\//,'').replace(/\/$/,''))}</p>
+      <div class="qr-box" id="qr-box" hidden></div>
+    </div>
+    <div class="set">
       <h3>${_('Idiomas')}</h3>
       <div class="opt"><b>${_('Idioma de la pantalla y de la voz')}</b><div class="row" data-group="idioma">
         ${Object.keys(LANGS).map(c=>`<button class="pill" data-v="${c}" aria-pressed="${c===LANG}" lang="${c}">${esc(LANGS[c].name)}</button>`).join('')}</div></div>
@@ -267,6 +274,19 @@ function renderParents(){
       <details><summary>${_('Créditos y licencias')}</summary>${legal('creditos')}</details>
     </div>`;
 }
+/* Compartir: el menú de compartir del propio aparato (WhatsApp, correo…) o, si no lo tiene (ordenador, tele),
+   copiar el enlace y enseñar un código QR. No usa ningún servicio de fuera: el QR se dibuja aquí mismo. */
+const siteUrl=()=>typeof CONFIG!=='undefined'&&CONFIG.dominio?'https://'+CONFIG.dominio.replace(/^https?:\/\//,'').replace(/\/$/,'')+'/':
+  /^https?:$/.test(location.protocol)?location.origin+location.pathname.replace(/[^/]*$/,''):'';
+function shareSite(){const url=siteUrl(),msg=t=>{const m=$('#share-msg');if(m)m.textContent=t;};
+  if(navigator.share){navigator.share({title:_('Patio de Juegos'),text:_('Juegos educativos gratis para niños de 2 a 12 años, sin anuncios y sin registro.'),url}).catch(()=>{});return;}
+  if(navigator.clipboard)navigator.clipboard.writeText(url).then(()=>msg(_('Enlace copiado. Pégalo donde quieras.')),()=>msg(url));else msg(url);
+  if(EDICION==='web')showQr();}
+function showQr(){const box=$('#qr-box');if(!box)return;
+  const draw=()=>{const q=qrcode(0,'M');q.addData(siteUrl());q.make();
+    box.innerHTML=q.createSvgTag({cellSize:6,margin:12,scalable:true})+`<p class="note">${_('Escanéalo con la cámara del móvil para abrir el Patio.')}</p>`;box.hidden=false;};
+  if(typeof qrcode==='function'){draw();return;}
+  const s=document.createElement('script');s.src='vendor/qrcode.js';s.onload=draw;document.head.appendChild(s);}
 /* Textos legales: el del idioma elegido si existe; si no, el español. */
 const legal=k=>($('#t-'+k+'-'+LANG)||$('#t-'+k+'-es')||{innerHTML:''}).innerHTML;
 $('#ajustes').addEventListener('change',e=>{const i=e.target.closest('input[data-k]');if(!i)return;
@@ -280,6 +300,8 @@ $('#ajustes').addEventListener('click',e=>{
     if(k==='velocidad')say(_('Así hablaré a partir de ahora.'));if(k==='aprender')renderAges();return;}
   if(b.id==='voice-test'){pickVoice();say(_('Hola, soy la voz del Patio de Juegos.'));
     later(()=>{pickVoice();const m=$('#voice-msg');if(m)m.textContent=hasVoice()?voiceMsg():_('Si no has oído nada, sube el volumen o instala una voz en los ajustes del dispositivo.');},1500);}
+  if(b.id==='share')shareSite();
+  if(b.id==='qr')showQr();
   if(b.id==='install'&&deferredInstall){deferredInstall.prompt();deferredInstall=null;b.remove();$('#inst').hidden=true;}
   if(b.id==='reset'){if(b.dataset.sure){P.estrellas=0;P.pegatinas=[];P.jugado={};P.nivel={};saveP();renderParents();}
     else{b.dataset.sure='1';b.textContent=_('¿Seguro? Toca otra vez para borrar');}}

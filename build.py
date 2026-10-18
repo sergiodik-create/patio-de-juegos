@@ -108,7 +108,7 @@ def short_hash(*texts):
 
 def build_demo(css, lib, app):
     DEMO.mkdir(parents=True, exist_ok=True)
-    js = "const EDICION='demo';\n" + lib + '\n' + app
+    js = "const EDICION='demo';\nconst CONFIG=" + json.dumps({k: CONFIG.get(k, '') for k in ('dominio', 'contacto')}) + ';\n' + lib + '\n' + app
     out = head('demo') + f'\n<style>\n{css}\n</style>\n' + page('demo') + f'\n<script>\n{js}\n</script>\n'
     (DEMO / 'juegos.html').write_text(out, encoding='utf-8')
     return DEMO / 'juegos.html'

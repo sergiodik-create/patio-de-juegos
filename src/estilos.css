@@ -3,7 +3,7 @@
   --sky:#DFF3F7; --sky2:#BFE6EE; --ink:#1F3A4D; --soft:#4F6B7C;
   --red:#E8483B; --blue:#2F7FE0; --yellow:#F6C431; --green:#3DB46D; --purple:#8B5BD6; --orange:#F28A2E; --pink:#E25E9C; --teal:#1FA3A0;
   --card:#FFFFFF;
-  --display:"Baloo 2", "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+  --display:"Baloo 2", "Baloo Bhaijaan 2", "Nunito", "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
   color-scheme:light;
 }
 [hidden]{display:none!important}
@@ -168,7 +168,7 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 @supports not (zoom:1){[data-grande="si"] .app{font-size:115%}}
 
 /* ---------- letra fácil de leer ---------- */
-[data-legible="si"]{--display:"Atkinson Hyperlegible", Verdana, system-ui, sans-serif}
+[data-legible="si"]{--display:"Atkinson Hyperlegible", "Baloo Bhaijaan 2", "Nunito", Verdana, system-ui, sans-serif}
 [data-legible="si"] .btext,[data-legible="si"] .story{letter-spacing:.02em;word-spacing:.12em;line-height:1.7}
 
 /* ---------- alto contraste ---------- */
@@ -320,3 +320,7 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 .target{text-align:center;font-size:clamp(1.8rem,7vw,3rem);font-weight:800;letter-spacing:.06em;margin:0;min-height:1.3em}
 .target .ok{color:var(--green)}.target .bad{color:var(--red);text-decoration:underline}.target .now{border-bottom:4px solid var(--purple)}
 .typein{align-self:center;width:min(100%,420px);font-size:1.6rem;font-family:var(--display);padding:10px 16px;border-radius:16px;border:3px solid var(--sky2);text-align:center;box-sizing:border-box;-webkit-user-select:text;user-select:text}
+/* Idiomas que se escriben de derecha a izquierda (árabe): las pantallas se dan la vuelta, pero los tableros, relojes,
+   laberintos y demás dibujos de los juegos se quedan como están; los textos de los juegos sí van de derecha a izquierda. */
+[dir=rtl] #stage{direction:ltr}
+[dir=rtl] #stage :is(p,h2,h3,label,.prompt,.btext,.story,.txt,.tip,.status,.what,.q,.hist,.wlist,.hello,.learn,.name,.cname,.word,.hword,.opt){direction:rtl}

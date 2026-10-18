@@ -143,7 +143,9 @@ function leer(g){
     $('#bnext').onclick=()=>{auto=false;tok++;if(i<t.pages.length-1){i++;draw();read();}else goHome();};
     $('#bread').onclick=()=>{auto=false;tok++;draw();read();};
     $('#bauto').onclick=()=>{auto=!auto;tok++;draw();if(auto)read();else stopVoice();};
-    $('#btext').onclick=e=>{const w=e.target.closest('.w');if(!w)return;auto=false;tok++;mark(w);say(w.textContent.replace(/[¡!¿?.,;:«»"()…]/g,''));};};
+    $('#btext').onclick=e=>{const w=e.target.closest('.w');if(!w)return;
+      const word=w.textContent.replace(/[^\p{L}\p{M}\p{N}'’ʼ-]/gu,'').replace(/^-+|-+$/g,'');if(!word)return;  // sin signos: ni «—» ni «؟»
+      auto=false;tok++;mark(w);say(word);};};
   const mark=w=>{document.querySelectorAll('#btext .hl').forEach(x=>x.classList.remove('hl'));if(w)w.classList.add('hl');};
   const read=()=>{const my=++tok,pre=i===0?t.name+'. ':'',txt=pre+t.pages[i][1];
     sayThen(txt,()=>{mark(null);if(my!==tok||cur!==g||!auto)return;if(i<t.pages.length-1){later(()=>{if(my!==tok||cur!==g||!auto)return;i++;draw();read();},800);}else{auto=false;draw();star();confetti();}},

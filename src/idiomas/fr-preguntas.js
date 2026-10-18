@@ -6,13 +6,13 @@ const cap1=t=>t?String(t)[0].toUpperCase()+String(t).slice(1):t;
 /* Le mot peut commencer par une balise (la pastille de couleur) : on regarde la première lettre visible. */
 const vowel=x=>/^(<[^>]*>)*[aeiouyàâéèêëîïôûh]/i.test(String(x));
 /* le rouge, l'orange */
-const le=x=>(vowel(x)?'l’':'le ')+x;
+const le=x=>(vowel(x)?`l'`:`le `)+x;
 /* de + article : du Mexique, des États-Unis, de la France, de l'Espagne, de Cuba, d'Haïti */
 const de=x=>{x=String(x);
   if(/^le /i.test(x))return 'du '+x.slice(3);
   if(/^les /i.test(x))return 'des '+x.slice(4);
   if(/^(la |l'|l’)/i.test(x))return 'de '+x;
-  return (vowel(x)?'d’':'de ')+x;};
+  return (vowel(x)?`d'`:`de `)+x;};
 
 Object.assign(LANGS.fr.t,{
   /* 10-datos.js : questions tirées d'une liste (espace, nature) */

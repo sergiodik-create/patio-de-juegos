@@ -1,0 +1,77 @@
+<div class="app">
+  <header>
+    <div class="brand" data-t><span>Patio</span> <span>de</span> <span>Juegos</span></div>
+    <div class="hbtns">
+      <button class="btn-round" id="album" data-ta="Mi álbum de pegatinas" aria-label="Mi álbum de pegatinas">📒</button>
+      <button class="btn-round" id="padres" data-ta="Zona de padres y ajustes" aria-label="Zona de padres y ajustes">⚙️</button>
+      <button class="btn-round" id="sound" aria-label="Sonido activado">🔊</button>
+      <button class="btn-round" id="home" aria-label="Volver al inicio" hidden>🏠</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="screen" id="s-age">
+      <p class="hello" data-t>¿Cuántos años tienes?</p>
+      <div class="agecards" id="ages">
+        <button class="agecard" data-age="p" style="background:var(--pink)"><span class="pic">🧸</span><span class="name" data-t>2 a 4 años</span><span class="what" data-t>Los más peques</span></button>
+        <button class="agecard" data-age="m" style="background:var(--blue)"><span class="pic">🎒</span><span class="name" data-t>5 a 7 años</span><span class="what" data-t>Ya voy al cole</span></button>
+        <button class="agecard" data-age="g" style="background:var(--purple)"><span class="pic">🚀</span><span class="name" data-t>8 a 10 años</span><span class="what" data-t>Los mayores</span></button>
+        <button class="agecard" data-age="x" style="background:var(--orange)"><span class="pic">🧠</span><span class="name" data-t>11 y 12 años</span><span class="what" data-t>Retos de verdad</span></button>
+        <button class="agecard" data-age="t" style="background:var(--teal)"><span class="pic">📚</span><span class="name" data-t>Cuentos</span><span class="what" data-t>Para escuchar y leer</span></button>
+        <button class="agecard" data-age="i" style="background:var(--red)"><span class="pic">🌍</span><span class="name" data-t>Idiomas</span><span class="what" id="i-what"></span></button>
+      </div>
+      <div class="row langs" id="langs" hidden></div>
+      <p class="parents" data-t>Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.</p>
+    </section>
+
+    <section class="screen" id="s-home" hidden>
+      <p class="hello" id="ltitle"></p>
+      <div id="lhead"></div>
+      <div class="doors" id="doors"></div>
+      <p class="parents" data-t>Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.</p>
+    </section>
+
+    <section class="screen" id="s-game" hidden>
+      <p class="gtitle" id="gtitle"></p>
+      <div class="row lvl" id="lvl" hidden></div>
+      <div class="stars" id="stars" aria-live="polite"></div>
+      <div id="stage"></div>
+    </section>
+
+    <section class="screen" id="s-album" hidden>
+      <p class="hello" data-t>Mi álbum de pegatinas</p>
+      <p class="tip" id="alb-info"></p>
+      <div class="bar" aria-hidden="true"><span id="alb-bar"></span></div>
+      <div class="album" id="alb-grid"></div>
+    </section>
+
+    <section class="screen" id="s-padres" hidden>
+      <div class="gate" id="gate">
+        <p class="hello" data-t>Zona para adultos</p>
+        <p class="tip" id="gate-q"></p>
+        <p class="guess" id="gate-v" aria-live="polite"></p>
+        <div class="pad" id="gate-pad">
+          <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+          <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+          <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+          <button data-k="del" data-ta="Borrar" aria-label="Borrar">⌫</button><button data-k="0">0</button><button data-k="ok" class="go" data-ta="Entrar" aria-label="Entrar">✓</button>
+        </div>
+      </div>
+      <div class="ajustes" id="ajustes" hidden></div>
+    </section>
+
+    <section class="screen" id="s-break" hidden>
+      <p class="hello" data-t>¡Hora de un descanso!</p>
+      <div class="book">
+        <div class="bpic" id="brk-pic">⏸️</div>
+        <p class="btext" id="brk-txt"></p>
+        <p class="bpage" id="brk-left"></p>
+      </div>
+      <button class="again" id="brk-go" data-t hidden>Volver a jugar</button>
+    </section>
+  </main>
+</div>
+<div id="sub" class="sub" aria-live="polite" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<canvas id="fx"></canvas>
+<!--LEGAL-->

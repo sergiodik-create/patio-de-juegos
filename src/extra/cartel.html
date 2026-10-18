@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartel con QR · Patio de Juegos</title>
+<link rel="icon" href="iconos/icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{css}}">
+<link rel="stylesheet" href="imprimir.css">
+</head>
+<body class="printable">
+<div class="noprint ptools">
+  <h1 data-t>Cartel para colegios, bibliotecas y asociaciones</h1>
+  <p class="note" data-t>Imprímelo y cuélgalo donde lo vean las familias. Las tiras de abajo se pueden recortar para llevárselas.</p>
+  <input id="url" aria-label="Dirección de la web" spellcheck="false">
+  <div class="row"><button class="pill go" id="print" data-t>🖨️ Imprimir</button><a class="pill" href="./" data-t>← Volver a los juegos</a></div>
+</div>
+<div class="sheet poster" id="poster"></div>
+<script src="vendor/qrcode.js"></script>
+<script src="{{lib}}"></script>
+<script src="cartel.js"></script>
+</body>
+</html>

@@ -162,7 +162,7 @@ Object.assign(LANGS.en.t,{
   'Fácil':'Easy',
   'Difícil':'Hard',
   'Mayúsculas':'Capitals',
-  'minúsculas':'lower case',
+  'minúsculas':'small letters',
   'Hasta 5':'Up to 5',
   'Hasta 10':'Up to 10',
   'Hasta 20':'Up to 20',

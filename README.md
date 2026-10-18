@@ -4,7 +4,7 @@ Juegos educativos gratis para niños y niñas de 2 a 12 años, pensados para fam
 Sin anuncios, sin compras, sin registro y sin enviar ningún dato: todo se queda en el dispositivo.
 Funciona en el móvil, la tablet y el ordenador, y se puede instalar para usarlo sin internet.
 
-*Free educational games for children aged 2 to 12, for families who cannot pay for apps. No ads, no purchases, no sign-up, no data collected. Works offline once installed. Available in Spanish and English; more languages welcome (see [CONTRIBUTING.md](CONTRIBUTING.md)).*
+*Free educational games for children aged 2 to 12, for families who cannot pay for apps. No ads, no purchases, no sign-up, no data collected. Works offline once installed. Available in Spanish, English, Portuguese, French, Romanian, Ukrainian and Arabic; more languages welcome (see [CONTRIBUTING.md](CONTRIBUTING.md)).*
 
 ## Qué tiene
 
@@ -12,7 +12,8 @@ Funciona en el móvil, la tablet y el ordenador, y se puede instalar para usarlo
 - **Juegos de mesa:** tres en raya, conecta 4, damas y ajedrez contra el ordenador.
 - **Creativos:** colorear, escenas con pegatinas, inventar cuentos, piano, memoria, globos.
 - **Cuentos** para escuchar y leer con la palabra resaltada, incluidos cuentos de otras culturas.
-- **Idiomas:** aprender inglés (o español, si la pantalla está en inglés) con vocabulario, colores, números, frases y parejas.
+- **Siete idiomas:** español, inglés, portugués, francés, rumano, ucraniano y árabe (de derecha a izquierda), con cuentos, voces y listas de palabras propias de cada uno.
+- **Aprender idiomas:** cualquiera de los siete (inglés si no se elige otro) con vocabulario, colores, números, frases y parejas.
 - **Niveles automáticos:** la dificultad sube o baja sola según los aciertos.
 - **Álbum de pegatinas:** cada cinco estrellas, una pegatina.
 - **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, descansos, progreso, privacidad.
@@ -45,7 +46,7 @@ El archivo `dist/web/_headers` ya trae las cabeceras de seguridad: la web no car
 | Carpeta | Qué hay |
 | --- | --- |
 | `src/js/` | El código, por partes: núcleo, idiomas, datos, cada grupo de juegos y la aplicación (`90-app.js`). |
-| `src/idiomas/` | Las traducciones: `en.js` crea el inglés y `en-*.js` añaden los textos de cada grupo de juegos. |
+| `src/idiomas/` | Las traducciones: `xx.js` crea cada idioma (`en.js`, `pt.js`, `fr.js`, `ro.js`, `uk.js`, `ar.js`) y `xx-*.js` añaden los textos de cada grupo de juegos. |
 | `src/legal/<idioma>/` | Privacidad, aviso legal y créditos de cada idioma. |
 | `src/extra/` | Fichas para imprimir, cartel con QR y la plantilla de las páginas legales. |
 | `src/pagina.html`, `src/estilos.css` | La página y los estilos. |

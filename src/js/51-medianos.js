@@ -97,10 +97,10 @@ function trazar(){
       <p class="tip" id="tt">${_('Repasa {l} con el dedo.',{l:traceName(ch)})}</p>
       <div class="trace" style="width:${W}px;height:${W}px"><canvas id="tg" width="${W}" height="${W}"></canvas><canvas id="ti" width="${W}" height="${W}" aria-label="${_('Zona para escribir')}"></canvas></div>
       <div class="row"><button class="pill" id="tsay">${_('🔊 Oír')}</button><button class="pill" id="tclr">${_('Borrar')}</button><button class="pill" id="tnext">${_('Siguiente ➡️')}</button></div></div>`;
-    const g=$('#tg').getContext('2d'),c=$('#ti').getContext('2d'),font=`800 ${Math.round(W*.78)}px "Baloo 2", "Trebuchet MS", sans-serif`;
-    const guide=()=>{g.clearRect(0,0,W,W);g.font=font;g.textAlign='center';g.textBaseline='middle';
-      g.fillStyle='#E4EEF2';g.fillText(ch,W/2,W*.56);g.setLineDash([6,8]);g.lineWidth=3;g.strokeStyle='#9DB4C0';g.strokeText(ch,W/2,W*.56);};
-    (document.fonts?.load?document.fonts.load(font).catch(()=>{}):Promise.resolve()).then(guide);guide();
+    const g=$('#tg').getContext('2d'),c=$('#ti').getContext('2d'),font=`800 ${Math.round(W*.78)}px "Baloo 2", "Baloo Bhaijaan 2", "Nunito", "Trebuchet MS", sans-serif`;
+    const guide=()=>{g.clearRect(0,0,W,W);g.font=font;const [gx,gy]=place(g,ch,W);
+      g.fillStyle='#E4EEF2';g.fillText(ch,gx,gy);g.setLineDash([6,8]);g.lineWidth=3;g.strokeStyle='#9DB4C0';g.strokeText(ch,gx,gy);};
+    (document.fonts?.load?document.fonts.load(font,ch).catch(()=>{}):Promise.resolve()).then(guide);guide();
     ink=[];c.lineCap='round';c.lineJoin='round';c.lineWidth=W*.075;c.strokeStyle=pick(['#E8483B','#2F7FE0','#3DB46D','#8B5BD6','#F28A2E']);
     const pt=e=>{const r=$('#ti').getBoundingClientRect();return [(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*W/r.height];};
     $('#ti').onpointerdown=e=>{e.preventDefault();drawing=true;$('#ti').setPointerCapture(e.pointerId);const p=pt(e);ink.push([p]);c.beginPath();c.moveTo(...p);c.lineTo(p[0]+.1,p[1]);c.stroke();};
@@ -112,11 +112,14 @@ function trazar(){
     $('#tnext').onclick=()=>{i++;draw();};
     say(_('Repasa {l} con el dedo.',{l:traceName(ch)}));
   };
+  /* Centra el dibujo de la letra, no su caja: así las letras árabes o con rabito no se salen por abajo. */
+  const place=(x,ch,S)=>{x.textAlign='center';x.textBaseline='alphabetic';const m=x.measureText(ch),a=m.actualBoundingBoxAscent,d=m.actualBoundingBoxDescent;
+    if(!(a+d>0)){x.textBaseline='middle';return [S/2,S*.56];}return [S/2+(m.actualBoundingBoxLeft-m.actualBoundingBoxRight)/2,S/2+(a-d)/2];};
   /* Compara, a baja resolución, la tinta del niño con la forma de la letra. */
   const check=(ch,W,font)=>{
     const N=48,m=document.createElement('canvas');m.width=m.height=N;const x=m.getContext('2d');
-    x.font=font.replace(/\d+px/,Math.round(N*.78)+'px');x.textAlign='center';x.textBaseline='middle';x.fillText(ch,N/2,N*.56);
-    const mask=x.getImageData(0,0,N,N).data;x.clearRect(0,0,N,N);x.lineWidth=N*.16;x.strokeText(ch,N/2,N*.56);x.fillText(ch,N/2,N*.56);
+    x.font=font.replace(/\d+px/,Math.round(N*.78)+'px');const [cx,cy]=place(x,ch,N);x.fillText(ch,cx,cy);
+    const mask=x.getImageData(0,0,N,N).data;x.clearRect(0,0,N,N);x.lineWidth=N*.16;x.strokeText(ch,cx,cy);x.fillText(ch,cx,cy);
     const wide=x.getImageData(0,0,N,N).data;x.clearRect(0,0,N,N);x.drawImage($('#ti'),0,0,N,N);const inkd=x.getImageData(0,0,N,N).data;
     let inMask=0,covered=0,inkN=0,outside=0;
     for(let p=3;p<mask.length;p+=4){const mk=mask[p]>100,ik=inkd[p]>60;if(mk){inMask++;if(ik)covered++;}if(ik){inkN++;if(wide[p]<60)outside++;}}

@@ -148,7 +148,7 @@ def build_web(css, lib, app):
         (WEB / name).write_text(text, encoding='utf-8')
     (WEB / 'index.html').write_text(
         '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-        + head('web', f'estilos.{ver}.css') + '\n</head>\n<body>\n' + page('web')
+        + head('web', f'estilos.{ver}.css') + canonical('') + '\n</head>\n<body>\n' + page('web')
         + f'\n<script src="lib.{ver}.js"></script>\n<script src="app.{ver}.js"></script>\n</body>\n</html>\n', encoding='utf-8')
     # páginas extra: fichas para imprimir, cartel con QR, privacidad y aviso legal
     for extra in sorted(p for p in (SRC / 'extra').glob('*.html') if not p.name.startswith('_')):
@@ -164,12 +164,30 @@ def build_web(css, lib, app):
                 'icons': [{'src': 'iconos/icono.svg', 'sizes': 'any', 'type': 'image/svg+xml'}]
                 + [png_icon(p) for p in pngs if '180' not in p]}
     (WEB / 'manifest.webmanifest').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
-    precache = sorted(str(p.relative_to(WEB)).replace('\\', '/') for p in WEB.rglob('*') if p.is_file() and p.name not in ('sw.js', '_headers', 'robots.txt'))
+    precache = sorted(str(p.relative_to(WEB)).replace('\\', '/') for p in WEB.rglob('*') if p.is_file() and p.name not in ('sw.js', '_headers', 'robots.txt', 'sitemap.xml'))
     sw = read('sw.js').replace('__VERSION__', ver).replace('__FILES__', json.dumps(['./'] + precache, ensure_ascii=False))
     (WEB / 'sw.js').write_text(sw, encoding='utf-8')
     shutil.copy(SRC / '_headers', WEB / '_headers')
-    (WEB / 'robots.txt').write_text('User-agent: *\nAllow: /\n', encoding='utf-8')
+    robots = 'User-agent: *\nAllow: /\n'
+    if site_url():  # mapa del sitio para Google Search Console y otros buscadores
+        pages = [''] + [n for n in ('fichas.html', 'privacidad.html', 'aviso-legal.html') if (WEB / n).exists()]
+        (WEB / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                                         + ''.join(f'  <url><loc>{site_url()}{n}</loc></url>\n' for n in pages)
+                                         + '</urlset>\n', encoding='utf-8')
+        robots += f'Sitemap: {site_url()}sitemap.xml\n'
+    (WEB / 'robots.txt').write_text(robots, encoding='utf-8')
     return WEB
+
+
+def site_url():
+    """https://dominio/ si config.json trae el dominio; vacío si no."""
+    d = CONFIG.get('dominio', '').strip().rstrip('/')
+    return 'https://' + d.split('://')[-1] + '/' if d else ''
+
+
+def canonical(path):
+    """Dice a los buscadores cuál es la dirección principal (sin www)."""
+    return f'\n<link rel="canonical" href="{site_url()}{path}">' if site_url() else ''
 
 
 def png_icon(p):

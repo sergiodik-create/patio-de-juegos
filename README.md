@@ -31,7 +31,7 @@ python3 -m http.server -d dist/web 8000   # y abre http://localhost:8000
 
 ## Publicarlo en Cloudflare Pages
 
-1. **Rellena `src/config.json`**: responsable, correo de contacto y dominio. Salen en la privacidad, el aviso legal y el cartel. Vuelve a ejecutar `python3 build.py`.
+1. **Rellena `src/config.json`**: responsable, correo de contacto y dominio. Salen en la privacidad, el aviso legal y el cartel, y con el dominio se crea el mapa del sitio (`sitemap.xml`) para los buscadores. Vuelve a ejecutar `python3 build.py`.
 2. **Sube la web.** Hay dos formas:
    - *Subida directa:* en el panel de Cloudflare, Workers y Pages › Crear › Pages › Subir recursos, y arrastra la carpeta `dist/web`.
    - *Desde un repositorio de GitHub (Workers):* en Workers y Pages › Crear, conecta el repositorio con comando de compilación `python3 build.py` y comando de despliegue `npx wrangler deploy` (lee `wrangler.jsonc`, que sube `dist/web`). Cada cambio que se suba al repositorio se publica solo.

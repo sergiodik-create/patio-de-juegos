@@ -47,9 +47,12 @@ GAMES.push(
      visual:`<span>${e}</span><span class="word">_${w.slice(1).toUpperCase()}</span>`,
      opts:shuffle([...o]).map(x=>({html:x,v:x,cls:'num'})),right:_('{w} empieza con {l}.',{w:cap(w),l:L}),wrong:()=>_('No. Escucha: {w}. Prueba otra vez.',{w})};}},
  {id:'completa',age:'m',pic:'🧩',name:'Completa la palabra',what:'¿Qué letra falta?',bg:'var(--yellow)',levels:2,needs:['WORDS'],gen(l=0){
-   let e,w,idx;do{[e,w]=pick(D.WORDS);const c=[...w].map((ch,i)=>'aeiou'.includes(ch)?i:-1).filter(i=>i>=0);idx=c.length?pick(c):-1;}while(idx<0);
-   const L=w[idx].toUpperCase(),o=new Set([L]);while(o.size<[3,5][l])o.add(pick('AEIOU'.split('')));
-   const shown=[...w.toUpperCase()].map((ch,i)=>i===idx?'_':ch).join('');
+   /* Las vocales son las de cada idioma (data.VOWELS, en minúscula); si no trae, las del español. */
+   const V=[...(D.VOWELS||'aeiou')];let e,w,idx=-1;
+   for(let k=0;k<200&&idx<0;k++){[e,w]=pick(D.WORDS);const c=[...w].map((ch,i)=>V.includes(ch)?i:-1).filter(i=>i>=0);idx=c.length?pick(c):-1;}
+   if(idx<0)idx=0;
+   const L=[...w][idx].toUpperCase(),o=new Set([L]);while(o.size<Math.min([3,5][l],V.length))o.add(pick(V).toUpperCase());
+   const shown=[...w].map((ch,i)=>i===idx?'_':ch.toUpperCase()).join('');
    return {prompt:_('¿Qué letra falta?'),speak:_('¿Qué letra falta en {w}?',{w}),answer:L,visual:`<span>${e}</span><span class="word">${shown}</span>`,
      opts:shuffle([...o]).map(x=>({html:x,v:x,cls:'num'})),right:_('Es la {l}: {w}.',{l:L,w}),wrong:()=>_('Escucha bien: {w}. Prueba otra vez.',{w})};}},
  {id:'sumas',age:'m',pic:'➕',name:'Sumas',what:'Junta y cuenta',bg:'var(--green)',levels:3,gen(l=0){

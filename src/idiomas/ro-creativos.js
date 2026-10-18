@@ -175,7 +175,7 @@ LANGS.ro.data.STORY={
       pick([`Într-o dimineață, în timp ce se juca, ${hd} a găsit ${ob}.`,`Într-o zi foarte liniștită, ${ob} a apărut chiar în fața ${ghd}.`]),
       pick([`${cap(the)} strălucea atât de tare, încât totul în jur s-a umplut de culori.`,`Deodată, ${the} a început să țopăie și să cânte un cântec foarte vesel.`,`Când ${hd} ${fo?'a atins-o':'l-a atins'}, a simțit niște gâdilături magice în burtică.`]),
       pick(['Împreună au călătorit până sus de tot, acolo unde norii au gust de vată de zahăr.','Pe drum au cunoscut mulți prieteni noi care voiau să se joace.','Au găsit o comoară ascunsă, plină de râsete și îmbrățișări.','Au ajutat o păsărică rătăcită să se întoarcă la familia ei.']),
-      pick([`La sfârșitul zilei, ${hd} s-a întors acasă, a închis ochii și a visat noi aventuri. Sfârșit.`,`Și din ziua aceea, ${hd} știe că visele devin realitate atunci când le împărțim cu alții. Sfârșit.`])];}
+      pick([`La sfârșitul zilei, ${hd} s-a întors acasă, a închis ochii și a visat noi aventuri. Sfârșit.`,`Și din ziua aceea, ${hd} știe că visele devin realitate atunci când le împărtășim. Sfârșit.`])];}
 };
 
 /* Șah: numele pieselor (spuse când atingi o piesă), sfaturi ca să înveți cum se mută fiecare piesă,

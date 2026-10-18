@@ -1,7 +1,200 @@
 /* Patio de Juegos: українська (voz uk-UA).
    Este archivo crea el idioma y traduce las pantallas comunes; los demás src/idiomas/uk-*.js añaden los textos y datos de cada grupo de juegos.
    Traducciones: 'Texto en español': 'traducción' (mantén los {huecos}; un valor puede ser una función de ellos).
-   Listas de datos: LANGS.uk.data.CLAVE=...  con la misma forma que DATA.es.CLAVE. */
+   Listas de datos: LANGS.uk.data.CLAVE=...  con la misma forma que DATA.es.CLAVE.
+   Українською: апостроф завжди «ʼ» (U+02BC), щоб не ламати рядки в лапках '…'.
+   Числа з іменниками узгоджуються функціями: 1 зірка, 2–4 зірки, 5+ (і 11–14) зірок.
+   Назви мов ({l}) — прикметники жіночого роду в називному відмінку («англійська»);
+   функції нижче ставлять їх у потрібний відмінок: «вивчаємо англійську», «англійською», «англійський голос». */
 LANGS.uk={name:'Українська',voz:'uk-UA',t:{},data:{}};
 Object.assign(LANGS.uk.t,{
+  /* назва й обкладинка */
+  'Patio de Juegos':'Ігровий майданчик',
+  '<span>Patio</span> <span>de</span> <span>Juegos</span>':'<span>Ігровий</span> <span>майданчик</span>',
+  '¿Cuántos años tienes?':'Скільки тобі років?',
+  '2 a 4 años':'Від 2 до 4 років',
+  'Los más peques':'Для найменших',
+  '5 a 7 años':'Від 5 до 7 років',
+  'Ya voy al cole':'Я вже ходжу до школи',
+  '8 a 10 años':'Від 8 до 10 років',
+  'Los mayores':'Для старших',
+  '11 y 12 años':'11 і 12 років',
+  'Retos de verdad':'Справжні виклики',
+  'Cuentos':'Казки',
+  'Para escuchar y leer':'Слухати й читати',
+  'Idiomas':'Мови',
+  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'Без реклами, без покупок, без реєстрації і без жодного надсилання даних. Зроби гучніше: гра розмовляє!',
+  'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'За кожну правильну відповідь ти отримуєш зірку. За пʼять зірок — наліпку для свого альбому 📒.',
+  'Mi álbum de pegatinas':'Мій альбом наліпок',
+  'Zona de padres y ajustes':'Для батьків і налаштування',
+  'Zona para adultos':'Тільки для дорослих',
+  'Entrar':'Увійти',
+  '¡Hora de un descanso!':'Час відпочити!',
+  'Volver a jugar':'Повернутися до гри',
+
+  /* назви мов (прикметники жіночого роду: «мова» мається на увазі) */
+  'español':'іспанська','inglés':'англійська','francés':'французька','portugués':'португальська','italiano':'італійська','alemán':'німецька',
+  'catalán':'каталанська','gallego':'галісійська','euskera':'баскська','árabe':'арабська','chino':'китайська','ucraniano':'українська',
+  'rumano':'румунська','quechua':'кечуа','guaraní':'гуарані',
+
+  /* звук і наліпки */
+  'Sonido activado':'Звук увімкнено',
+  'Sonido apagado':'Звук вимкнено',
+  '¡Pegatina nueva para tu álbum!':'Нова наліпка для твого альбому!',
+  '¡Has ganado una pegatina nueva para tu álbum!':'Ура! Ти отримуєш нову наліпку для свого альбому!',
+
+  /* екрани */
+  'Juegos para 2 a 4 años':'Ігри для дітей від 2 до 4 років',
+  'Juegos para 5 a 7 años':'Ігри для дітей від 5 до 7 років',
+  'Juegos para 8 a 10 años':'Ігри для дітей від 8 до 10 років',
+  'Juegos para 11 y 12 años':'Ігри для дітей 11 і 12 років',
+  'Cuentos para escuchar':'Казки, які можна послухати',
+  'Aprende idiomas jugando':'Вивчай мови граючись',
+  'Volver a los juegos':'Назад до ігор',
+  'Cambiar de edad':'Змінити вік',
+  'Volver':'Назад',
+  /* {l}: «англійська» → «Вивчаємо англійську»; незмінні назви («кечуа») лишаються як є */
+  'Aprendemos {l}. Toca un juego para empezar.':v=>`Вивчаємо ${String(v.l||'').replace(/ька$/,'ьку')}. Торкнися гри, щоб почати.`,
+  'Aprendemos {l}.':v=>`Вивчаємо ${String(v.l||'').replace(/ька$/,'ьку')}.`,
+  /* «Слова й фрази англійською», «Слова й фрази мовою кечуа» */
+  'Palabras y frases en {l}':v=>{const l=String(v.l||'');return /ька$/.test(l)?`Слова й фрази ${l.replace(/ька$/,'ькою')}`:`Слова й фрази мовою ${l}`;},
+  '¿A qué jugamos?':'У що пограємо?',
+
+  /* рівні й підбадьорення */
+  '🌱 Fácil':'🌱 Легко',
+  '🌿 Medio':'🌿 Середньо',
+  '🌳 Difícil':'🌳 Складно',
+  'Nivel {n}':'Рівень {n}',
+  '¡Subes de nivel!':'Ти переходиш на новий рівень!',
+  '¡Muy bien!':'Молодець!',
+  '¡Genial!':'Чудово!',
+  '¡Bravo!':'Браво!',
+  '¡Lo lograste!':'У тебе вийшло!',
+  '¡Eres un crack!':'Ти супер!',
+  '¡Fantástico!':'Фантастика!',
+
+  /* альбом */
+  '¡Tienes las {n} pegatinas! Eres un campeón.':v=>{const n=+v.n,a=n%10,b=n%100;
+    return `Ура! У тебе всі ${v.n} ${a===1&&b!==11?'наліпка':a>=2&&a<=4&&(b<12||b>14)?'наліпки':'наліпок'}! Ти справжня зірка.`;},
+  'Tienes {n} de {t} pegatinas. Te falta 1 estrella para la siguiente.':v=>{const n=+v.n,a=n%10,b=n%100;
+    return `У тебе ${v.n} ${a===1&&b!==11?'наліпка':a>=2&&a<=4&&(b<12||b>14)?'наліпки':'наліпок'} із ${v.t}. До наступної — ще одна зірка!`;},
+  'Tienes {n} de {t} pegatinas. Te faltan {f} estrellas para la siguiente.':v=>{const pl=(x,one,few,many)=>{const a=x%10,b=x%100;return a===1&&b!==11?one:a>=2&&a<=4&&(b<12||b>14)?few:many;};
+    return `У тебе ${v.n} ${pl(+v.n,'наліпка','наліпки','наліпок')} із ${v.t}. До наступної — ще ${v.f} ${pl(+v.f,'зірка','зірки','зірок')}.`;},
+  'Pegatina escondida':'Схована наліпка',
+  'Esta pegatina todavía no la tienes. Gana estrellas jugando para conseguirla.':'Цієї наліпки в тебе ще немає. Грай і збирай зірки, щоб її отримати.',
+
+  /* перерви */
+  'Estira los brazos hacia el cielo, muy alto.':'Потягнися руками до неба, високо-високо.',
+  'Mueve los hombros y gira la cabeza despacito.':'Поворуши плечима й повільно покрути головою.',
+  'Bebe un poco de agua.':'Випий трохи води.',
+  'Mira algo que esté lejos, por la ventana.':'Подивися у вікно на щось далеко-далеко.',
+  'Da cinco saltitos de canguro.':'Зроби пʼять стрибків, як кенгуру.',
+  '¡Hora de un descanso! Tus ojos y tu cuerpo también quieren jugar.':'Час відпочити! Твої очі й тіло теж хочуть погратися.',
+  '¡Muy bien! Ya puedes volver a jugar.':'Молодець! Тепер можна знову грати.',
+
+  /* розділ для батьків (до дорослих звертаємося на «ви») */
+  'Para entrar, escribe cuánto es {a} × {b}':'Щоб увійти, напишіть, скільки буде {a} × {b}',
+  'Zona de padres y educadores':'Для батьків і педагогів',
+  'Los ajustes y el progreso se guardan solo en este dispositivo. Nada sale de aquí.':'Налаштування й прогрес зберігаються тільки на цьому пристрої. Нічого нікуди не надсилається.',
+  'Idioma de la pantalla y de la voz':'Мова екрана й голосу',
+  'Idioma para aprender jugando':'Мова, яку вивчаємо в іграх',
+  '¿Quieres traducir el Patio a tu idioma? Solo hay que traducir unos archivos de texto; mira la guía para voluntarios.':'Хочете перекласти Ігровий майданчик своєю мовою? Для цього досить перекласти кілька текстових файлів; подивіться посібник для волонтерів.',
+  'Sonido, pantalla y accesibilidad':'Звук, екран і доступність',
+  'Voz y sonidos':'Голос і звуки',
+  'El juego lee las preguntas en voz alta.':'Гра читає запитання вголос.',
+  'Subtítulos':'Субтитри',
+  'Muestra escrito lo que dice la voz. Útil sin sonido o con dificultades auditivas.':'Показує текстом усе, що каже голос. Корисно без звуку або для дітей із порушеннями слуху.',
+  'Modo calma':'Спокійний режим',
+  'Menos animaciones y confeti, colores más suaves, sonidos más bajos y globos más lentos.':'Менше анімації й конфеті, мʼякші кольори, тихіші звуки й повільніші кульки.',
+  'Botones y letra más grandes':'Більші кнопки й літери',
+  'Para manos pequeñas o vista cansada.':'Для маленьких рук або втомлених очей.',
+  'Alto contraste':'Висока контрастність',
+  'Bordes y textos más marcados.':'Чіткіші контури й текст.',
+  'Letra fácil de leer':'Легкий для читання шрифт',
+  'Usa una letra pensada para personas con baja visión o dislexia.':'Використовує шрифт, створений для людей зі слабким зором або дислексією.',
+  'Nombres en los colores':'Назви кольорів',
+  'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'Підписує назву кожного кольору. Допомагає дітям із дальтонізмом.',
+  'Niveles automáticos':'Автоматичні рівні',
+  'La dificultad sube o baja sola según los aciertos.':'Складність сама зростає або знижується залежно від правильних відповідей.',
+  'Velocidad de la voz':'Швидкість голосу',
+  '🐢 Lenta':'🐢 Повільно',
+  'Normal':'Нормально',
+  '🐇 Rápida':'🐇 Швидко',
+  'Voz':'Голос',
+  '🔊 Probar la voz':'🔊 Перевірити голос',
+  'Este navegador no puede leer en voz alta. Prueba con Chrome, Edge o Safari.':'Цей браузер не вміє читати вголос. Спробуйте Chrome, Edge або Safari.',
+  /* «український голос», «англійський голос»; незмінні назви: «голос мовою кечуа» */
+  'Hay una voz en {l} en este dispositivo. ✅':v=>{const l=String(v.l||'');
+    return `На цьому пристрої є ${/ька$/.test(l)?l.replace(/ька$/,'ький')+' голос':'голос мовою '+l}. ✅`;},
+  'No hemos encontrado una voz en {l}. En Android: Ajustes › Accesibilidad › Salida de texto a voz. En iPad: Ajustes › Accesibilidad › Contenido leído › Voces.':v=>{const l=String(v.l||'');
+    return `Не вдалося знайти ${/ька$/.test(l)?l.replace(/ька$/,'ький')+' голос':'голос мовою '+l}. На Android: Налаштування › Спеціальні можливості › Синтез мовлення. На iPad: Параметри › Доступність › Озвучення вмісту › Голоси.`;},
+  'Comprobando la voz… pulsa «Probar la voz».':'Перевіряємо голос… натисніть «Перевірити голос».',
+  'Así hablaré a partir de ahora.':'Відтепер я говоритиму ось так.',
+  'Hola, soy la voz del Patio de Juegos.':'Привіт! Я голос Ігрового майданчика.',
+  'Si no has oído nada, sube el volumen o instala una voz en los ajustes del dispositivo.':'Якщо нічого не чути, зробіть гучніше або встановіть голос у налаштуваннях пристрою.',
+  'Tiempo de pantalla':'Час біля екрана',
+  'Proponer un descanso cada':'Пропонувати перерву кожні',
+  'Nunca':'Ніколи',
+  '15 min':'15 хв','20 min':'20 хв','30 min':'30 хв','45 min':'45 хв',
+  'Al llegar el tiempo, el juego invita a estirarse, beber agua y mirar lejos durante 30 segundos.':'Коли час мине, гра запропонує дитині на 30 секунд потягнутися, випити води й подивитися вдалину.',
+  'Progreso en este dispositivo':'Прогрес на цьому пристрої',
+  '⭐ {e} estrellas · 📒 {p} de {t} pegatinas':v=>{const pl=(x,one,few,many)=>{const a=x%10,b=x%100;return a===1&&b!==11?one:a>=2&&a<=4&&(b<12||b>14)?few:many;};
+    return `⭐ ${v.e} ${pl(+v.e,'зірка','зірки','зірок')} · 📒 ${v.p} ${pl(+v.p,'наліпка','наліпки','наліпок')} із ${v.t}`;},
+  'Lo que más juega:':'Улюблені ігри:',
+  '1 vez':'1 раз',
+  '{n} veces':v=>{const n=+v.n,a=n%10,b=n%100;return `${v.n} ${a===1&&b!==11?'раз':a>=2&&a<=4&&(b<12||b>14)?'рази':'разів'}`;},
+  'Todavía no hay partidas.':'Ще не зіграно жодної гри.',
+  'Niveles alcanzados:':'Досягнуті рівні:',
+  'Borrar el progreso':'Стерти прогрес',
+  '¿Seguro? Toca otra vez para borrar':'Точно? Торкніться ще раз, щоб стерти',
+  'Usarlo sin internet':'Користуватися без інтернету',
+  'Instálalo en la tablet y funcionará aunque no haya conexión.':'Встановіть його на планшет, і він працюватиме навіть без інтернету.',
+  '📲 Instalar en este dispositivo':'📲 Встановити на цей пристрій',
+  '<b>Android (Chrome):</b> menú ⋮ › «Añadir a pantalla de inicio» o «Instalar aplicación».<br><b>iPad o iPhone (Safari):</b> botón Compartir › «Añadir a pantalla de inicio».':'<b>Android (Chrome):</b> меню ⋮ › «Додати на головний екран» або «Установити застосунок».<br><b>iPad або iPhone (Safari):</b> кнопка «Поширити» › «На Початковий екран».',
+  '🖨️ Fichas para imprimir':'🖨️ Завдання для друку',
+  '📌 Cartel con QR':'📌 Плакат із QR-кодом',
+  'Esta es la demostración. La versión web publicada se podrá instalar en la tablet y usar sin internet, y tendrá fichas para imprimir y un cartel con código QR.':'Це демоверсія. Опублікований сайт можна буде встановити на планшет і користуватися ним без інтернету; там будуть завдання для друку й плакат із QR-кодом.',
+  'Privacidad y aviso legal':'Конфіденційність і правова інформація',
+  'Privacidad':'Конфіденційність',
+  'Aviso legal':'Правова інформація',
+  'Créditos y licencias':'Автори й ліцензії',
+
+  /* завдання для друку */
+  'Fichas para imprimir':'Завдання для друку',
+  'Elige una ficha, pulsa «Otra» hasta que te guste y después «Imprimir». Cada vez sale distinta.':'Оберіть завдання, натискайте «Інше», доки не сподобається, а потім — «Друкувати». Щоразу виходить по-новому.',
+  '↻ Otra':'↻ Інше',
+  '🖨️ Imprimir':'🖨️ Друкувати',
+  '← Volver a los juegos':'← Назад до ігор',
+  '🖍️ Colorear':'🖍️ Розмальовки',
+  '🐭 Laberintos':'🐭 Лабіринти',
+  '✍️ Trazar letras':'✍️ Обводимо літери',
+  '🔢 Trazar números':'🔢 Обводимо цифри',
+  '🍎 Contar':'🍎 Лічба',
+  '➕ Sumas':'➕ Додавання',
+  'Fácil':'Легко',
+  'Difícil':'Складно',
+  'Mayúsculas':'Великі літери',
+  'minúsculas':'малі літери',
+  'Hasta 5':'До 5',
+  'Hasta 10':'До 10',
+  'Hasta 20':'До 20',
+  'Hasta 100':'До 100',
+  'Nombre':'Імʼя',
+  /* {x} — назва з DRAWING_NAMES, уже в знахідному відмінку: «Розфарбуй квітку» */
+  'Colorea {x}':'Розфарбуй {x}',
+  'Lleva al ratón hasta el queso':'Допоможи мишці дістатися до сиру',
+  'Repasa los números':'Обведи цифри',
+  'Repasa las letras':'Обведи літери',
+  'Cuenta y escribe el número':'Порахуй і напиши число',
+  'Resuelve las sumas':'Розвʼяжи приклади на додавання',
+
+  /* плакат */
+  'Cartel para colegios, bibliotecas y asociaciones':'Плакат для шкіл, бібліотек і громадських організацій',
+  'Imprímelo y cuélgalo donde lo vean las familias. Las tiras de abajo se pueden recortar para llevárselas.':'Роздрукуйте його й повісьте там, де його побачать родини. Смужки внизу можна відірвати й забрати із собою.',
+  'Juegos educativos gratis para niños de 2 a 12 años':'Безкоштовні навчальні ігри для дітей від 2 до 12 років',
+  '✅ Sin anuncios y sin compras':'✅ Без реклами й без покупок',
+  '✅ Sin registro y sin datos personales':'✅ Без реєстрації й без персональних даних',
+  '✅ Funciona en el móvil, la tablet y el ordenador':'✅ Працює на телефоні, планшеті й компʼютері',
+  '✅ Se puede usar sin internet una vez instalado':'✅ Після встановлення працює без інтернету',
+  '✅ Cuentos, lógica, letras, números, idiomas y mucho más':'✅ Казки, логіка, літери, числа, мови та багато іншого',
 });

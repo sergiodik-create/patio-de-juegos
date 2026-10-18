@@ -1,0 +1,9 @@
+// Configuración para publicar en Cloudflare Workers (recursos estáticos).
+// Cloudflare ejecuta «python3 build.py» y después «npx wrangler deploy», que sube la carpeta dist/web.
+{
+  "name": "patio-de-juegos",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist/web"
+  }
+}

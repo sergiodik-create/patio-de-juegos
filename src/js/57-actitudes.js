@@ -77,7 +77,7 @@ DATA.es.HARIAS=[
 /* ---------- reparte justo ----------
    Cosas que se reparten: el nombre va en plural y con artículo («las galletas»). En español todas son femeninas
    para que valga «¿Cuántas…?»; cada idioma puede elegir las suyas. Sin 🍒, que son dos cerezas y lían al contar. */
-DATA.es.SHARE_ITEMS=[{e:'🍪',n:'las galletas'},{e:'🍓',n:'las fresas'},{e:'🍎',n:'las manzanas'},{e:'🧁',n:'las magdalenas'},{e:'🍬',n:'las chucherías'},{e:'⭐',n:'las pegatinas'}];
+DATA.es.SHARE_ITEMS=[{e:'🍪',n:'las galletas'},{e:'🍓',n:'las fresas'},{e:'🍎',n:'las manzanas'},{e:'🧁',n:'las magdalenas'},{e:'🍬',n:'las chucherías'},{e:'🍊',n:'las naranjas'}];
 
 /* ---------- respira conmigo ----------
    Coger aire mientras el dibujo crece y soltarlo mientras encoge, cinco veces. Los peques respiran algo más deprisa

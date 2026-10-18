@@ -2,7 +2,7 @@
 
 Juegos educativos gratis para niños y niñas de 2 a 12 años, pensados para familias que no pueden pagar aplicaciones.
 Sin anuncios, sin compras, sin registro y sin enviar ningún dato: todo se queda en el dispositivo.
-Funciona en el móvil, la tablet y el ordenador, y se puede instalar para usarlo sin internet.
+Funciona en el móvil, la tablet, el ordenador y la tele (con las flechas del mando), y al abrirla ofrece instalarse para usarla sin internet.
 
 *Free educational games for children aged 2 to 12, for families who cannot pay for apps. No ads, no purchases, no sign-up, no data collected. Works offline once installed. Available in Spanish, English, Portuguese, French, Romanian, Ukrainian and Arabic; more languages welcome (see [CONTRIBUTING.md](CONTRIBUTING.md)).*
 
@@ -16,7 +16,7 @@ Funciona en el móvil, la tablet y el ordenador, y se puede instalar para usarlo
 - **Aprender idiomas:** cualquiera de los siete (inglés si no se elige otro) con vocabulario, colores, números, frases y parejas.
 - **Niveles automáticos:** la dificultad sube o baja sola según los aciertos.
 - **Álbum de pegatinas:** cada cinco estrellas, una pegatina.
-- **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, modo daltónico (colores que se distinguen y un dibujo en cada color), descansos, progreso, privacidad.
+- **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, modo daltónico (colores que se distinguen y un dibujo en cada color), animaciones (automáticas según la potencia del aparato, pocas o muchas), descansos, progreso, privacidad.
 - **Fichas para imprimir** (colorear, laberintos, trazar letras y números, contar, sumas) y **cartel con QR** para colegios y asociaciones.
 
 ## Probarlo en tu ordenador

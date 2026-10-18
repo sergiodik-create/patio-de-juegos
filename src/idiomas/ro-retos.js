@@ -62,7 +62,7 @@ Object.assign(LANGS.ro.t,{
   'Necesidad': 'Nevoie',
   'Capricho': 'Moft',
   '¿{x} es una necesidad o un capricho?': v=>{const x=String(v.x||'');return `Este o nevoie sau un moft să ai ${x.charAt(0).toLowerCase()+x.slice(1)}?`;},
-  'Es una necesidad: la necesitamos para vivir bien.': 'Este o nevoie: avem nevoie de asta ca să trăim bine.',
+  'Es una necesidad: la necesitamos para vivir bien.': 'Este o nevoie: ne trebuie ca să trăim bine.',
   'Es un capricho: está bien tenerlo a veces, pero podemos vivir sin él.': 'Este un moft: e plăcut să ai așa ceva din când în când, dar putem trăi și fără.',
   'Piensa: ¿podríamos vivir sin ello?': 'Gândește-te: am putea trăi fără așa ceva?',
   'Quieres algo que cuesta {p}. Ahorras {s} cada semana. ¿Cuántas semanas necesitas?': 'Vrei ceva care costă {p}. Pui deoparte {s} în fiecare săptămână. De câte săptămâni ai nevoie?',
@@ -70,7 +70,7 @@ Object.assign(LANGS.ro.t,{
   'Divide el precio entre lo que ahorras cada semana.': 'Împarte prețul la suma pe care o pui deoparte în fiecare săptămână.',
   'Algo cuesta {p} y tiene un {d} % de descuento. ¿Cuánto pagas?': 'Ceva costă {p} și are o reducere de {d}%. Cât plătești?',
   'El {d} % de {p} es {r}, así que pagas {pay}.': '{d}% din {p} înseamnă {r}, așa că plătești {pay}.',
-  'Primero calcula cuánto te descuentan y réstalo.': 'Mai întâi află cu cât scade prețul, apoi scade suma din preț.',
+  'Primero calcula cuánto te descuentan y réstalo.': 'Mai întâi calculează cât înseamnă reducerea, apoi scade-o din preț.',
   'Compras algo de {p} y pagas con {b}. ¿Cuánto te devuelven?': 'Cumperi ceva de {p} și plătești cu o bancnotă de {b}. Cât rest primești?',
   '{b} menos {p} son {c}.': '{b} minus {p} fac {c}.',
   'Cuenta desde el precio hasta lo que has pagado.': 'Numără de la preț până la suma pe care ai dat-o.',
@@ -176,10 +176,10 @@ LANGS.ro.data.SCIENCE_QA=[
 /* [emoji, ce s-a întâmplat (se citește „… în anul 1492.”), anul (negativ = înainte de Hristos), aproximativ] */
 LANGS.ro.data.HISTORY=[
   ['✍️','Scrisul a fost inventat în Mesopotamia',-3200,true],['🔺','A fost construită Marea Piramidă de la Giza',-2560,true],
-  ['🏛️','Au avut loc primele Jocuri Olimpice, în Grecia',-776,false],['🏟️','A fost inaugurat Colosseumul din Roma',80,false],
-  ['📖','Gutenberg a construit tiparul',1450,true],['⛵','Columb a ajuns în America',1492,false],['🌍','S-a încheiat prima călătorie în jurul lumii',1522,false],
+  ['🏛️','Au avut loc primele Jocuri Olimpice în Grecia',-776,false],['🏟️','A fost inaugurat Colosseumul din Roma',80,false],
+  ['📖','Gutenberg a inventat tiparul',1450,true],['⛵','Columb a ajuns în America',1492,false],['🌍','S-a încheiat prima călătorie în jurul lumii',1522,false],
   ['🏔️','Incașii au construit Machu Picchu',1450,true],['📚','A apărut prima parte din Don Quijote',1605,false],
-  ['🔭','Galileo Galilei a văzut lunile lui Jupiter',1610,false],['💉','Edward Jenner a creat primul vaccin',1796,false],['🚂','A pornit primul tren de călători',1825,false],
+  ['🔭','Galileo Galilei a observat lunile lui Jupiter',1610,false],['💉','Edward Jenner a creat primul vaccin',1796,false],['🚂','A pornit primul tren de călători',1825,false],
   ['☎️','A fost brevetat telefonul',1876,false],['✈️','Frații Wright au făcut primul lor zbor',1903,false],['💊','Alexander Fleming a descoperit penicilina',1928,false],
   ['🕊️','A fost adoptată Declarația Universală a Drepturilor Omului',1948,false],['🛰️','A fost lansat primul satelit artificial',1957,false],
   ['🌕','Oamenii au pășit pentru prima dată pe Lună',1969,false],['🌐','A apărut World Wide Web',1991,false]];

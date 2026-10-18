@@ -204,7 +204,7 @@ Object.assign(LANGS.ro.t,{
   'El robot se ha parado antes de llegar. Cambia el programa.':'Robotul s-a oprit înainte să ajungă. Schimbă programul.',
   '¡Uy! El robot se ha chocado. Cambia el programa.':'Ups! Robotul s-a lovit de ceva. Schimbă programul.',
   '¡Conseguido con {b} bloques!':v=>`Ai reușit cu ${pl(v.b,`bloc`,`blocuri`)}!`,
-  '¡Conseguido en {n} pasos!':v=>+v.n===1?`Ai reușit dintr-un singur pas!`:`Ai reușit în ${pl(v.n,`pas`,`pași`)}!`,
+  '¡Conseguido en {n} pasos!':v=>+v.n===1?`Ai reușit într-un singur pas!`:`Ai reușit în ${pl(v.n,`pas`,`pași`)}!`,
   'Siguiente reto':'Următoarea provocare',
 });
 

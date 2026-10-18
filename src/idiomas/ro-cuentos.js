@@ -54,7 +54,7 @@ LANGS.ro.data.TALES=[
   ['🐻😮','Când s-au întors, urșii au găsit totul răvășit. — Cineva doarme în pătucul meu! a strigat ursulețul.'],
   ['👧🙏','Bucle Aurii s-a trezit, și-a cerut iertare și i-a ajutat să repare scăunelul. De atunci, cere mereu voie înainte să intre undeva. Sfârșit.']]},
  {id:'leon',name:'Leul și șoarecele',pic:'🦁',bg:'var(--yellow)',pages:[
-  ['🦁😴','Un leu mare dormea după-amiaza la umbra unui copac.'],
+  ['🦁😴','Un leu mare trăgea un pui de somn la umbra unui copac.'],
   ['🐭🦁','Un șoricel a trecut în fugă chiar peste nasul lui și l-a trezit.'],
   ['🦁🐾🐭','Leul l-a prins sub labă. — Te rog, dă-mi drumul, a zis șoricelul. Într-o zi o să te pot ajuta și eu.'],
   ['🦁😂','Leului i s-a părut caraghios că cineva atât de mic l-ar putea ajuta, dar i-a dat drumul.'],
@@ -62,13 +62,13 @@ LANGS.ro.data.TALES=[
   ['🐭🦷','Șoricelul l-a auzit, a venit în fugă și a ros frânghiile până l-a eliberat.'],
   ['🦁🤝🐭','Leul i-a mulțumit. Din ziua aceea au fost prieteni buni, pentru că nimeni nu e prea mic ca să ajute. Sfârșit.']]},
  {id:'cigarra',name:'Greierele și furnica',pic:'🐜',bg:'var(--teal)',pages:[
-  ['☀️🦗🎵','Toată vara, greierele a cântat din vioară, la soare.'],
+  ['☀️🦗🎵','Toată vara, greierele cânta din vioară și se bucura de soare.'],
   ['🐜🌾','Furnica, în schimb, muncea fără oprire și căra semințe la mușuroiul ei.'],
   ['🦗','— De ce muncești atâta? a întrebat greierele. Hai să cânți cu mine!'],
   ['🐜','— Strâng mâncare pentru iarnă, a răspuns furnica. Ar trebui să faci și tu la fel.'],
   ['❄️🦗','Apoi a venit iarna. Greierelui îi era frig și foame, și nu avea nimic pus deoparte.'],
   ['🐜🏠🦗','A bătut la ușa furnicii, iar ea l-a primit înăuntru și și-a împărțit mâncarea cu el.'],
-  ['🎵🐜🦗','Greierele a învățat să se pregătească din timp, și de atunci cânta în timp ce o ajuta pe furnică la treabă. Sfârșit.']]},
+  ['🎵🐜🦗','Greierele a învățat să se pregătească din vreme, iar de atunci cânta în timp ce o ajuta pe furnică la treabă. Sfârșit.']]},
  {id:'pedro',name:'Ciobănașul mincinos',pic:'🐑',bg:'var(--purple)',pages:[
   ['👦🐑🐑','Petrică păzea oile satului, sus pe deal.'],
   ['👦📣','Într-o zi, fiindcă se plictisea, a strigat: — Lupul! Vine lupul! Toți sătenii au urcat în fugă să-l ajute.'],
@@ -76,7 +76,7 @@ LANGS.ro.data.TALES=[
   ['👦📣','Petrică a făcut aceeași glumă și altă dată, și iar sătenii au urcat degeaba.'],
   ['🐺🐑','Într-o seară a apărut un lup adevărat. — Lupul! Vine lupul! a strigat Petrică din toate puterile.'],
   ['🏘️','De data asta nu l-a crezut nimeni și n-a mai urcat nimeni. Oile s-au speriat și au fugit pe dealuri.'],
-  ['👦💭','Petrică le-a căutat toată noaptea. A învățat că, dacă spui minciuni, nimeni nu te mai crede, nici atunci când spui adevărul. Sfârșit.']]},
+  ['👦💭','Lui Petrică i-a luat toată noaptea să le găsească. A învățat că, dacă spui minciuni, nimeni nu te mai crede, nici atunci când spui adevărul. Sfârșit.']]},
  {id:'estrella',name:'Steluța care nu voia să doarmă',pic:'⭐',bg:'var(--ink)',pages:[
   ['⭐🌙','Sus pe cer trăia o steluță micuță pe nume Lucia, care nu voia niciodată să se culce.'],
   ['⭐👀','În fiecare dimineață, când celelalte stele se stingeau, ea rămânea trează și privea lumea.'],
@@ -112,7 +112,7 @@ LANGS.ro.data.TALES=[
  {id:'conejo',name:'Iepurașul din lună',origen:'Legendă din Mexic',pic:'🐇',bg:'var(--purple)',pages:[
   ['🌄🚶','O veche legendă din Mexic spune că zeul Quetzalcoatl a vrut să cunoască Pământul și a umblat pe el ca un om oarecare.'],
   ['🚶😓','A mers atât de mult, încât, la sfârșitul zilei, era foarte obosit și flămând.'],
-  ['🐇🌿','Un iepuraș care ronțăia iarbă l-a văzut și i-a dat tot ce avea, ca să prindă puteri.'],
+  ['🐇🌿','Un iepuraș care ronțăia iarbă l-a văzut și i-a oferit tot ce avea, ca să prindă puteri.'],
   ['🐇💛','Era puțin, dar iepurașul i-a dat totul cu mult drag, fără să ceară nimic în schimb.'],
   ['✨🐇','Quetzalcoatl a fost atât de mișcat, încât l-a ridicat pe iepuraș până la cer și i-a lăsat conturul desenat pe lună.'],
   ['🌕🐇','De atunci, în nopțile cu lună plină, dacă te uiți cu atenție, poți vedea un iepuraș desenat pe ea.'],

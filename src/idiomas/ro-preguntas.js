@@ -169,9 +169,9 @@ Object.assign(LANGS.ro.t,{
   'Mira cuánto cambia de uno a otro.':'Uită-te cu cât se schimbă de la un număr la altul.',
 
   /* ortografie */
-  '¿Cuál está bien escrita?':'Care cuvânt este scris corect?',
+  '¿Cuál está bien escrita?':'Care variantă este scrisă corect?',
   'Se escribe {w}.':'Se scrie {w}.',
-  'Esa tiene una falta. Prueba la otra.':'Acesta are o greșeală. Încearcă-l pe celălalt.',
+  'Esa tiene una falta. Prueba la otra.':'Aceasta are o greșeală. Încearc-o pe cealaltă.',
 
   /* capitale ({c} vine la nominativ și se trece la genitiv: capitala Franței) */
   '¿Cuál es la capital de {c}?':v=>`Care este capitala ${gen(v.c)}?`,

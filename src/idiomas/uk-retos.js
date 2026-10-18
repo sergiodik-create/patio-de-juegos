@@ -31,7 +31,7 @@ Object.assign(LANGS.uk.t,{
     'Кожні 7 днів той самий день тижня повторюється. '+(
       v.w===0?`${dni(v.n)} — це менше ніж тиждень, тож просто порахуй їх по одному.`:
       v.r===0?`${dni(v.n)} — це рівно ${tyzh(v.w)}, тож це той самий день тижня.`:
-      `${dni(v.n)} — це ${tyzh(v.w)} і ще ${dni(v.r)}.`),
+      `${dni(v.n)} — це ${tyzh(v.w)} ${/і$/.test(tyzh(v.w))?'й':'і'} ще ${dni(v.r)}.`),
   'Pista: quita semanas enteras de 7 días.': 'Підказка: відкинь цілі тижні по 7 днів.',
   'Léelo otra vez con calma: a veces la trampa está en las palabras.': 'Прочитай ще раз уважно: іноді хитрість ховається в словах.',
 
@@ -46,7 +46,7 @@ Object.assign(LANGS.uk.t,{
   'Necesidad': 'Потреба',
   'Capricho': 'Забаганка',
   '¿{x} es una necesidad o un capricho?': v=>{const x=String(v.x??'');return `${big(x)}${/,/.test(x)?',':''} — це потреба чи забаганка?`;},
-  'Es una necesidad: la necesitamos para vivir bien.': 'Це потреба: це потрібно нам, щоб добре жити.',
+  'Es una necesidad: la necesitamos para vivir bien.': 'Це потреба: нам це потрібно, щоб добре жити.',
   'Es un capricho: está bien tenerlo a veces, pero podemos vivir sin él.': 'Це забаганка: іноді приємно це мати, але можна жити й без цього.',
   'Piensa: ¿podríamos vivir sin ello?': 'Подумай: чи можна жити без цього?',
   'Quieres algo que cuesta {p}. Ahorras {s} cada semana. ¿Cuántas semanas necesitas?': 'Ти хочеш купити річ, яка коштує {p}. Щотижня ти відкладаєш {s}. Скільки тижнів тобі знадобиться?',
@@ -168,8 +168,11 @@ LANGS.uk.data.HISTORY=[
   ['🕊️','ООН ухвалила Загальну декларацію прав людини',1948,false],['🛰️','Запустили перший штучний супутник Землі',1957,false],
   ['🌕','Люди вперше ступили на Місяць',1969,false],['🌐','Зʼявилася Всесвітня павутина',1991,false]];
 LANGS.uk.data.YEAR=(y,approx)=>(approx?`близько ${Math.abs(y)} року`:`у ${Math.abs(y)} році`)+(y<0?' до нашої ери':'');
-/* Гроші в гривнях: 5 грн, 18,95 грн, а суми, менші за гривню, — у копійках (40 коп.). */
-LANGS.uk.data.MONEY=v=>{v=Math.round(v*100)/100;return v<1?`${Math.round(v*100)} коп.`:v.toLocaleString('uk-UA',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2})+' грн';};
+/* Гроші в гривнях: 5 грн, 18,95 грн, а суми, менші за гривню, — у копійках, повним словом (40 копійок),
+   бо скорочення «коп.» з крапкою в кінці речення дало б дві крапки. */
+LANGS.uk.data.MONEY=v=>{v=Math.round(v*100)/100;
+  if(v<1){const k=Math.round(v*100),n=k%100,d=k%10;return k+' '+(n>10&&n<20?'копійок':d===1?'копійка':d>=2&&d<=4?'копійки':'копійок');}
+  return v.toLocaleString('uk-UA',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2})+' грн';};
 LANGS.uk.data.NEEDS=[['🥛','молоко',true],['🧥','тепле пальто на зиму',true],['💊','ліки',true],['🍞','хліб',true],['👟','взуття для школи',true],
   ['💧','вода',true],['🪥','зубна щітка',true],['🎮','нова відеогра',false],['🍬','пакетик цукерок',false],['🧸','ще одна мʼяка іграшка',false],
   ['🕶️','модні сонячні окуляри',false],['📱','новий телефон, коли старий ще працює',false],['🎈','величезна повітряна кулька',false]];

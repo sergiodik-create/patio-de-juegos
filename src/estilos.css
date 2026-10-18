@@ -157,11 +157,11 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 
 /* ---------- nombres en los colores (daltonismo) ---------- */
 .cname{display:none}
-[data-nombres-color="si"] .cname{display:block;background:rgba(255,255,255,.92);color:#1F3A4D;border-radius:999px;padding:1px 8px;font-size:.8rem;font-weight:800;line-height:1.3;pointer-events:none;font-family:var(--display);white-space:nowrap}
-[data-nombres-color="si"] .dot{display:grid;place-items:center}
-[data-nombres-color="si"] .dot .cname{font-size:1.05rem}
-[data-nombres-color="si"] .palette button{width:auto;min-width:52px;border-radius:999px;padding:0 4px;display:grid;place-items:center}
-[data-nombres-color="si"] .balloon .cname{position:absolute;top:38%;left:50%;transform:translateX(-50%)}
+[data-nombres-color="si"] .cname,[data-daltonico="si"] .cname{display:block;background:rgba(255,255,255,.92);color:#1F3A4D;border-radius:999px;padding:1px 8px;font-size:.8rem;font-weight:800;line-height:1.3;pointer-events:none;font-family:var(--display);white-space:nowrap}
+[data-nombres-color="si"] .dot,[data-daltonico="si"] .dot{display:grid;place-items:center}
+[data-nombres-color="si"] .dot .cname,[data-daltonico="si"] .dot .cname{font-size:1.05rem}
+[data-nombres-color="si"] .palette button,[data-daltonico="si"] .palette button{width:auto;min-width:52px;border-radius:999px;padding:0 4px;display:grid;place-items:center}
+[data-nombres-color="si"] .balloon .cname,[data-daltonico="si"] .balloon .cname{position:absolute;top:38%;left:50%;transform:translateX(-50%)}
 
 /* ---------- letra grande ---------- */
 [data-grande="si"] body{zoom:1.15}
@@ -182,6 +182,25 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 [data-calma="si"] .wobble,[data-calma="si"] .pop,[data-calma="si"] .stars span,[data-calma="si"] .boom,[data-calma="si"] .block,[data-calma="si"] .scene .stk,[data-calma="si"] .c4 .r,[data-calma="si"] .c4 .y{animation:none!important}
 [data-calma="si"] .card{transition:none}
 [data-calma="si"]{--red:#C9625A;--blue:#4C7FB8;--yellow:#D9B451;--green:#5A9E73;--purple:#8470B0;--orange:#C98552;--pink:#C07196;--teal:#3F918F}
+
+/* ---------- modo daltónico ----------
+   Colores elegidos para que se distingan también con daltonismo (simulados con las matrices de Machado, 2009),
+   y cada color lleva siempre el mismo dibujo: rayas el rojo, puntos el azul, estrellas el amarillo, cuadros el verde,
+   olas el morado, zigzag el naranja, corazones el rosa y franjas el marrón. Así se reconocen sin ver el color. */
+:root{--pat-red:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M-4.5 4.5l9-9M0 18L18 0M13.5 22.5l9-9' stroke='%23fff' stroke-opacity='.6' stroke-width='3.5'/%3E%3C/svg%3E");--pat-blue:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Ccircle cx='9' cy='9' r='3.3' fill='%23fff' fill-opacity='.75'/%3E%3C/svg%3E");--pat-yellow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpolygon points='9.0,4.2 7.6,7.7 3.9,7.9 6.8,10.3 5.8,14.0 9.0,11.9 12.2,14.0 11.2,10.3 14.1,7.9 10.4,7.7' fill='%23000' fill-opacity='.38'/%3E%3C/svg%3E");--pat-green:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M0 0h9v9H0zM9 9h9v9H9z' fill='%23fff' fill-opacity='.35'/%3E%3C/svg%3E");--pat-purple:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M0 9q4.5-6 9 0t9 0' fill='none' stroke='%23fff' stroke-opacity='.65' stroke-width='2.5'/%3E%3C/svg%3E");--pat-orange:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M0 12l4.5-6 4.5 6 4.5-6 4.5 6' fill='none' stroke='%23000' stroke-opacity='.38' stroke-width='2.5'/%3E%3C/svg%3E");--pat-pink:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M9 13.6s-4.6-2.8-4.6-5.7a2.3 2.3 0 0 1 4.6-.7 2.3 2.3 0 0 1 4.6.7c0 2.9-4.6 5.7-4.6 5.7z' fill='%23fff' fill-opacity='.8'/%3E%3C/svg%3E");--pat-brown:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M0 4.5h18M0 13.5h18' stroke='%23fff' stroke-opacity='.45' stroke-width='3'/%3E%3C/svg%3E");}
+[data-daltonico="si"]{--red:#BE3935;--blue:#046EF4;--yellow:#F2E276;--green:#22C27B;--purple:#620CAF;--orange:#E99012;--pink:#F644B9}
+[data-daltonico="si"] [data-col="red"],[data-daltonico="si"] .c4 .r{background-image:var(--pat-red)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="blue"]{background-image:var(--pat-blue)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="yellow"],[data-daltonico="si"] .c4 .y{background-image:var(--pat-yellow)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="green"]{background-image:var(--pat-green)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="purple"]{background-image:var(--pat-purple)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="orange"]{background-image:var(--pat-orange)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="pink"]{background-image:var(--pat-pink)!important;background-size:18px 18px!important}
+[data-daltonico="si"] [data-col="brown"]{background-image:var(--pat-brown)!important;background-size:18px 18px!important}
+[data-daltonico="si"] .prompt b{color:var(--ink);text-shadow:0 0 2px #fff,0 0 4px #fff,0 0 7px #fff}
+[data-daltonico="si"] :is(.card.done,.ttt .win,.soup .found,.kb .ok){box-shadow:inset 0 0 0 3px var(--ink)}
+[data-daltonico="si"] .board .chk{box-shadow:inset 0 0 0 4px #000}
+[data-daltonico="si"] .board .last{outline:3px dashed rgba(0,0,0,.55);outline-offset:-5px}
 
 /* ---------- diseña tu mundo: pegatina elegida para mover ---------- */
 .scene .stk.sel{filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 3px var(--yellow));transform:translate(-50%,-50%) scale(1.15)}
@@ -284,7 +303,7 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 .sudoku.s9 button{font-size:clamp(.9rem,4vw,1.5rem)}
 .sudoku .fix{color:var(--ink);font-weight:800;background:#EEF4F6;cursor:default}
 .sudoku .br{margin-right:2px}.sudoku .bb{margin-bottom:2px}
-.sudoku .sel{background:#FFF3C4}.sudoku .bad{color:var(--red);background:#fde3e0}
+.sudoku .sel{background:#FFF3C4}.sudoku .bad{color:var(--red);background:#fde3e0;text-decoration:underline wavy;text-decoration-thickness:2px;text-underline-offset:3px}
 .sdpad{grid-template-columns:repeat(5,minmax(0,64px))}
 
 /* ---------- salva la flor ---------- */

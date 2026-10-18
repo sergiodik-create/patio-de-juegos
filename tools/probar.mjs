@@ -81,11 +81,11 @@ const q = await page.$eval('#gate-q', e => e.textContent); const [a, b] = q.matc
 for (const d of String(a * b)) await page.click(`#gate-pad [data-k="${d}"]`);
 await page.click('#gate-pad [data-k="ok"]'); await page.waitForTimeout(100);
 check(await page.$eval('#ajustes', e => !e.hidden), 'la zona de padres no se abre con la respuesta correcta');
-for (const k of ['calma', 'grande', 'contraste', 'legible', 'nombresColor', 'subtitulos']) await page.click(`#ajustes input[data-k="${k}"]`);
+for (const k of ['calma', 'grande', 'contraste', 'legible', 'nombresColor', 'daltonico', 'subtitulos']) await page.click(`#ajustes input[data-k="${k}"]`);
 const ds = await page.evaluate(() => ({ ...document.documentElement.dataset }));
-check(ds.calma === 'si' && ds.contraste === 'si' && ds.nombresColor === 'si', 'los ajustes no se aplican: ' + JSON.stringify(ds));
+check(ds.calma === 'si' && ds.contraste === 'si' && ds.nombresColor === 'si' && ds.daltonico === 'si', 'los ajustes no se aplican: ' + JSON.stringify(ds));
 await page.screenshot({ path: join(root, '..', 'captura-padres.png'), fullPage: true });
-for (const k of ['calma', 'grande', 'contraste', 'legible', 'nombresColor', 'subtitulos']) await page.click(`#ajustes input[data-k="${k}"]`);
+for (const k of ['calma', 'grande', 'contraste', 'legible', 'nombresColor', 'daltonico', 'subtitulos']) await page.click(`#ajustes input[data-k="${k}"]`);
 await page.click('#home');
 // 4) álbum
 await page.evaluate(() => { for (let i = 0; i < 12; i++) addStar(); });

@@ -5,7 +5,7 @@
 const numBtn=v=>({html:String(v),v:String(v),cls:'num'});
 const nOpts=l=>[3,4,5][l]||3;
 const cap=t=>t?t[0].toUpperCase()+t.slice(1):t;
-const chip=(txt,bg)=>`<b style="background:${bg}">${esc(txt)}</b>`;
+const chip=(txt,bg)=>`<b style="background:${bg}" data-col="${colKey(bg)}">${esc(txt)}</b>`;
 
 GAMES.push(
  /* ---------- 2 a 4 años ---------- */
@@ -76,7 +76,7 @@ GAMES.push(
      visual:seq.map((n,i)=>`<span class="box${i===miss?' q':''}">${i===miss?'?':n}</span>`).join(''),
      opts:numOpts(ans,3,0,100,[step,-step,1,-1,2*step]),right:_('Era el {n}.',{n:ans}),wrong:()=>step===1?_('Cuenta desde el principio.'):_('Fíjate: va de {s} en {s}.',{s:step})};}},
  {id:'series',age:'m',pic:'🔁',name:'Series',what:'¿Qué viene después?',bg:'var(--purple)',levels:3,gen(l=0){
-   const pool=['🔴','🔵','🟡','🟢','🟣','⭐','🌙','❤️','🍎','🐟'],items=sample(pool,4);
+   const pool=['🔴','🟦','🔺','🔶','⭐','🌙','❤️','🍎','🐟','☁️'],items=sample(pool,4);  // todos de forma distinta: no hace falta ver el color
    const pats=[[[0,1]],[[0,1,2],[0,0,1],[0,1,1]],[[0,1,1,2],[0,1,2,3],[0,0,1,2]]][l],p=pick(pats),len=Math.max(6,p.length*2);
    const seq=Array.from({length:len+1},(_x,i)=>items[p[i%p.length]]),ans=seq.pop(),used=[...new Set(p.map(i=>items[i]))];
    const opts=used.length>=3?shuffle(used):shuffle([...used,pool.find(x=>!used.includes(x))]);

@@ -32,6 +32,7 @@ const DRAWINGS=[
     <polygon data-r points="62,70 70,30 95,58"/><polygon data-r points="138,70 130,30 105,58"/><circle data-r cx="100" cy="85" r="40"/>
     <circle data-r cx="85" cy="80" r="7"/><circle data-r cx="115" cy="80" r="7"/><polygon data-r points="94,95 106,95 100,103"/>`}];
 const PAINT=['#E8483B','#F28A2E','#F6C431','#3DB46D','#2F7FE0','#8B5BD6','#E25E9C','#8B5A3C','#2B2B2B','#FFFFFF'];
+const PAINT_COL=['red','orange','yellow','green','blue','purple','pink','brown','',''];  // dibujo de cada color en modo daltónico
 /* Nombres de los colores de la paleta y de los dibujos, en el mismo orden. */
 DATA.es.PAINT_NAMES=['rojo','naranja','amarillo','verde','azul','morado','rosa','marrón','negro','blanco'];
 DATA.es.DRAWING_NAMES=['la casa','la flor','el cohete','el pez','el coche','el gato'];
@@ -39,7 +40,7 @@ function colorear(){
   let di=0,ci=0;
   const draw=()=>{
     $('#stage').innerHTML=`<div class="screen"><p class="prompt">${_('Colorea {x}',{x:D.DRAWING_NAMES[di]})}</p>
-      <div class="palette" id="pal">${PAINT.map((c,i)=>`<button style="background:${c}" data-i="${i}" aria-label="${D.PAINT_NAMES[i]}" aria-pressed="${i===ci}"><span class="cname">${D.PAINT_NAMES[i]}</span></button>`).join('')}</div>
+      <div class="palette" id="pal">${PAINT.map((c,i)=>`<button style="background:${c}" data-col="${PAINT_COL[i]}" data-i="${i}" aria-label="${D.PAINT_NAMES[i]}" aria-pressed="${i===ci}"><span class="cname">${D.PAINT_NAMES[i]}</span></button>`).join('')}</div>
       <div class="paper"><svg viewBox="0 0 200 200" id="pic" fill="#fff">${DRAWINGS[di].svg}</svg></div>
       <div class="row"><button class="pill" id="clr">${_('Borrar')}</button><button class="pill" id="nxt">${_('Otro dibujo ➜')}</button></div></div>`;
     say(_('Elige un color y toca el dibujo'));
@@ -56,14 +57,14 @@ function colorear(){
 function torre(){
   let n=0,lock=false;
   $('#stage').innerHTML=`<div class="screen"><p class="prompt" id="tp">${_('Toca un color para poner un bloque')}</p><div class="tower" id="tw"></div>
-    <div class="palette" id="tc">${D.COLORS.map(c=>`<button style="background:${c.c}" data-n="${c.n}" data-c="${c.c}" aria-label="${c.n}"><span class="cname">${c.n}</span></button>`).join('')}</div>
+    <div class="palette" id="tc">${D.COLORS.map(c=>`<button style="background:${c.c}" data-col="${colKey(c.c)}" data-n="${c.n}" data-c="${c.c}" aria-label="${c.n}"><span class="cname">${c.n}</span></button>`).join('')}</div>
     <div class="row"><button class="pill" id="fall">${_('¡Derribar!')}</button></div></div>`;
   say(_('Vamos a construir una torre. Toca un color.'));
   const fall=()=>{lock=true;const bl=[...$('#tw').children];tone([300,200,120],.15);
     bl.forEach(b=>{b.style.transform=`translate(${range(-160,160)}px,${range(40,200)}px) rotate(${range(-90,90)}deg)`;b.style.opacity='0';});
     timers.push(setTimeout(()=>{$('#tw').innerHTML='';n=0;lock=false;$('#tp').textContent=_('Toca un color para poner un bloque');},950));};
   $('#tc').onclick=e=>{const b=e.target.closest('button');if(!b||lock)return;n++;
-    const d=document.createElement('div');d.className='block';d.style.background=b.dataset.c;d.style.width=range(55,95)+'%';$('#tw').appendChild(d);
+    const d=document.createElement('div');d.className='block';d.style.background=b.dataset.c;d.dataset.col=colKey(b.dataset.c);d.style.width=range(55,95)+'%';$('#tw').appendChild(d);
     tone([300+n*50],.1);say(D.NUMWORDS[n]+'. '+b.dataset.n);$('#tp').textContent=_('Bloques: {n}',{n});
     if(n===10){lock=true;star();confetti();timers.push(setTimeout(()=>{say(_('¡Qué torre tan alta! ¡Vamos a derribarla!'));},900));timers.push(setTimeout(fall,3200));}};
   $('#fall').onclick=()=>{if(!lock&&n)fall();};
@@ -160,7 +161,7 @@ function globos(){
   $('#stage').innerHTML=`<div class="screen"><p class="counter" id="cnt">${_('Globos: {n}',{n:0})}</p><div class="sky" id="sky"></div></div>`;
   say(_('¡Explota los globos!'));let n=0;const sky=$('#sky');
   const spawn=()=>{if(!document.body.contains(sky))return;const c=pick(D.COLORS),b=document.createElement('button');
-    b.className='balloon';b.style.background=c.c;b.style.left=range(2,78)+'%';b.style.animationDuration=range(55,85)/10+'s';
+    b.className='balloon';b.style.background=c.c;b.dataset.col=colKey(c.c);b.style.left=range(2,78)+'%';b.style.animationDuration=range(55,85)/10+'s';
     b.setAttribute('aria-label',_('globo {c}',{c:c.n}));b.innerHTML=`<span class="cname">${c.n}</span>`;if(S.calma)b.style.animationDuration=range(90,120)/10+'s';
     b.addEventListener('pointerdown',ev=>{ev.preventDefault();if(!b.isConnected)return;const r=sky.getBoundingClientRect(),br=b.getBoundingClientRect();
       const boom=document.createElement('span');boom.className='boom';boom.textContent='💥';boom.style.left=(br.left-r.left+20)+'px';boom.style.top=(br.top-r.top+20)+'px';

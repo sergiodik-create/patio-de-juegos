@@ -114,6 +114,8 @@ Object.assign(LANGS.uk.t,{
   'Usa una letra pensada para personas con baja visión o dislexia.':'Використовує шрифт, створений для людей зі слабким зором або дислексією.',
   'Nombres en los colores':'Назви кольорів',
   'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'Підписує назву кожного кольору. Допомагає дітям із дальтонізмом.',
+  'Modo daltónico':'Режим для дальтоніків',
+  'Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…':'Кольори, які легше розрізнити, і візерунок на кожному кольорі: смужки на червоному, крапки на синьому, зірочки на жовтому…',
   'Niveles automáticos':'Автоматичні рівні',
   'La dificultad sube o baja sola según los aciertos.':'Складність сама зростає або знижується залежно від правильних відповідей.',
   'Velocidad de la voz':'Швидкість голосу',

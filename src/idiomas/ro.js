@@ -107,6 +107,8 @@ Object.assign(LANGS.ro.t,{
   'Usa una letra pensada para personas con baja visión o dislexia.':'Folosește un font gândit pentru persoanele cu vedere slabă sau dislexie.',
   'Nombres en los colores':'Numele culorilor',
   'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'Scrie numele fiecărei culori. Îi ajută pe copiii cu daltonism.',
+  'Modo daltónico':'Mod pentru daltonism',
+  'Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…':'Culori mai ușor de deosebit și un model pe fiecare culoare: dungi pe roșu, buline pe albastru, stele pe galben…',
   'Niveles automáticos':'Niveluri automate',
   'La dificultad sube o baja sola según los aciertos.':'Dificultatea crește sau scade singură, după răspunsurile corecte.',
   'Velocidad de la voz':'Viteza vocii',

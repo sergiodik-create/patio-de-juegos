@@ -114,6 +114,8 @@ Object.assign(LANGS.ar.t,{
   'Usa una letra pensada para personas con baja visión o dislexia.':'يستخدم خطًّا مصمَّمًا لضعاف البصر ولمن لديهم عسر القراءة.',
   'Nombres en los colores':'أسماء الألوان',
   'Escribe el nombre de cada color. Ayuda a niños con daltonismo.':'يكتب اسم كل لون. يساعد الأطفال المصابين بعمى الألوان.',
+  'Modo daltónico':'وضع عمى الألوان',
+  'Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…':'ألوان أسهل في التمييز، وعلى كل لون رسمة خاصة به: خطوط على الأحمر، ونقاط على الأزرق، ونجوم على الأصفر…',
   'Niveles automáticos':'مستويات تلقائية',
   'La dificultad sube o baja sola según los aciertos.':'ترتفع الصعوبة أو تنخفض وحدها حسب الإجابات الصحيحة.',
   'Velocidad de la voz':'سرعة الكلام',

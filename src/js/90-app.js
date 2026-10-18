@@ -81,7 +81,7 @@ function next(){
   $('#stage').innerHTML=`<div class="screen"><p class="prompt">${r.prompt}</p>${r.visual?`<div class="visual" id="vis">${r.visual}</div>`:''}<div class="choices" id="choices"></div></div>`;
   const ch=$('#choices');
   r.opts.forEach(o=>{const b=document.createElement('button');
-    if(o.dot){b.className='dot';b.style.background=o.dot;if(o.aria)b.innerHTML=`<span class="cname">${esc(o.aria)}</span>`;}
+    if(o.dot){b.className='dot';b.style.background=o.dot;b.dataset.col=colKey(o.dot);if(o.aria)b.innerHTML=`<span class="cname">${esc(o.aria)}</span>`;}
     else{b.className='tile'+(o.cls?' '+o.cls:'');b.innerHTML=o.html;}
     b.dataset.v=o.v;b.setAttribute('aria-label',o.aria||o.v);ch.appendChild(b);});
   speakRound();
@@ -163,6 +163,7 @@ const TOGGLES=[
   ['contraste',N_('Alto contraste'),N_('Bordes y textos más marcados.')],
   ['legible',N_('Letra fácil de leer'),N_('Usa una letra pensada para personas con baja visión o dislexia.')],
   ['nombresColor',N_('Nombres en los colores'),N_('Escribe el nombre de cada color. Ayuda a niños con daltonismo.')],
+  ['daltonico',N_('Modo daltónico'),N_('Colores que se distinguen mejor y un dibujo en cada color: rayas en el rojo, puntos en el azul, estrellas en el amarillo…')],
   ['niveles',N_('Niveles automáticos'),N_('La dificultad sube o baja sola según los aciertos.')]];
 let deferredInstall=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;});

@@ -16,7 +16,7 @@ Funciona en el móvil, la tablet y el ordenador, y se puede instalar para usarlo
 - **Aprender idiomas:** cualquiera de los siete (inglés si no se elige otro) con vocabulario, colores, números, frases y parejas.
 - **Niveles automáticos:** la dificultad sube o baja sola según los aciertos.
 - **Álbum de pegatinas:** cada cinco estrellas, una pegatina.
-- **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, descansos, progreso, privacidad.
+- **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, modo daltónico (colores que se distinguen y un dibujo en cada color), descansos, progreso, privacidad.
 - **Fichas para imprimir** (colorear, laberintos, trazar letras y números, contar, sumas) y **cartel con QR** para colegios y asociaciones.
 
 ## Probarlo en tu ordenador

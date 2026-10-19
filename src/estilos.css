@@ -410,3 +410,46 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
    laberintos y demás dibujos de los juegos se quedan como están; los textos de los juegos sí van de derecha a izquierda. */
 [dir=rtl] #stage{direction:ltr}
 [dir=rtl] #stage :is(p,h2,h3,label,.prompt,.btext,.story,.txt,.tip,.status,.what,.q,.hist,.wlist,.hello,.learn,.name,.cname,.word,.hword,.opt){direction:rtl}
+
+/* ---------- juegos de actitudes: ¿qué harías tú?, reparte justo, respira conmigo y mi mascota ---------- */
+.prompt .long{font-size:.8em;line-height:1.25}
+.tile.act{width:min(100%,560px);aspect-ratio:auto;padding:14px 20px;font-size:clamp(1.1rem,4vw,1.4rem);font-weight:700;line-height:1.3;text-align:start;place-items:center start}
+.choices:has(.act){flex-direction:column;align-items:center;gap:12px}
+.share{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.share .pile{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 8px;font-size:.6em;max-width:min(100%,460px);min-height:1.3em;min-width:2.4em;background:var(--card);border-radius:22px;padding:8px 14px;box-shadow:0 5px 0 var(--sky2)}
+.share .kids{display:flex;gap:12px;justify-content:center;align-items:center;font-size:.8em}
+.share .who{display:flex;align-items:center;gap:12px}
+.share .who>span{font-size:.8em}
+.breathe{align-items:center}
+.breath{width:min(64vw,300px);aspect-ratio:1;border-radius:50%;margin:4px auto;display:grid;place-items:center;position:relative;cursor:pointer;
+  background:radial-gradient(circle at 35% 30%,#fff,var(--sky2));box-shadow:0 8px 0 rgba(0,0,0,.08);transform:scale(.55);transition:transform 4s ease-in-out}
+.breath.big{transform:scale(1)}
+.breath span{font-size:min(30vw,140px);line-height:1}
+.breath b{position:absolute;bottom:10%;font-size:2.4rem;font-weight:800;color:var(--soft)}
+.br-dots{display:flex;gap:10px;justify-content:center}
+.br-dots i{width:18px;height:18px;border-radius:50%;background:var(--sky2)}
+.br-dots i.on{background:var(--blue)}
+.pet-home{position:relative;width:min(84vw,360px);height:min(56vw,240px);margin:0 auto;border-radius:30px;background:linear-gradient(#BFE6EE 0 64%,#9ED9A0 64%);display:grid;place-items:center;transition:background .6s;overflow:hidden}
+.pet-home .pet{font-size:min(28vw,130px);line-height:1;transition:filter .4s}
+.pet-home.sad .pet{filter:saturate(.5)}
+.pet-home .want{position:absolute;top:10px;right:12px;font-size:2.2rem;background:#fff;border-radius:999px;padding:2px 12px;box-shadow:0 4px 0 var(--sky2)}
+[dir=rtl] .pet-home .want{right:auto;left:12px}
+.pet-home .fx{position:absolute;left:50%;top:38%;font-size:3rem;opacity:0;pointer-events:none}
+.pet-home .fx.go{animation:petfx 1s ease-out}
+@keyframes petfx{0%{opacity:1;transform:translate(-50%,40px) scale(.6)}100%{opacity:0;transform:translate(-50%,-60px) scale(1.3)}}
+.pet-home.night{background:linear-gradient(#24365A 0 64%,#3C5E4A 64%)}
+.pet-home.night::after{content:'💤';position:absolute;top:14%;left:60%;font-size:2.4rem}
+.acts{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:min(100%,560px);margin:0 auto}
+@media (max-width:520px){.acts{grid-template-columns:repeat(3,1fr)}}
+.act-btn{border:0;border-radius:22px;background:var(--card);box-shadow:0 6px 0 var(--sky2);padding:10px 4px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--display)}
+.act-btn span{font-size:clamp(2rem,8vw,2.6rem);line-height:1}
+.act-btn i{display:block;width:80%;height:8px;border-radius:99px;background:var(--sky);overflow:hidden}
+.act-btn b{display:block;height:100%;width:80%;background:var(--green);transition:width .4s}
+.act-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--sky2)}
+[data-calma="si"] .pet-home .fx.go{animation:none}
+/* compartir (zona de padres) */
+.ajustes .row.start{justify-content:flex-start}
+.qr-box{display:flex;flex-direction:column;align-items:center;gap:8px}
+.qr-box svg{width:min(70vw,240px);height:auto;background:#fff;border-radius:12px}
+.parents.hint{margin-top:-8px;font-weight:700}
+@media (max-width:699px){#s-age .parents{font-size:.88rem}}

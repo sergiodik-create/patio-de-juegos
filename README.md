@@ -11,12 +11,14 @@ Funciona en el móvil, la tablet, el ordenador y la tele (con las flechas del ma
 - **Por edades:** 2 a 4 años, 5 a 7, 8 a 10 y 11 a 12, con más de 60 juegos: colores, animales, contar, formas, letras, sumas y restas, series, reloj, monedas, laberintos, trazar letras, sopa de letras, sudoku, fracciones, continentes, programar un robot, acertijos, mecanografía, ciencia, historia, dinero y ahorro…
 - **Juegos de mesa:** tres en raya, conecta 4, damas y ajedrez contra el ordenador.
 - **Creativos:** colorear, escenas con pegatinas, inventar cuentos, piano, memoria, globos.
+- **Actitudes y emociones:** ¿qué harías tú? (ayudar, compartir y hacer las paces), reparte justo, respira conmigo para calmarse y una mascota a la que cuidar.
 - **Cuentos** para escuchar y leer con la palabra resaltada, incluidos cuentos de otras culturas.
 - **Siete idiomas:** español, inglés, portugués, francés, rumano, ucraniano y árabe (de derecha a izquierda), con cuentos, voces y listas de palabras propias de cada uno.
 - **Aprender idiomas:** cualquiera de los siete (inglés si no se elige otro) con vocabulario, colores, números, frases y parejas.
 - **Niveles automáticos:** la dificultad sube o baja sola según los aciertos.
 - **Álbum de pegatinas:** cada cinco estrellas, una pegatina.
 - **Zona de padres** (con una pregunta para adultos): voz, subtítulos, modo calma, letra grande, alto contraste, letra para dislexia, nombres en los colores, modo daltónico (colores que se distinguen y un dibujo en cada color), animaciones (automáticas según la potencia del aparato, pocas o muchas), descansos, progreso, privacidad.
+- **Compartir** desde la zona de padres: el menú de compartir del aparato o un código QR en pantalla, sin servicios de fuera.
 - **Fichas para imprimir** (colorear, laberintos, trazar letras y números, contar, sumas) y **cartel con QR** para colegios y asociaciones.
 
 ## Probarlo en tu ordenador

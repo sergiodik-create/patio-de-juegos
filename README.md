@@ -61,6 +61,7 @@ El archivo `dist/web/_headers` ya trae las cabeceras de seguridad: la web no car
 python3 build.py && node tools/probar.mjs   # recorre todas las edades y juegos, la zona de padres, las fichas y el modo sin internet
 node tools/probar_idioma.mjs en              # juega en inglés y avisa de textos sin traducir
 python3 tools/revisar_idioma.py en          # cuenta lo que falta por traducir en un idioma
+node tools/capturas.mjs                     # rehace web/imagenes: vista previa al compartir y capturas para tiendas
 ```
 
 Las pruebas usan Playwright con Chromium (`npm install -g playwright`).

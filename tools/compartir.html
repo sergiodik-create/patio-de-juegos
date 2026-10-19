@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<!-- Imagen que se ve al compartir el enlace (WhatsApp, redes, portales). La dibuja tools/capturas.mjs a 1200×630. -->
+<link rel="stylesheet" href="{{css}}">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+  body{background:var(--sky);display:flex;align-items:center;gap:56px;padding:0 64px;box-sizing:border-box}
+  .txt{flex:1;min-width:0}
+  .brand{font-size:104px;line-height:.95;letter-spacing:1px}
+  .brand span{display:inline-block}
+  .lema{font-size:40px;font-weight:700;line-height:1.2;margin:28px 0 30px;color:var(--ink)}
+  .chips{display:flex;flex-wrap:wrap;gap:12px}
+  .chips b{background:#fff;border-radius:999px;padding:10px 22px;font-size:26px;font-weight:800;box-shadow:0 4px 0 var(--sky2)}
+  .web{margin-top:30px;font-size:28px;font-weight:700;color:var(--soft)}
+  .grid{display:grid;grid-template-columns:repeat(2,150px);gap:20px}
+  .grid i{width:150px;height:150px;border-radius:34px;display:grid;place-items:center;font-style:normal;font-size:84px;box-shadow:0 8px 0 rgba(0,0,0,.16)}
+</style>
+</head>
+<body>
+  <div class="txt">
+    <div class="brand"><span>Patio</span> <span>de</span><br><span style="color:var(--green)">Juegos</span></div>
+    <p class="lema">Juegos educativos gratis<br>para niños de 2 a 12 años</p>
+    <div class="chips"><b>Sin anuncios</b><b>Sin registro</b><b>7 idiomas</b></div>
+    <p class="web">patiodejuegos.app</p>
+  </div>
+  <div class="grid">
+    <i style="background:var(--pink)">🧸</i><i style="background:var(--blue)">🎒</i>
+    <i style="background:var(--purple)">🚀</i><i style="background:var(--orange)">🧠</i>
+    <i style="background:var(--teal)">📚</i><i style="background:var(--red)">🌍</i>
+  </div>
+</body>
+</html>

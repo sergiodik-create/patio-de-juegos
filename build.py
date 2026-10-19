@@ -9,7 +9,7 @@ Genera:
   dist/demo/  un solo archivo HTML para la demostración (usa las letras de Google Fonts).
 
 No necesita instalar nada: solo Python 3. Los iconos PNG se generan si está Pillow (pip install pillow)."""
-import hashlib, html, json, re, shutil, sys
+import hashlib, html, json, re, shutil, struct, sys
 from datetime import date
 from pathlib import Path
 
@@ -83,7 +83,37 @@ def head(edition, css_href=None):
               '<link rel="icon" href="iconos/icono.svg" type="image/svg+xml">',
               '<link rel="apple-touch-icon" href="iconos/icono-180.png">',
               f'<link rel="stylesheet" href="{css_href}">']
+        h += share_tags(desc)
     return '\n'.join(h)
+
+
+def share_tags(desc):
+    """Vista previa del enlace (WhatsApp, redes, portales) y ficha para los buscadores. Solo con dominio."""
+    url = site_url()
+    if not url:
+        return []
+    img = url + 'imagenes/compartir.png'
+    ficha = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebSite', 'name': 'Patio de Juegos', 'url': url, 'inLanguage': 'es'},
+        {'@type': 'WebApplication', 'name': 'Patio de Juegos', 'url': url, 'description': desc, 'image': img,
+         'applicationCategory': 'EducationalApplication', 'operatingSystem': 'Web', 'isAccessibleForFree': True,
+         'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'EUR'},
+         'inLanguage': ['es', 'en-GB', 'pt-BR', 'fr', 'ro', 'uk', 'ar'],
+         'audience': {'@type': 'PeopleAudience', 'suggestedMinAge': 2, 'suggestedMaxAge': 12},
+         'license': 'https://creativecommons.org/licenses/by-sa/4.0/'}]}
+    return (['<meta property="og:type" content="website">',
+            '<meta property="og:site_name" content="Patio de Juegos">',
+            '<meta property="og:title" content="Patio de Juegos">',
+            f'<meta property="og:description" content="{desc}">',
+            f'<meta property="og:url" content="{url}">',
+            f'<meta property="og:image" content="{img}">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            '<meta property="og:image:alt" content="Patio de Juegos: juegos educativos gratis para niños de 2 a 12 años">',
+            '<meta property="og:locale" content="es_ES">']
+            + [f'<meta property="og:locale:alternate" content="{l}">' for l in ('en_GB', 'pt_BR', 'fr_FR', 'ro_RO', 'uk_UA', 'ar_AR')]
+            + ['<meta name="twitter:card" content="summary_large_image">',
+               '<script type="application/ld+json">' + json.dumps(ficha, ensure_ascii=False) + '</script>'])
 
 
 # Letras locales. Las latinas se guardan para jugar sin internet desde el primer día; las demás (rumano, árabe, ucraniano)
@@ -157,6 +187,7 @@ def build_web(css, lib, app):
     WEB.mkdir(parents=True)
     shutil.copytree(ROOT / 'web' / 'fuentes', WEB / 'fuentes')
     shutil.copytree(ROOT / 'web' / 'vendor', WEB / 'vendor')
+    shutil.copytree(ROOT / 'web' / 'imagenes', WEB / 'imagenes')  # vista previa y capturas (tools/capturas.mjs)
     css_full = FONT_FACES + css
     lib_full = "const EDICION='web';\nconst CONFIG=" + json.dumps({k: CONFIG.get(k, '') for k in ('dominio', 'contacto')}) + ';\n' + lib
     ver = short_hash(css_full, lib_full, app)
@@ -179,9 +210,12 @@ def build_web(css, lib, app):
                 'lang': 'es', 'start_url': './', 'scope': './', 'display': 'standalone', 'orientation': 'any',
                 'background_color': '#DFF3F7', 'theme_color': '#DFF3F7',
                 'icons': [{'src': 'iconos/icono.svg', 'sizes': 'any', 'type': 'image/svg+xml'}]
-                + [png_icon(p) for p in pngs if '180' not in p]}
+                + [png_icon(p) for p in pngs if '180' not in p],
+                'id': './', 'dir': 'auto', 'categories': ['education', 'kids', 'games'],
+                'screenshots': screenshots()}
     (WEB / 'manifest.webmanifest').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
     precache = sorted(str(p.relative_to(WEB)).replace('\\', '/') for p in WEB.rglob('*') if p.is_file() and p.name not in ('sw.js', '_headers', 'robots.txt', 'sitemap.xml')
+                      and p.parent.name != 'imagenes'  # solo para compartir y tiendas: no gastar datos del móvil
                       and not (p.suffix == '.woff2' and not p.name.endswith('-latin.woff2')))
     sw = read('sw.js').replace('__VERSION__', ver).replace('__FILES__', json.dumps(['./'] + precache, ensure_ascii=False))
     (WEB / 'sw.js').write_text(sw, encoding='utf-8')
@@ -206,6 +240,18 @@ def site_url():
 def canonical(path):
     """Dice a los buscadores cuál es la dirección principal (sin www)."""
     return f'\n<link rel="canonical" href="{site_url()}{path}">' if site_url() else ''
+
+
+def screenshots():
+    """Capturas que enseñan el navegador al instalar y las tiendas de apps (ancha = tablet/ordenador, movil = móvil)."""
+    out = []
+    for p in sorted((ROOT / 'web' / 'imagenes').glob('*.png')):
+        if p.stem.split('-')[0] not in ('ancha', 'movil'):
+            continue
+        w, h = struct.unpack('>II', p.read_bytes()[16:24])
+        out.append({'src': f'imagenes/{p.name}', 'sizes': f'{w}x{h}', 'type': 'image/png',
+                    'form_factor': 'wide' if p.stem.startswith('ancha') else 'narrow'})
+    return out
 
 
 def png_icon(p):

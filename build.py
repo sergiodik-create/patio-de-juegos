@@ -84,6 +84,8 @@ def head(edition, css_href=None):
               '<link rel="apple-touch-icon" href="iconos/icono-180.png">',
               f'<link rel="stylesheet" href="{css_href}">']
         h += share_tags(desc)
+        if CONFIG.get('verificacion_bing'):  # Bing Webmaster Tools comprueba que la web es nuestra; no hay que quitarla
+            h.append(f'<meta name="msvalidate.01" content="{CONFIG["verificacion_bing"]}">')
     return '\n'.join(h)
 
 

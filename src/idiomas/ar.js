@@ -28,7 +28,7 @@ Object.assign(LANGS.ar.t,{
   'Cuentos':'القصص',
   'Para escuchar y leer':'للاستماع والقراءة',
   'Idiomas':'اللغات',
-  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'بلا إعلانات ولا مشتريات ولا تسجيل، ولا نرسل أي بيانات. ارفع الصوت: الألعاب تتكلم.',
+  'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'بلا إعلانات ولا مشتريات ولا تسجيل، ولا بيانات شخصية. ارفع الصوت: الألعاب تتكلم.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'كل إجابة صحيحة تعطيك نجمة. وبخمس نجوم تربح ملصقًا لألبومك 📒.',
   'Mi álbum de pegatinas':'ألبوم ملصقاتي',
   'Zona de padres y ajustes':'ركن الأهل والإعدادات',

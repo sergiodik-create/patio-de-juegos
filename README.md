@@ -41,7 +41,7 @@ python3 -m http.server -d dist/web 8000   # y abre http://localhost:8000
    - *Desde un repositorio de GitHub (Pages):* también vale Pages, con comando de compilación `python3 build.py` y directorio de salida `dist/web`.
 3. **Dominio.** Si lo compras en Cloudflare Registrar, en el proyecto de Pages ve a Dominios personalizados y añádelo; Cloudflare configura el DNS y el certificado.
 
-El archivo `dist/web/_headers` ya trae las cabeceras de seguridad: la web no carga nada de fuera (ni letras, ni analítica, ni anuncios).
+El archivo `dist/web/_headers` ya trae las cabeceras de seguridad: la web no carga nada de fuera (ni letras, ni anuncios); lo único es el contador de visitas sin cookies de Cloudflare Web Analytics.
 
 ## Carpetas
 

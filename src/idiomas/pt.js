@@ -20,7 +20,7 @@ Object.assign(LANGS.pt.t,{
   'Cuentos':'Histórias',
   'Para escuchar y leer':'Para ouvir e ler',
   'Idiomas':'Idiomas',
-  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'Sem anúncios, sem compras, sem cadastro e sem enviar nenhum dado. Aumente o volume: o jogo fala.',
+  'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'Sem anúncios, sem compras, sem cadastro e sem dados pessoais. Aumente o volume: o jogo fala.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'Cada acerto vale uma estrela. Com cinco estrelas, você ganha uma figurinha para o seu álbum 📒.',
   'Mi álbum de pegatinas':'Meu álbum de figurinhas',
   'Zona de padres y ajustes':'Área dos pais e configurações',

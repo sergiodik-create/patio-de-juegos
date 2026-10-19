@@ -23,7 +23,7 @@ Object.assign(LANGS.uk.t,{
   'Cuentos':'Казки',
   'Para escuchar y leer':'Слухати й читати',
   'Idiomas':'Мови',
-  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'Без реклами, без покупок, без реєстрації і без жодного надсилання даних. Зроби гучніше: гра розмовляє!',
+  'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'Без реклами, без покупок, без реєстрації і без персональних даних. Зроби гучніше: гра розмовляє!',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'За кожну правильну відповідь ти отримуєш зірку. За пʼять зірок — наліпку для свого альбому 📒.',
   'Mi álbum de pegatinas':'Мій альбом наліпок',
   'Zona de padres y ajustes':'Для батьків і налаштування',

@@ -20,7 +20,7 @@ Object.assign(LANGS.en.t,{
   'Cuentos':'Stories',
   'Para escuchar y leer':'To listen to and read',
   'Idiomas':'Languages',
-  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'No adverts, no purchases, no sign-up and no data sent anywhere. Turn the sound up: the games talk.',
+  'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'No adverts, no purchases, no sign-up and no personal data. Turn the sound up: the games talk.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'Every right answer earns a star. Five stars win a sticker for your album 📒.',
   'Mi álbum de pegatinas':'My sticker album',
   'Zona de padres y ajustes':'Grown-ups and settings',

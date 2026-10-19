@@ -8,7 +8,7 @@ quien programa, quien traduce, quien escribe cuentos, quien da clase y revisa lo
 ## Las reglas del Patio
 
 1. **Gratis y sin anuncios**, sin compras, sin enlaces a tiendas ni a redes sociales.
-2. **Ningún dato personal.** Nada sale del dispositivo: ni analítica, ni cookies, ni servicios de terceros. Todo se sirve desde la propia web.
+2. **Ningún dato personal.** Nada personal sale del dispositivo: ni cookies, ni seguimiento, ni servicios de terceros. Todo se sirve desde la propia web; lo único de fuera es el recuento anónimo de visitas de Cloudflare, que aloja la web.
 3. **Para todos los niños:** que se pueda jugar sin saber leer (la voz lo dice todo), con una mano pequeña, en una tablet antigua y con los ajustes de accesibilidad (modo calma, letra grande, alto contraste, subtítulos).
 4. **Amable:** un error nunca castiga; se explica y se vuelve a intentar.
 5. **Sin dependencias:** JavaScript sencillo en el navegador y Python 3 para construir. Nada que instalar para publicar.

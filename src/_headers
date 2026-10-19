@@ -1,10 +1,11 @@
-# Cabeceras para Cloudflare Pages: seguridad y privacidad (sin cámara, micrófono ni ubicación; ningún servicio externo).
+# Cabeceras para Cloudflare: seguridad y privacidad (sin cámara, micrófono ni ubicación). Lo único de fuera es el contador
+# de visitas sin cookies de Cloudflare Web Analytics (static.cloudflareinsights.com), que se activa en el panel de Cloudflare.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; worker-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
 
 /sw.js
   Cache-Control: no-cache

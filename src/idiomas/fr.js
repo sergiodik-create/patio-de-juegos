@@ -21,7 +21,7 @@ Object.assign(LANGS.fr.t,{
   'Cuentos':'Histoires',
   'Para escuchar y leer':'À écouter et à lire',
   'Idiomas':'Langues',
-  'Sin anuncios, sin compras, sin registro y sin enviar ningún dato. Sube el volumen: el juego habla.':'Sans publicité, sans achat, sans inscription et sans envoyer la moindre donnée. Monte le son : le jeu parle.',
+  'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'Sans publicité, sans achat, sans inscription et sans données personnelles. Monte le son : le jeu parle.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'Chaque bonne réponse te donne une étoile. Avec cinq étoiles, tu gagnes un autocollant pour ton album 📒.',
   'Mi álbum de pegatinas':'Mon album d\'autocollants',
   'Zona de padres y ajustes':'Espace parents et réglages',

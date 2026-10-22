@@ -452,4 +452,5 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 .qr-box{display:flex;flex-direction:column;align-items:center;gap:8px}
 .qr-box svg{width:min(70vw,240px);height:auto;background:#fff;border-radius:12px}
 .parents.hint{margin-top:-8px;font-weight:700}
-@media (max-width:699px){#s-age .parents{font-size:.88rem}}
+.parents.lic{margin-top:-10px;font-size:.8rem}
+@media (max-width:699px){#s-age .parents{font-size:.88rem}#s-age .parents.lic{font-size:.75rem}}

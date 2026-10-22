@@ -21,6 +21,7 @@ Object.assign(LANGS.en.t,{
   'Para escuchar y leer':'To listen to and read',
   'Idiomas':'Languages',
   'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'No adverts, no purchases, no sign-up and no personal data. Turn the sound up: the games talk.',
+  'Contenidos libres con licencia CC BY-SA 4.0.':'Open content under the CC BY-SA 4.0 licence.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'Every right answer earns a star. Five stars win a sticker for your album 📒.',
   'Mi álbum de pegatinas':'My sticker album',
   'Zona de padres y ajustes':'Grown-ups and settings',

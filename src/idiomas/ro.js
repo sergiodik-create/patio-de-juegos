@@ -22,6 +22,7 @@ Object.assign(LANGS.ro.t,{
   'Para escuchar y leer':'De ascultat și de citit',
   'Idiomas':'Limbi străine',
   'Sin anuncios, sin compras, sin registro y sin datos personales. Sube el volumen: el juego habla.':'Fără reclame, fără cumpărături, fără cont și fără date personale. Dă sonorul mai tare: jocurile vorbesc.',
+  'Contenidos libres con licencia CC BY-SA 4.0.':'Conținut liber sub licența CC BY-SA 4.0.',
   'Cada acierto da una estrella. Con cinco estrellas ganas una pegatina para tu álbum 📒.':'Fiecare răspuns corect îți aduce o stea. Cu cinci stele câștigi un abțibild pentru albumul tău 📒.',
   'Mi álbum de pegatinas':'Albumul meu cu abțibilduri',
   'Zona de padres y ajustes':'Pentru părinți și setări',

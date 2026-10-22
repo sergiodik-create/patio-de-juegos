@@ -72,7 +72,8 @@ def page(edition):
 def head(edition, css_href=None):
     desc = 'Juegos educativos gratis para niños de 2 a 12 años. Sin anuncios, sin compras y sin registro.'
     h = ['<title>Patio de Juegos</title>',
-         f'<meta name="description" content="{desc}">']
+         f'<meta name="description" content="{desc}">',
+         '<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">']  # para OER Commons, MERLOT y buscadores
     if edition == 'demo':
         h += ['<meta name="claude:viewport-fit-sides" content="cover">',
               '<link rel="preconnect" href="https://fonts.googleapis.com">',

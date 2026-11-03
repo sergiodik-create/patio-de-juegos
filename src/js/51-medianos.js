@@ -90,13 +90,13 @@ function traceName(ch){
   return w?_('la {l}, de {w}',{l:ch.toLowerCase(),w:w[1]}):_('la {l}',{l:ch.toLowerCase()});
 }
 function trazar(){
-  const SETS=traceSets();let set=Object.keys(SETS)[0],i=0,ink=[],drawing=false;
-  const draw=()=>{
+  const SETS=traceSets();let set=Object.keys(SETS)[0],i=0,ink=[],drawing=false,nd=0;
+  const draw=()=>{nd++;
     const ch=SETS[set][i%SETS[set].length],W=Math.min(400,Math.floor(($('#stage').clientWidth||400)*.92));
     $('#stage').innerHTML=`<div class="screen"><div class="row" id="ts">${Object.keys(SETS).map(k=>`<button class="pill" data-s="${k}" aria-pressed="${k===set}">${_(k)}</button>`).join('')}</div>
       <p class="tip" id="tt">${_('Repasa {l} con el dedo.',{l:traceName(ch)})}</p>
       <div class="trace" style="width:${W}px;height:${W}px"><canvas id="tg" width="${W}" height="${W}"></canvas><canvas id="ti" width="${W}" height="${W}" aria-label="${_('Zona para escribir')}"></canvas></div>
-      <div class="row"><button class="pill" id="tsay">${_('🔊 Oír')}</button><button class="pill" id="tclr">${_('Borrar')}</button><button class="pill" id="tnext">${_('Siguiente ➡️')}</button></div></div>`;
+      <div class="row"><button class="pill" id="tsay">${_('🔊 Oír')}</button><button class="pill" id="tclr">${_('Borrar')}</button>${i>0?`<button class="pill" id="tprev">${_('⬅️ Anterior')}</button>`:''}<button class="pill" id="tnext">${_('Siguiente ➡️')}</button></div></div>`;
     const g=$('#tg').getContext('2d'),c=$('#ti').getContext('2d'),font=`800 ${Math.round(W*.78)}px "Baloo 2", "Baloo Bhaijaan 2", "Nunito", "Trebuchet MS", sans-serif`;
     const guide=()=>{g.clearRect(0,0,W,W);g.font=font;const [gx,gy]=place(g,ch,W);
       g.fillStyle='#E4EEF2';g.fillText(ch,gx,gy);g.setLineDash([6,8]);g.lineWidth=3;g.strokeStyle='#9DB4C0';g.strokeText(ch,gx,gy);};
@@ -110,6 +110,7 @@ function trazar(){
     $('#tsay').onclick=()=>say(traceName(ch));
     $('#tclr').onclick=()=>{c.clearRect(0,0,W,W);ink=[];};
     $('#tnext').onclick=()=>{i++;draw();};
+    if($('#tprev'))$('#tprev').onclick=()=>{i--;draw();};
     say(_('Repasa {l} con el dedo.',{l:traceName(ch)}));
   };
   /* Centra el dibujo de la letra, no su caja: así las letras árabes o con rabito no se salen por abajo. */
@@ -124,7 +125,7 @@ function trazar(){
     let inMask=0,covered=0,inkN=0,outside=0;
     for(let p=3;p<mask.length;p+=4){const mk=mask[p]>100,ik=inkd[p]>60;if(mk){inMask++;if(ik)covered++;}if(ik){inkN++;if(wide[p]<60)outside++;}}
     if(!inMask)return;const cov=covered/inMask,out=inkN?outside/inkN:0;
-    if(cov>.62&&out<.3){yay();confetti();star();$('#tt').textContent=_('¡Qué bien escrita! Toca «Siguiente».');say(_('¡Muy bien escrita!'));later(()=>{i++;draw();},2600);}
+    if(cov>.62&&out<.3){yay();confetti();star();$('#tt').textContent=_('¡Qué bien escrita! Toca «Siguiente».');say(_('¡Muy bien escrita!'));const at=nd;afterVoice(()=>{if(nd===at){i++;draw();}},2600);}
     else if(out>=.45){$('#tt').textContent=_('Intenta seguir la letra gris. Toca «Borrar» para empezar de nuevo.');}
     else $('#tt').textContent=_('¡Sigue! Repasa toda la letra.');
   };

@@ -140,6 +140,7 @@ Object.assign(LANGS.fr.t,{
   'Zona para escribir':'Zone pour écrire',
   '🔊 Oír':'🔊 Écouter',
   'Siguiente ➡️':'Suivant ➡️',
+  '⬅️ Anterior':'⬅️ Précédent',
   '¡Qué bien escrita! Toca «Siguiente».':'Bravo, c\'est bien écrit ! Touche « Suivant ».',
   '¡Muy bien escrita!':'C\'est très bien écrit !',
   /* nomme le même bouton que la traduction de 'Borrar', quelle qu'elle soit */

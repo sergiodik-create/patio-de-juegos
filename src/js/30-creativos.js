@@ -66,7 +66,7 @@ function torre(){
   $('#tc').onclick=e=>{const b=e.target.closest('button');if(!b||lock)return;n++;
     const d=document.createElement('div');d.className='block';d.style.background=b.dataset.c;d.dataset.col=colKey(b.dataset.c);d.style.width=range(55,95)+'%';$('#tw').appendChild(d);
     tone([300+n*50],.1);say(D.NUMWORDS[n]+'. '+b.dataset.n);$('#tp').textContent=_('Bloques: {n}',{n});
-    if(n===10){lock=true;star();confetti();timers.push(setTimeout(()=>{say(_('¡Qué torre tan alta! ¡Vamos a derribarla!'));},900));timers.push(setTimeout(fall,3200));}};
+    if(n===10){lock=true;star();confetti();timers.push(setTimeout(()=>{say(_('¡Qué torre tan alta! ¡Vamos a derribarla!'),null,true);},900));timers.push(setTimeout(fall,3200));}};
   $('#fall').onclick=()=>{if(!lock&&n)fall();};
 }
 

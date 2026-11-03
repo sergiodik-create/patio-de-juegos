@@ -52,6 +52,9 @@ Object.assign(LANGS.uk.t,{
   'Cuentos para escuchar':'Казки, які можна послухати',
   'Aprende idiomas jugando':'Вивчай мови граючись',
   'Volver a los juegos':'Назад до ігор',
+  'Ejercicio anterior':'Попереднє завдання',
+  'Escuchar otra vez':'Послухати ще раз',
+  'Ejercicio siguiente':'Наступне завдання',
   'Cambiar de edad':'Змінити вік',
   'Volver':'Назад',
   /* {l}: «англійська» → «Вивчаємо англійську»; незмінні назви («кечуа») лишаються як є */

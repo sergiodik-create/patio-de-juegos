@@ -129,6 +129,7 @@ Object.assign(LANGS.uk.t,{
   'Zona para escribir':'Місце для письма',
   '🔊 Oír':'🔊 Послухати',
   'Siguiente ➡️':'Далі ➡️',
+  '⬅️ Anterior':'⬅️ Назад',
   '¡Qué bien escrita! Toca «Siguiente».':'Як гарно написано! Натисни «Далі».',
   '¡Muy bien escrita!':'Дуже гарно написано!',
   /* називає ту саму кнопку, що й переклад 'Borrar', хай який він */

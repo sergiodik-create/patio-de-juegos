@@ -124,6 +124,7 @@ Object.assign(LANGS.en.t,{
   'Zona para escribir':'Writing area',
   '🔊 Oír':'🔊 Listen',
   'Siguiente ➡️':'Next ➡️',
+  '⬅️ Anterior':'⬅️ Back',
   '¡Qué bien escrita! Toca «Siguiente».':'Beautifully written! Tap ‘Next’.',
   '¡Muy bien escrita!':'Beautiful writing!',
   /* names the same button as the 'Borrar' translation, whatever it is */

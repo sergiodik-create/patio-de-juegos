@@ -69,10 +69,20 @@ function subtitle(t){const el=$('#sub');if(!el)return;
 /* lang: solo para decir algo en otro idioma (por ejemplo, la palabra en inglés del juego de idiomas). */
 function utter(t,lang){const u=new SpeechSynthesisUtterance(t);u.lang=lang||langVoice();
   const v=lang?voicesFor(lang)[0]:voice;if(v)u.voice=v;u.rate=.9*S.velocidad;u.pitch=1.12;return u;}
-function say(t,lang){
+/* queue: no corta lo que se está diciendo, se dice después (por ejemplo, el aviso de pegatina tras el «¡Muy bien!»). */
+function say(t,lang,queue){
   subtitle(t);
   if(!S.voz||!('speechSynthesis' in window))return;
-  try{speechSynthesis.cancel();speechSynthesis.speak(utter(t,lang));}catch(e){}
+  try{if(!queue)speechSynthesis.cancel();speechSynthesis.speak(utter(t,lang));}catch(e){}
+}
+const talking=()=>{try{return S.voz&&'speechSynthesis' in window&&(speechSynthesis.speaking||speechSynthesis.pending);}catch(e){return false;}};
+/* Llama a cb cuando la voz ha terminado de hablar (también lo que estaba en cola), para no cortarla al pasar de pantalla.
+   Espera como mínimo min ms y como máximo max ms, por si el aparato no avisa nunca de que ha terminado. */
+function afterVoice(cb,min=1500,max=15000){
+  const t0=Date.now();let quiet=0;
+  const check=()=>{quiet=talking()?0:quiet+200;const dt=Date.now()-t0;
+    if(dt>=max||(dt>=min&&quiet>=400))cb();else later(check,200);};
+  later(check,200);
 }
 /* Lee un texto y llama a cb al terminar. onWord(índice de carácter) permite resaltar palabras. */
 function sayThen(t,cb,onWord){
@@ -119,7 +129,7 @@ function addStar(){
 }
 function stickerToast(s){const el=$('#toast');if(!el)return;
   el.innerHTML=`<span class="tbig">${s}</span><span>${_('¡Pegatina nueva para tu álbum!')}</span>`;el.hidden=false;
-  say(_('¡Has ganado una pegatina nueva para tu álbum!'));setTimeout(()=>{el.hidden=true;},3500);}
+  say(_('¡Has ganado una pegatina nueva para tu álbum!'),null,true);setTimeout(()=>{el.hidden=true;},3500);}
 
 /* ---------- confeti ---------- */
 let cv,cx,parts=[],raf=null;

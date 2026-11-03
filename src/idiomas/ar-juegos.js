@@ -147,6 +147,7 @@ Object.assign(LANGS.ar.t,{
   'Zona para escribir':'مساحة الكتابة',
   '🔊 Oír':'🔊 استمع',
   'Siguiente ➡️':'التالي ⬅️',
+  '⬅️ Anterior':'➡️ السابق',
   '¡Qué bien escrita! Toca «Siguiente».':'كتابة رائعة! اضغط «التالي».',
   '¡Muy bien escrita!':'كتابة رائعة جدًا!',
   /* names the same button as the 'Borrar' translation, whatever it is */

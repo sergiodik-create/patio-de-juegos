@@ -131,6 +131,7 @@ Object.assign(LANGS.ro.t,{
   'Zona para escribir':'Locul unde scrii',
   '🔊 Oír':'🔊 Ascultă',
   'Siguiente ➡️':'Mai departe ➡️',
+  '⬅️ Anterior':'⬅️ Înapoi',
   '¡Qué bien escrita! Toca «Siguiente».':'Ce frumos ai scris! Atinge „Mai departe”.',
   '¡Muy bien escrita!':'Foarte frumos scris!',
   /* numește butonul la fel ca traducerea lui 'Borrar', oricare ar fi ea */

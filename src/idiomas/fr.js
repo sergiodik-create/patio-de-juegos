@@ -50,6 +50,9 @@ Object.assign(LANGS.fr.t,{
   'Cuentos para escuchar':'Des histoires à écouter',
   'Aprende idiomas jugando':'Apprends les langues en jouant',
   'Volver a los juegos':'Retour aux jeux',
+  'Ejercicio anterior':'Exercice précédent',
+  'Escuchar otra vez':'Réécouter',
+  'Ejercicio siguiente':'Exercice suivant',
   'Cambiar de edad':'Changer d\'âge',
   'Volver':'Retour',
   /* {l} es el nombre de una lengua en minúscula: «l'anglais», «le portugais» */

@@ -109,7 +109,7 @@ function piano(){
   const turn=()=>{if(!simon)return;simon.pos=0;simon.busy=true;$('#pt').textContent=_('Escucha…');
     playSeq(simon.seq,600,()=>{if(simon){simon.busy=false;$('#pt').textContent=_('¡Ahora tú! Repite las notas.');}});};
   $('#song').onclick=()=>{simon=null;clearTimers();$('#pt').textContent=_('Estrellita, ¿dónde estás?');playSeq(TWINKLE,420,()=>{$('#pt').textContent=_('¿La tocas tú? Empieza por el perrito.');});};
-  $('#sim').onclick=()=>{clearTimers();simon={seq:[rnd(5),rnd(5)],pos:0,busy:true};say(_('Escucha y repite.'));later(turn,1400);};
+  $('#sim').onclick=()=>{clearTimers();simon={seq:[rnd(5),rnd(5)],pos:0,busy:true};say(_('Escucha y repite.'));afterVoice(turn,1400,5000);};
   say(_('Toca las teclas para hacer música.'));
 }
 

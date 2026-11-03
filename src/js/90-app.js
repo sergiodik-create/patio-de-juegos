@@ -40,7 +40,7 @@ function renderAges(){const ok=!!learnLang();document.querySelector('.agecard[da
 function start(g){
   if(!g)return;
   if(breakDue())return showBreak();
-  clearTimers();stopVoice();$('#stage').onclick=null;$('#stage').className='';cur=g;score=0;streak=0;struggle=0;onKey=null;
+  clearTimers();stopVoice();$('#stage').onclick=null;$('#stage').className='';cur=g;score=0;streak=0;struggle=0;onKey=null;resetHist();
   $('#stars').innerHTML='';$('#gtitle').textContent=g.translated?g.name:_(g.name);countPlay(g.id);renderLevels();show('game');
   if(g.custom)CUSTOM[g.custom](g);else next();
 }
@@ -89,7 +89,7 @@ function renderLevels(){const box=$('#lvl');
   const names=LEVEL_NAMES[cur.levels]||Array.from({length:cur.levels},(_x,i)=>_('Nivel {n}',{n:i+1}));
   box.innerHTML=names.map((n,i)=>`<button class="pill" data-l="${i}" aria-pressed="${i===level()}">${_(n)}</button>`).join('');box.hidden=false;}
 $('#lvl').addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(!b||!cur)return;
-  P.nivel[cur.id]=+b.dataset.l;saveP();streak=0;struggle=0;renderLevels();clearTimers();next();});
+  P.nivel[cur.id]=+b.dataset.l;saveP();streak=0;struggle=0;renderLevels();clearTimers();resetHist();next();});
 /* Sube un nivel tras 4 aciertos seguidos a la primera; baja si cuesta mucho dos rondas seguidas. */
 function adapt(){
   if(!hasLevels(cur)||!S.niveles)return '';
@@ -102,10 +102,23 @@ function adapt(){
 
 /* ---------- motor de preguntas ---------- */
 const CHEERS=[N_('¡Muy bien!'),N_('¡Genial!'),N_('¡Bravo!'),N_('¡Lo lograste!'),N_('¡Eres un crack!'),N_('¡Fantástico!')];
+/* Historial de las últimas preguntas del juego: ⬅️ vuelve a la anterior para verla y oírla otra vez (y se puede volver a contestar,
+   aunque ya no da estrella), y ➡️ avanza hasta la que estaba sin contestar. */
+const HIST_MAX=15;
+let hist=[],hpos=-1,shown=0;
+function resetHist(){hist=[];hpos=-1;}
 function next(){
   if(breakDue())return showBreak();
-  busy=false;roundMiss=0;round=cur.gen(level());const r=round;
-  $('#stage').innerHTML=`<div class="screen"><p class="prompt">${r.prompt}</p>${r.visual?`<div class="visual" id="vis">${r.visual}</div>`:''}<div class="choices" id="choices"></div></div>`;
+  if(hpos<hist.length-1)hpos++;
+  else{hist.push(cur.gen(level()));if(hist.length>HIST_MAX)hist.shift();hpos=hist.length-1;}
+  showRound();
+}
+function showRound(){
+  busy=false;roundMiss=0;round=hist[hpos];shown++;const r=round;
+  $('#stage').innerHTML=`<div class="screen"><p class="prompt">${r.prompt}</p>${r.visual?`<div class="visual" id="vis">${r.visual}</div>`:''}<div class="choices" id="choices"></div>
+    <div class="qnav"><button id="qprev" aria-label="${esc(_('Ejercicio anterior'))}" title="${esc(_('Ejercicio anterior'))}"${hpos>0?'':' disabled'}><span class="flip">⬅️</span></button>
+    <button id="qsay" aria-label="${esc(_('Escuchar otra vez'))}" title="${esc(_('Escuchar otra vez'))}">🔊</button>
+    <button id="qnext" aria-label="${esc(_('Ejercicio siguiente'))}" title="${esc(_('Ejercicio siguiente'))}"${hpos<hist.length-1?'':' disabled'}><span class="flip">➡️</span></button></div></div>`;
   const ch=$('#choices');
   r.opts.forEach(o=>{const b=document.createElement('button');
     if(o.dot){b.className='dot';b.style.background=o.dot;b.dataset.col=colKey(o.dot);if(o.aria)b.innerHTML=`<span class="cname">${esc(o.aria)}</span>`;}
@@ -121,11 +134,15 @@ $('#stage').addEventListener('click',e=>{
   if(c&&round.countable){const all=[...document.querySelectorAll('#vis .cnt')];
     all.forEach((x,i)=>later(()=>{anim(x,'pop');tone([440+i*60],.1);},i*450));
     say(D.NUMWORDS.slice(1,all.length+1).join(', '));return;}
-  if(e.target.closest('.prompt')&&!busy){speakRound();return;}
+  if(e.target.closest('#qprev')){if(hpos>0){stopVoice();hpos--;showRound();}return;}
+  if(e.target.closest('#qnext')){if(hpos<hist.length-1){stopVoice();next();}return;}
+  if((e.target.closest('.prompt')||e.target.closest('#qsay'))&&!busy){speakRound();return;}
   const b=e.target.closest('#choices button');if(!b||busy)return;
-  if(b.dataset.v===round.answer){busy=true;anim(b,'pop');yay();confetti();star();
-    const up=adapt(),txt=_(pick(CHEERS))+' '+round.right+up;
-    if(round.fx){const r=round;sayThen(txt,()=>{if(round===r)say(r.fx,r.fxLang);});later(next,4200);}else{say(txt);later(next,up?3200:2300);}}
+  if(b.dataset.v===round.answer){busy=true;anim(b,'pop');yay();confetti();const r=round,k=shown,first=!r.solved;r.solved=true;
+    let up='';if(first){star();up=adapt();}const txt=_(pick(CHEERS))+' '+r.right+up;
+    /* Se pasa a la siguiente cuando la voz termina de felicitar (antes se cortaba si la frase era larga). */
+    const go=()=>{if(shown===k&&screen==='game')next();};
+    if(r.fx){sayThen(txt,()=>{if(round===r)say(r.fx,r.fxLang,true);});afterVoice(go,4200);}else{say(txt);afterVoice(go,up?3200:2300);}}
   else{roundMiss++;anim(b,'wobble');nope();say(round.wrong(b.dataset.v));}
 });
 
@@ -154,7 +171,7 @@ function showBreak(){
   clearTimers();stopVoice();cur=null;$('#stage').innerHTML='';playMs=0;show('break');
   const moves=sample(MOVES,3);let i=0,left=30;$('#brk-go').hidden=true;
   const step=()=>{const m=moves[i%moves.length];$('#brk-pic').textContent=m[0];$('#brk-txt').textContent=_(m[1]);anim($('#brk-pic'),'pop');say(_(m[1]));i++;};
-  say(_('¡Hora de un descanso! Tus ojos y tu cuerpo también quieren jugar.'));later(step,3500);
+  say(_('¡Hora de un descanso! Tus ojos y tu cuerpo también quieren jugar.'));afterVoice(step,3500);
   const t=setInterval(()=>{left--;$('#brk-left').textContent=left>0?left:'';if(left>0&&left%9===0)step();
     if(left<=0){clearInterval(t);$('#brk-go').hidden=false;say(_('¡Muy bien! Ya puedes volver a jugar.'));}},1000);timers.push(t);
   $('#brk-left').textContent=left;

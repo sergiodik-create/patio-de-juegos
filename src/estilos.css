@@ -67,6 +67,12 @@ main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;p
 .visual .box{background:var(--card);border-radius:18px;padding:4px 14px;box-shadow:0 5px 0 var(--sky2);font-weight:800;font-size:.75em;min-width:1.6em}
 .visual .box.q{background:var(--yellow)}
 .choices{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.qnav{display:flex;justify-content:center;gap:clamp(18px,6vw,40px);margin-top:4px}
+.qnav button{width:58px;height:58px;border-radius:50%;border:0;background:var(--card);color:var(--ink);font-size:1.6rem;cursor:pointer;
+  box-shadow:0 4px 0 var(--sky2);display:grid;place-items:center;padding:0}
+.qnav button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sky2)}
+.qnav button:disabled{opacity:.3;cursor:default;box-shadow:none;transform:none}
+.qnav .flip{display:inline-block}
 .dot{width:clamp(96px,26vw,150px);aspect-ratio:1;max-width:100%;border-radius:50%;border:6px solid #fff;cursor:pointer;box-shadow:0 8px 0 rgba(0,0,0,.15)}
 .tile{width:clamp(104px,27vw,160px);aspect-ratio:1;max-width:100%;border-radius:26px;border:0;background:var(--card);cursor:pointer;
   font-size:clamp(3.2rem,12vw,5rem);box-shadow:0 8px 0 var(--sky2);display:grid;place-items:center;font-family:var(--display);color:var(--ink);padding:8px}
@@ -409,6 +415,8 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 /* Idiomas que se escriben de derecha a izquierda (árabe): las pantallas se dan la vuelta, pero los tableros, relojes,
    laberintos y demás dibujos de los juegos se quedan como están; los textos de los juegos sí van de derecha a izquierda. */
 [dir=rtl] #stage{direction:ltr}
+[dir=rtl] #stage .qnav{direction:rtl}
+[dir=rtl] .qnav .flip{transform:scaleX(-1)}
 [dir=rtl] #stage :is(p,h2,h3,label,.prompt,.btext,.story,.txt,.tip,.status,.what,.q,.hist,.wlist,.hello,.learn,.name,.cname,.word,.hword,.opt){direction:rtl}
 
 /* ---------- juegos de actitudes: ¿qué harías tú?, reparte justo, respira conmigo y mi mascota ---------- */

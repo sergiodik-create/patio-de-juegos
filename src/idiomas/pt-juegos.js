@@ -134,6 +134,7 @@ Object.assign(LANGS.pt.t,{
   'Zona para escribir':'Área para escrever',
   '🔊 Oír':'🔊 Ouvir',
   'Siguiente ➡️':'Próximo ➡️',
+  '⬅️ Anterior':'⬅️ Anterior',
   '¡Qué bien escrita! Toca «Siguiente».':'Que capricho! Toque em “Próximo”.',
   '¡Muy bien escrita!':'Muito bem! Que capricho!',
   /* fala do mesmo botão que a tradução de 'Borrar', seja ela qual for */

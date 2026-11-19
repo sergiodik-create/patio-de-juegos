@@ -31,7 +31,7 @@ const store={
 const colKey=c=>(/--(\w+)/.exec(c)||[])[1]||'';
 
 /* ---------- ajustes (zona de padres) ---------- */
-const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,daltonico:false,movimiento:'auto',niveles:true,descanso:20,aprender:null};
+const DEFAULTS={voz:true,velocidad:1,subtitulos:false,calma:false,grande:false,contraste:false,legible:false,nombresColor:false,daltonico:false,movimiento:'auto',niveles:true,descanso:20,aprender:null,tono:1.12,voces:{}};
 const S=Object.assign({},DEFAULTS,store.get('ajustes',{}));
 function applySettings(){
   const r=document.documentElement;
@@ -56,19 +56,46 @@ function medirPotencia(){
 }
 
 /* ---------- voz ---------- */
+/* Cada aparato trae voces distintas, y la primera de la lista suele ser la más robótica.
+   Puntuamos todas y usamos la que suene más natural y cálida para un niño:
+   1) voces infantiles o muy amables conocidas (Maisie, Ana, Eloise…), 2) voces «naturales» o neuronales
+   (Edge y Windows 11, Siri, voces mejoradas de Apple, voces de alta calidad de Android), 3) voces de Google,
+   y al final las robóticas (eSpeak) y las voces de broma de Apple (Zarvox, Bubbles…).
+   Las familias pueden elegir otra en la zona de padres (S.voces[idioma] = voiceURI). */
 let voice=null,voiceChecked=false;
+const VOICE_KID=/\b(maisie|ana|eloise|lia|abril|leila|thalita)\b/i;
+const VOICE_WARM=/\b(elvira|ximena|irene|estrella|m[oó]nica|paulina|marisol|paloma|dalia|sonia|libby|mia|serena|kate|martha|stephanie|denise|vivienne|am[eé]lie|audrey|marie|aur[eé]lie|francisca|luciana|fernanda|yara|alina|ioana|polina|lesya|zariyah|salma|hala|laila|mariam|amina|sana|fatima)\b/i;
+const VOICE_GOOD=/natural|neural|premium|enhanced|mejorad|am[eé]lior|aprimorad|wavenet|studio|siri/i;
+const VOICE_BAD=/espeak|compact|\b(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|good news|hysterical|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|ralph|junior|grandma|grandpa|rocko|eddy|flo|reed|sandy|shelley)\b/i;
+const brokenVoices=new Set();
+const voiceScore=(v,L)=>{const n=v.name||'',vl=v.lang.toLowerCase().replace('_','-');let s=vl===L?40:0;
+  if(VOICE_KID.test(n))s+=30;if(VOICE_GOOD.test(n))s+=25;if(/google/i.test(n))s+=15;if(VOICE_WARM.test(n))s+=10;
+  if(VOICE_BAD.test(n))s-=60;if(v.default)s+=2;
+  if(!v.localService&&(navigator.onLine===false||brokenVoices.has(v.voiceURI)))s-=100;return s;};
+/* Voces del idioma, de la que mejor suena a la peor. */
 const voicesFor=lang=>{const vs=window.speechSynthesis?.getVoices?.()||[],L=lang.toLowerCase().replace('_','-'),pre=L.slice(0,2);
-  return vs.filter(v=>v.lang.toLowerCase().replace('_','-')===L).concat(vs.filter(v=>v.lang.toLowerCase().slice(0,2)===pre&&v.lang.toLowerCase().replace('_','-')!==L));};
-function pickVoice(){const vs=window.speechSynthesis?.getVoices?.()||[];if(vs.length)voiceChecked=true;voice=voicesFor(langVoice())[0]||null;}
-if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>pickVoice();
+  return vs.filter(v=>v.lang.toLowerCase().slice(0,2)===pre).map(v=>[voiceScore(v,L),v]).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);};
+/* La voz que se usa: la elegida por la familia si sigue en el aparato; si no, la mejor. */
+const bestVoice=lang=>{const vs=voicesFor(lang),want=(S.voces||{})[lang.slice(0,2)];
+  return (want&&!brokenVoices.has(want)&&vs.find(v=>v.voiceURI===want))||vs[0]||null;};
+const isNiceVoice=v=>!!v&&(VOICE_KID.test(v.name)||VOICE_GOOD.test(v.name)||/google/i.test(v.name));
+/* Nombre corto para la lista: «Microsoft Elvira Online (Natural) - Spanish (Spain)» → «Elvira». */
+const voiceLabel=v=>(v.name||'').replace(/^(Microsoft|Apple)\s+/i,'').replace(/\s*\(.*$|\s+-\s+.*$/,'').replace(/\s+(Online|Multilingual|Desktop)\b.*$/i,'').trim()||v.name;
+function pickVoice(){const vs=window.speechSynthesis?.getVoices?.()||[];if(vs.length)voiceChecked=true;voice=bestVoice(langVoice());}
+if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>{pickVoice();const vl=document.getElementById('voice-list');if(vl&&typeof voiceList==='function')vl.innerHTML=voiceList();};
+addEventListener('online',()=>pickVoice());addEventListener('offline',()=>pickVoice());
 const hasVoice=()=>!!voice;
 let subTimer=null;
 function subtitle(t){const el=$('#sub');if(!el)return;
   if(!S.subtitulos){el.hidden=true;return;}
   el.textContent=t;el.hidden=false;clearTimeout(subTimer);subTimer=setTimeout(()=>{el.hidden=true;},Math.max(3000,t.length*80));}
 /* lang: solo para decir algo en otro idioma (por ejemplo, la palabra en inglés del juego de idiomas). */
+/* Si una voz de internet (las «naturales» de Edge, por ejemplo) falla porque no hay conexión,
+   se apunta como rota y a partir de la siguiente frase se usa la mejor voz del propio aparato. */
 function utter(t,lang){const u=new SpeechSynthesisUtterance(t);u.lang=lang||langVoice();
-  const v=lang?voicesFor(lang)[0]:voice;if(v)u.voice=v;u.rate=.9*S.velocidad;u.pitch=1.12;return u;}
+  const v=lang?bestVoice(lang):voice;if(v){u.voice=v;u.lang=v.lang;}u.rate=.9*S.velocidad;u.pitch=S.tono;
+  if(v&&!v.localService)u.addEventListener('error',e=>{if(e.error!=='interrupted'&&e.error!=='canceled'){brokenVoices.add(v.voiceURI);pickVoice();}});
+  return u;}
 /* queue: no corta lo que se está diciendo, se dice después (por ejemplo, el aviso de pegatina tras el «¡Muy bien!»). */
 function say(t,lang,queue){
   subtitle(t);

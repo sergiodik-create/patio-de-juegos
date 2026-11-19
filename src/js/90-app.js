@@ -101,7 +101,8 @@ function adapt(){
 }
 
 /* ---------- motor de preguntas ---------- */
-const CHEERS=[N_('¡Muy bien!'),N_('¡Genial!'),N_('¡Bravo!'),N_('¡Lo lograste!'),N_('¡Eres un crack!'),N_('¡Fantástico!')];
+const CHEERS=[N_('¡Muy bien!'),N_('¡Genial!'),N_('¡Bravo!'),N_('¡Lo lograste!'),N_('¡Eres un crack!'),N_('¡Fantástico!'),
+  N_('¡Sí, eso es!'),N_('¡Así se hace!'),N_('¡Qué bien lo has hecho!'),N_('¡Increíble!')];
 /* Historial de las últimas preguntas del juego: ⬅️ vuelve a la anterior para verla y oírla otra vez (y se puede volver a contestar,
    aunque ya no da estrella), y ➡️ avanza hasta la que estaba sin contestar. */
 const HIST_MAX=15;
@@ -232,6 +233,14 @@ const voiceMsg=()=>!('speechSynthesis' in window)?_('Este navegador no puede lee
   hasVoice()?_('Hay una voz en {l} en este dispositivo. ✅',{l:langName(LANG)}):
   voiceChecked?_('No hemos encontrado una voz en {l}. En Android: Ajustes › Accesibilidad › Salida de texto a voz. En iPad: Ajustes › Accesibilidad › Contenido leído › Voces.',{l:langName(LANG)}):
   _('Comprobando la voz… pulsa «Probar la voz».');
+/* Lista de voces del idioma para que la familia elija la que más guste a su hijo (✨ = natural). */
+function voiceList(){const vs=voicesFor(langVoice()).filter(v=>!VOICE_BAD.test(v.name)).slice(0,8),want=(S.voces||{})[LANG];
+  if(vs.length<2)return isNiceVoice(voice)?'':`<small>${_('Para una voz más bonita: en Windows usa Microsoft Edge; en Android instala «Servicios de voz de Google» y descarga la voz de alta calidad; en iPad o iPhone descarga una voz «mejorada» en Ajustes › Accesibilidad › Contenido leído › Voces.')}</small>`;
+  return `<div class="row" data-voices>
+    <button class="pill" data-voice="" aria-pressed="${!want||!vs.some(v=>v.voiceURI===want)}">${_('Automática')}</button>
+    ${vs.map(v=>`<button class="pill" data-voice="${esc(v.voiceURI)}" aria-pressed="${v.voiceURI===want}">${isNiceVoice(v)?'✨ ':''}${esc(voiceLabel(v))}</button>`).join('')}</div>
+    <small>${_('Toca una voz para oírla. ✨ = voz natural, la que mejor suena. «Automática» elige la mejor de este aparato.')}</small>
+    ${isNiceVoice(voice)?'':`<small>${_('Para una voz más bonita: en Windows usa Microsoft Edge; en Android instala «Servicios de voz de Google» y descarga la voz de alta calidad; en iPad o iPhone descarga una voz «mejorada» en Ajustes › Accesibilidad › Contenido leído › Voces.')}</small>`}`;}
 function renderParents(){
   const games=allGames(),gname=g=>esc(g.translated?g.name:_(g.name));
   const top=Object.entries(P.jugado).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([id,n])=>{const g=games.find(x=>x.id===id);return g?`<li>${g.pic} ${gname(g)}: ${n===1?_('1 vez'):_('{n} veces',{n})}</li>`:'';}).join('');
@@ -260,10 +269,13 @@ function renderParents(){
       ${TOGGLES.map(([k,t,d])=>`<label class="sw"><input type="checkbox" data-k="${k}" ${S[k]?'checked':''}><span><b>${_(t)}</b><small>${_(d)}</small></span></label>`).join('')}
       <div class="opt"><b>${_('Velocidad de la voz')}</b><div class="row" data-group="velocidad">
         ${[[.8,N_('🐢 Lenta')],[1,N_('Normal')],[1.15,N_('🐇 Rápida')]].map(([v,t])=>`<button class="pill" data-v="${v}" aria-pressed="${S.velocidad===v}">${_(t)}</button>`).join('')}</div></div>
+      <div class="opt"><b>${_('Tono de la voz')}</b><div class="row" data-group="tono">
+        ${[[1,N_('Normal')],[1.12,N_('Alegre')],[1.3,N_('Muy alegre')]].map(([v,t])=>`<button class="pill" data-v="${v}" aria-pressed="${S.tono===v}">${_(t)}</button>`).join('')}</div></div>
       <div class="opt"><b>${_('Animaciones')}</b><div class="row" data-group="movimiento">
         ${[['auto',N_('Automático')],['poco',N_('Pocas')],['mucho',N_('Muchas')]].map(([v,t])=>`<button class="pill" data-v="${v}" aria-pressed="${S.movimiento===v}">${_(t)}</button>`).join('')}</div>
         <small>${_('En «Automático», el Patio mide lo rápido que va este aparato y añade más movimiento solo si va sobrado. El modo calma siempre manda.')}</small></div>
-      <div class="opt"><b>${_('Voz')}</b><p class="note" id="voice-msg">${voiceMsg()}</p><button class="pill" id="voice-test">${_('🔊 Probar la voz')}</button></div>
+      <div class="opt"><b>${_('Voz')}</b><p class="note" id="voice-msg">${voiceMsg()}</p><button class="pill" id="voice-test">${_('🔊 Probar la voz')}</button>
+        <div id="voice-list">${voiceList()}</div></div>
     </div>
     <div class="set">
       <h3>${_('Tiempo de pantalla')}</h3>
@@ -316,9 +328,12 @@ $('#ajustes').addEventListener('click',e=>{
   if(grp){const k=grp.dataset.group;
     if(k==='idioma'){changeLang(b.dataset.v);return;}
     S[k]=k==='aprender'||k==='movimiento'?b.dataset.v:+b.dataset.v;saveSettings();if(k==='movimiento')medirPotencia();grp.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
-    if(k==='velocidad')say(_('Así hablaré a partir de ahora.'));if(k==='aprender')renderAges();return;}
+    if(k==='velocidad'||k==='tono')say(_('Así hablaré a partir de ahora.'));if(k==='aprender')renderAges();return;}
+  if(b.dataset.voice!==undefined){S.voces=Object.assign({},S.voces,{[LANG]:b.dataset.voice});saveSettings();pickVoice();
+    b.closest('[data-voices]').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    say(_('Hola, soy la voz del Patio de Juegos.'));return;}
   if(b.id==='voice-test'){pickVoice();say(_('Hola, soy la voz del Patio de Juegos.'));
-    later(()=>{pickVoice();const m=$('#voice-msg');if(m)m.textContent=hasVoice()?voiceMsg():_('Si no has oído nada, sube el volumen o instala una voz en los ajustes del dispositivo.');},1500);}
+    later(()=>{pickVoice();const vl=$('#voice-list');if(vl)vl.innerHTML=voiceList();const m=$('#voice-msg');if(m)m.textContent=hasVoice()?voiceMsg():_('Si no has oído nada, sube el volumen o instala una voz en los ajustes del dispositivo.');},1500);}
   if(b.id==='share')shareSite();
   if(b.id==='qr')showQr();
   if(b.id==='install'&&deferredInstall){deferredInstall.prompt();deferredInstall=null;b.remove();$('#inst').hidden=true;}

@@ -1,7 +1,7 @@
 /* Patio de Juegos · aplicación: pantallas, motor de preguntas con niveles, álbum, zona de padres, idiomas y descansos. */
 
 /* ---------- pantallas ---------- */
-const AGE_TITLES={p:N_('Juegos para 2 a 4 años'),m:N_('Juegos para 5 a 7 años'),g:N_('Juegos para 8 a 10 años'),x:N_('Juegos para 11 y 12 años'),t:N_('Cuentos para escuchar'),i:N_('Aprende idiomas jugando'),r:N_('Gimnasio mental')};
+const AGE_TITLES={p:N_('Juegos para 2 a 4 años'),m:N_('Juegos para 5 a 7 años'),g:N_('Juegos para 8 a 10 años'),x:N_('Juegos para 11 y 12 años'),t:N_('Cuentos para escuchar'),i:N_('Aprende idiomas jugando'),r:N_('Gimnasio mental'),e:N_('Jugar en grupo')};
 const SCREENS={age:'#s-age',list:'#s-home',game:'#s-game',album:'#s-album',padres:'#s-padres',break:'#s-break'};
 let age='p',cur=null,score=0,busy=false,round=null,screen='age',back='age',onKey=null;
 let newVersion=false;  // hay una versión nueva de la web: se recarga al volver al inicio (ver «versión nueva» más abajo)
@@ -27,14 +27,15 @@ function renderDoors(){
     head=opts.length>1?`<div class="row learn" id="learn">${opts.map(c=>`<button class="pill" data-l="${c}" aria-pressed="${c===T}">${esc(cap(langName(c)))}</button>`).join('')}</div>`:
       `<p class="tip">${_('Aprendemos {l}. Toca un juego para empezar.',{l:langName(T)})}</p>`;}
   if(age==='r')head=menteHead();
+  if(age==='e')head=`<p class="tip">${_('Para jugar en familia o en clase: por turnos en un solo aparato, o todos juntos mirando la pizarra digital.')}</p>`;
   $('#lhead').innerHTML=head;
   $('#doors').innerHTML=allGames().filter(g=>g.age.includes(age)&&visible(g)).map(g=>
     `<button class="door" data-go="${g.id}" style="background:${g.bg}"><span class="pic">${g.pic}</span><span class="name">${esc(g.translated?g.name:_(g.name))}</span><span class="what">${esc(g.translated?g.what:label(g.what))}</span></button>`).join('');
 }
 $('#lhead').addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(!b)return;S.aprender=b.dataset.l;saveSettings();renderDoors();
   say(_('Aprendemos {l}.',{l:langName(S.aprender)}));});
-/* Las tarjetas de edad y, aparte, la del Gimnasio mental. */
-['#ages','#agemente'].forEach(s=>$(s).addEventListener('click',e=>{const b=e.target.closest('.agecard');if(!b)return;age=b.dataset.age;store.set('edad',age);renderDoors();show('list');tone([600],.08);say($('#ltitle').textContent);}));
+/* Las tarjetas de edad y, aparte, las de «Más formas de jugar». */
+['#ages','#extras'].forEach(s=>$(s).addEventListener('click',e=>{const b=e.target.closest('.agecard');if(!b)return;age=b.dataset.age;store.set('edad',age);renderDoors();show('list');tone([600],.08);say($('#ltitle').textContent);}));
 $('#doors').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)start(allGames().find(g=>g.id===b.dataset.go));});
 function renderAges(){const ok=!!learnLang();document.querySelector('.agecard[data-age="i"]').hidden=!ok;
   if(ok)$('#i-what').textContent=_('Palabras y frases en {l}',{l:langName(learnLang())});}

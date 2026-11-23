@@ -87,6 +87,22 @@ for (const lang of langs) {
     }
     await page.click('#home'); await page.waitForTimeout(80);
   }
+  // concurso por equipos: una partida corta con preguntas de cada edad
+  for (const edad of ['p', 'm', 'g', 'x']) {
+    const before = errors.length;
+    await page.click('#extras [data-age="e"]'); await page.click('#doors [data-go="grupo-concurso"]'); await page.waitForTimeout(100);
+    await page.evaluate(e => { GC.edad = e; GC.tema = 'todo'; GC.equipos = 3; GC.rondas = 3; GC.tiempo = 0; }, edad);
+    await page.click('#gstart');
+    for (let i = 0; i < 9; i++) {
+      await page.click('#gask'); await page.waitForTimeout(40);
+      await page.evaluate(i => { const bs = [...document.querySelectorAll('#gch button')]; (i % 2 ? bs.find(x => x.dataset.v === round.answer) : bs[0]).click(); }, i);
+      await page.click('#gnext'); await page.waitForTimeout(40);
+    }
+    const t = await page.$eval('#stage', s => s.textContent);
+    check(/🥇/.test(t) && !/undefined|NaN|\{\w+\}/.test(t), `el concurso (${edad}, ${lang}) no termina bien: ${t.slice(0, 120)}`);
+    check(errors.length === before, `error en el concurso (${edad}, ${lang}): ${errors.slice(before).join(' / ')}`);
+    await page.click('#home'); await page.click('#home'); await page.waitForTimeout(60);
+  }
   console.log(`✓ todas las edades y juegos (${lang})`);
 }
 await page.evaluate(() => changeLang('es'));

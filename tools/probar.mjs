@@ -43,6 +43,21 @@ for (const lang of langs) {
     }
     setLang('es'); return out;
   }, lang);
+  // los retos del Gimnasio mental (matrices, series y relaciones), también en modo daltónico
+  bad.push(...await page.evaluate((lang) => {
+    setLang(lang); const out = [];
+    for (const dal of [false, true]) { S.daltonico = dal;
+      for (const [id, gen] of Object.entries(MGEN)) for (let l = 0; l < 5; l++) for (let k = 0; k < 150; k++) {
+        let r; try { r = gen(l); } catch (e) { out.push(`${id}/${l}: ${e.message}`); break; }
+        const vals = r.opts.map(o => o.v);
+        if (!vals.includes(r.answer)) out.push(`${id}/${l}: la respuesta no está en las opciones`);
+        if (new Set(vals).size !== vals.length) out.push(`${id}/${l}: opciones repetidas ${vals}`);
+        if (vals.length < 4) out.push(`${id}/${l}: pocas opciones`);
+        if (/undefined|NaN|\{\w+\}|null/.test([r.prompt, r.speak, r.right, r.wrong, r.visual, vals.join()].join(' '))) out.push(`${id}/${l}: texto raro: ${r.right}`);
+        if (out.length > 20) return out;
+      } }
+    S.daltonico = false; setLang('es'); return out;
+  }, lang));
   check(!bad.length, `generadores en ${lang}: ${bad.slice(0, 8).join('\n    ')}`);
   console.log(`✓ generadores (${lang})`);
 }

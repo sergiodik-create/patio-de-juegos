@@ -9,6 +9,7 @@ Funciona en el móvil, la tablet, el ordenador y la tele (con las flechas del ma
 ## Qué tiene
 
 - **Por edades:** 2 a 4 años, 5 a 7, 8 a 10 y 11 a 12, con más de 60 juegos: colores, animales, contar, formas, letras, sumas y restas, series, reloj, monedas, laberintos, trazar letras, sopa de letras, sudoku, fracciones, continentes, programar un robot, acertijos, mecanografía, ciencia, historia, dinero y ahorro…
+- **Gimnasio mental** (8 a 12 años, sección aparte): lógica visual con matrices, series de números, relaciones con dibujos, memoria de casillas y rapidez. Cada área se practica sola, y el circuito completo termina con un perfil amable que se guarda solo en el aparato. No es un test de inteligencia ni da un CI.
 - **Juegos de mesa:** tres en raya, conecta 4, damas y ajedrez contra el ordenador.
 - **Creativos:** colorear, escenas con pegatinas, inventar cuentos, piano, memoria, globos.
 - **Actitudes y emociones:** ¿qué harías tú? (ayudar, compartir y hacer las paces), reparte justo, respira conmigo para calmarse y una mascota a la que cuidar.

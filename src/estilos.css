@@ -462,3 +462,51 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 .parents.hint{margin-top:-8px;font-weight:700}
 .parents.lic{margin-top:-10px;font-size:.8rem}
 @media (max-width:699px){#s-age .parents{font-size:.88rem}#s-age .parents.lic{font-size:.75rem}}
+
+/* ---------- Gimnasio mental ---------- */
+.agecard.mente{flex-direction:row;gap:18px;padding:14px 24px;min-height:0;background:linear-gradient(120deg,var(--purple),var(--blue))}
+.agecard.mente .mtxt{display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:2px;min-width:0}
+.agecard.mente .pic{font-size:clamp(2.6rem,8vw,3.6rem)}
+.agecard.mente .name{font-size:clamp(1.3rem,5vw,1.8rem)}
+@media (max-width:699px){.agecard.mente{padding:12px 16px;gap:12px}}
+.mintro{align-self:center;color:#fff;border-radius:28px;padding:22px 24px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;max-width:560px;box-shadow:0 8px 0 rgba(0,0,0,.18)}
+.mintro .pic{font-size:clamp(3rem,10vw,4rem);line-height:1.1}
+.mintro b{font-size:clamp(1.4rem,5vw,1.8rem);line-height:1.15}
+.mintro span{font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600;line-height:1.3}
+.mbtns{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.again.alt{background:var(--card);color:var(--ink);box-shadow:0 5px 0 var(--sky2)}
+.mdots{display:flex;justify-content:center;gap:8px}
+.mdots span{width:14px;height:14px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 2px var(--sky2)}
+.mdots .done{background:var(--green);box-shadow:none}
+.mdots .now{background:var(--yellow);box-shadow:none}
+.mx{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(100%,330px);background:var(--sky2);padding:8px;border-radius:20px;box-sizing:border-box}
+.mx .mc{background:var(--card);border-radius:12px;aspect-ratio:1;display:grid;place-items:center;font-size:clamp(1.8rem,7vw,2.6rem);font-weight:800}
+.mx .mc svg{width:88%;height:88%}
+.mx .mc.q{background:var(--yellow);color:var(--ink)}
+.tile.mxo{width:clamp(84px,24vw,124px)}
+.tile.mxo svg{width:86%;height:86%}
+.tile.right{box-shadow:0 0 0 6px var(--green)}
+.srow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;font-size:clamp(1.7rem,6.5vw,2.8rem)}
+.srow .box{min-width:1.8em}
+.ana{display:flex;flex-direction:column;align-items:center;gap:8px}
+.ana>div{display:flex;align-items:center;gap:14px}
+.ana .op{font-size:.6em}
+.corsi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:min(100%,340px);align-self:center}
+.corsi button{aspect-ratio:1;border:0;border-radius:18px;background:var(--card);box-shadow:0 5px 0 var(--sky2);cursor:pointer;padding:0;transition:background .12s}
+.corsi button.on{background:var(--yellow);box-shadow:0 5px 0 #c99a10}
+.corsi.wait button{cursor:default}
+[data-contraste="si"] .corsi button{outline:3px solid var(--ink)}
+.ftarget{align-self:center;font-size:clamp(3rem,12vw,4.6rem);background:var(--card);border-radius:24px;padding:4px 28px;box-shadow:0 5px 0 var(--sky2);line-height:1.25}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:min(100%,500px);align-self:center}
+.fgrid:empty{display:none}
+.fgrid button{aspect-ratio:1;border:0;border-radius:18px;background:var(--card);font-size:clamp(2rem,9vw,3.2rem);box-shadow:0 4px 0 var(--sky2);cursor:pointer;padding:0}
+.perfil{display:flex;flex-direction:column;gap:10px;width:min(100%,600px);align-self:center}
+.prow{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:18px;padding:10px 16px;box-shadow:0 4px 0 var(--sky2)}
+.prow .ppic{font-size:2rem;line-height:1}
+.prow .ptxt{flex:1;display:flex;flex-direction:column;min-width:0}
+.prow .ptxt b{font-size:1.2rem;line-height:1.15}
+.prow .ptxt small{color:var(--soft);font-weight:700;font-size:1rem}
+.prow .pdots{color:var(--purple);font-size:1.25rem;letter-spacing:2px;white-space:nowrap}
+.prow .pdots i{font-style:normal;color:var(--sky2)}
+.status.small{font-size:clamp(1.05rem,3.8vw,1.3rem);text-wrap:balance}
+[dir=rtl] #stage :is(.mintro,.prow){direction:rtl}

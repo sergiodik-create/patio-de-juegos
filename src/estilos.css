@@ -464,11 +464,16 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 @media (max-width:699px){#s-age .parents{font-size:.88rem}#s-age .parents.lic{font-size:.75rem}}
 
 /* ---------- Gimnasio mental ---------- */
-.agecard.mente{flex-direction:row;gap:18px;padding:14px 24px;min-height:0;background:linear-gradient(120deg,var(--purple),var(--blue))}
-.agecard.mente .mtxt{display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:2px;min-width:0}
-.agecard.mente .pic{font-size:clamp(2.6rem,8vw,3.6rem)}
-.agecard.mente .name{font-size:clamp(1.3rem,5vw,1.8rem)}
-@media (max-width:699px){.agecard.mente{padding:12px 16px;gap:12px}}
+/* Inicio: «Más formas de jugar», tarjetas anchas debajo de las edades (2 por fila en pantallas anchas). */
+.hello.more{font-size:clamp(1.1rem,3.8vw,1.5rem);margin-top:4px}
+.extras{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.extras:has(>.banner:only-child){grid-template-columns:1fr}
+.agecard.banner{flex-direction:row;justify-content:flex-start;gap:18px;padding:14px 22px;min-height:0}
+.agecard.banner .mtxt{display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:2px;min-width:0}
+.agecard.banner .pic{font-size:clamp(2.6rem,8vw,3.4rem)}
+.agecard.banner .name{font-size:clamp(1.25rem,4.6vw,1.7rem)}
+.agecard.banner .what{font-size:clamp(.85rem,3.4vw,1rem)}
+@media (max-width:699px){.extras{grid-template-columns:1fr;gap:12px}.agecard.banner{padding:12px 16px;gap:12px}}
 .mintro{align-self:center;color:#fff;border-radius:28px;padding:22px 24px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;max-width:560px;box-shadow:0 8px 0 rgba(0,0,0,.18)}
 .mintro .pic{font-size:clamp(3rem,10vw,4rem);line-height:1.1}
 .mintro b{font-size:clamp(1.4rem,5vw,1.8rem);line-height:1.15}
@@ -510,3 +515,26 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;width:100%;height:100%}
 .prow .pdots i{font-style:normal;color:var(--sky2)}
 .status.small{font-size:clamp(1.05rem,3.8vw,1.3rem);text-wrap:balance}
 [dir=rtl] #stage :is(.mintro,.prow){direction:rtl}
+
+/* ---------- Jugar en grupo ---------- */
+.gsetup{gap:14px;align-items:center}
+.gsetup .opt{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.gsetup .opt b{font-size:1.15rem}
+.gboard{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.gchip{display:flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:4px 14px 4px 8px;font-size:1.3rem;box-shadow:0 3px 0 var(--sky2);border:3px solid transparent}
+.gchip.now{border-color:var(--c);transform:scale(1.08)}
+.gchip b{font-size:1.25rem}
+.gturn{align-self:center;color:#fff;border-radius:28px;padding:24px 32px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.18)}
+.gturn .pic{font-size:clamp(3.4rem,12vw,5rem);line-height:1.1}
+.gturn b{font-size:clamp(1.5rem,5.5vw,2.2rem)}
+.gwho{text-align:center;font-weight:800;font-size:1.15rem;margin:0}
+.gpts{font-weight:800;font-size:1.2rem;white-space:nowrap}
+/* Pizarra o proyector: todo más grande para verlo desde el fondo de la clase. */
+.pizarra .prompt{font-size:clamp(2rem,4.6vw,3.6rem)}
+.pizarra .visual{font-size:clamp(3.2rem,8vw,6.4rem)}
+.pizarra .tile{width:clamp(120px,19vw,230px)}
+.pizarra .tile.word{font-size:clamp(1.6rem,3.6vw,2.8rem)}
+.pizarra .dot{width:clamp(110px,17vw,210px)}
+.pizarra .gchip{font-size:1.8rem}.pizarra .gchip b{font-size:1.8rem}
+.pizarra .gwho,.pizarra .status{font-size:clamp(1.4rem,3vw,2.2rem)}
+[dir=rtl] #stage :is(.gturn,.gwho,.gsetup .opt){direction:rtl}

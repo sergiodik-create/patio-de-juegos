@@ -8,10 +8,10 @@ GAMES.push(
 /* ---------- juegos de mesa: controles comunes ---------- */
 function mesa(title,opts,onChange){
   // opts: {vs:true, levels:[...]}
-  const st={vs:'cpu',lvl:1};
+  const st={vs:age==='e'?'2p':'cpu',lvl:1};  // desde «Jugar en grupo» empiezan con dos jugadores
   const html=`<div class="screen"><div class="ctrls" id="mctl">
-    <button class="pill" data-vs="cpu" aria-pressed="true">${_('🤖 Contra la máquina')}</button><button class="pill" data-vs="2p" aria-pressed="false">${_('👫 Dos jugadores')}</button>
-    ${opts.levels?opts.levels.map((l,i)=>`<button class="pill" data-lvl="${i}" aria-pressed="${i===1}">${_(l)}</button>`).join(''):''}
+    <button class="pill" data-vs="cpu" aria-pressed="${st.vs==='cpu'}">${_('🤖 Contra la máquina')}</button><button class="pill" data-vs="2p" aria-pressed="${st.vs==='2p'}">${_('👫 Dos jugadores')}</button>
+    ${opts.levels?opts.levels.map((l,i)=>`<button class="pill" data-lvl="${i}" aria-pressed="${i===1}"${st.vs==='cpu'?'':' hidden'}>${_(l)}</button>`).join(''):''}
     <button class="pill" data-new="1">${_('↻ Nueva partida')}</button></div>
     <p class="status" id="mst"></p><div id="mboard" style="display:flex;flex-direction:column"></div><p class="tip" id="mtip"></p></div>`;
   $('#stage').innerHTML=html;
